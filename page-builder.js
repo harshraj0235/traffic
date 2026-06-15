@@ -72,7 +72,7 @@ function buildNavigation() {
                 <div class="nav-dropdown">
                     <button class="nav-link nav-dropdown-trigger">Tools ▾</button>
                     <div class="nav-dropdown-menu">
-                        ${ALL_PAGES.filter(p => p.priority >= 0.7 && p.url !== 'index.html').map(p => 
+                        ${ALL_PAGES.filter(p => p.url !== 'index.html' && p.url !== '404.html').map(p => 
                             `<a href="${p.url}" class="nav-dropdown-item ${currentPage === p.url ? 'active' : ''}">
                                 <span>${p.icon}</span> ${p.shortTitle}
                             </a>`
@@ -677,5 +677,9 @@ function initPage(options = {}) {
         stop2.setAttribute('offset', '100%'); stop2.setAttribute('stop-color', '#fb923c');
         gradient.appendChild(stop1); gradient.appendChild(stop2);
         defs.appendChild(gradient); svg.insertBefore(defs, svg.firstChild);
+        
+        // Apply stroke inline to prevent cross-origin errors from external CSS with file:// protocol
+        const circle = document.getElementById('rate-circle');
+        if (circle) circle.style.stroke = 'url(#rateGradient)';
     }
 }

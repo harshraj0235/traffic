@@ -869,7 +869,6 @@ img { max-width: 100%; display: block; }
 
 .rate-progress-circle {
     fill: none;
-    stroke: url(#rateGradient);
     stroke-width: 8;
     stroke-linecap: round;
     stroke-dasharray: 339.292;
