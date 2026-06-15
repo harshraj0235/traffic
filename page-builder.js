@@ -696,6 +696,9 @@ function initPage(options = {}) {
         
         // Apply stroke inline to prevent cross-origin errors from external CSS with file:// protocol
         const circle = document.getElementById('rate-circle');
-        if (circle) circle.style.stroke = 'url(#rateGradient)';
+        if (circle) {
+            try { circle.style.stroke = 'url(#rateGradient)'; } catch(e) {}
+            try { circle.setAttribute('stroke', 'url(#rateGradient)'); } catch(e) {}
+        }
     }
 }

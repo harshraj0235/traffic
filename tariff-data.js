@@ -468,6 +468,9 @@ const PRODUCT_EXAMPLES = [
     { name: 'IKEA Sofa', category: 'furniture', country: 'china', price: 800, frequency: 'once', emoji: '🛋️', popularity: 70 },
     { name: 'Office Desk', category: 'furniture', country: 'china', price: 350, frequency: 'once', emoji: '🖥️', popularity: 60 },
     { name: 'Area Rug 8x10', category: 'furniture', country: 'india', price: 400, frequency: 'once', emoji: '🟫', popularity: 45 },
+    { name: 'Cotton Bed Sheets', category: 'clothing', country: 'india', price: 60, frequency: 'once', emoji: '🛏️', popularity: 75 },
+    { name: 'Bulk Spices (Turmeric)', category: 'food', country: 'india', price: 25, frequency: 'monthly', emoji: '🌶️', popularity: 70 },
+    { name: 'iPhone 16 (India Assembly)', category: 'electronics', country: 'india', price: 799, frequency: 'yearly', emoji: '📱', popularity: 80 },
     // Toys
     { name: 'LEGO Star Wars Set', category: 'toys', country: 'china', price: 80, frequency: 'quarterly', emoji: '🧱', popularity: 80 },
     { name: 'Barbie Dreamhouse', category: 'toys', country: 'china', price: 200, frequency: 'once', emoji: '🏠', popularity: 65 },
