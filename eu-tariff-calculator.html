@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EU Tariff Calculator 2026 — European Import Duties | TariffCalc</title>
+    <meta name="description" content="Calculate US tariffs on European Union imports. See the impact of the 13% reciprocal tariff on German cars, French wine, Italian luxury goods, and more.">
+    <meta name="keywords" content="EU tariff calculator, European tariff, German car tariff, French wine tariff, Italian luxury tariff, US EU trade 2026">
+    <meta property="og:title" content="EU Tariff Calculator 2026 — European Import Duties">
+    <meta property="og:description" content="Calculate the 13% reciprocal tariff and 25% auto tariff on imports from the European Union.">
+    <meta property="og:type" content="website">
+    <link rel="canonical" href="https://tariffcalc.us/eu-tariff-calculator.html">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <div class="ambient-bg"><div class="ambient-orb ambient-orb-1"></div><div class="ambient-orb ambient-orb-2"></div><div class="ambient-orb ambient-orb-3"></div></div>
+    <nav id="main-nav" class="navbar"></nav>
+    <div id="breadcrumbs"></div>
+
+    <section class="page-hero">
+        <div class="hero-container">
+            <span class="hero-emoji">🇪🇺</span>
+            <h1 class="hero-title">EU Tariff Calculator<br><span class="gradient-text">US-EU Import Duties <span class="dynamic-year">2026</span></span></h1>
+            <p class="hero-subtitle">The European Union faces a 13% reciprocal tariff and a 25% auto tariff. Calculate the impact on luxury goods, vehicles, wine, and machinery.</p>
+            <div class="product-hero-cards">
+                <div class="product-hero-card"><span class="phc-emoji">🚗</span><span class="phc-name">German Cars</span><span class="phc-rate">25%</span><span class="phc-extra">BMW, Mercedes</span></div>
+                <div class="product-hero-card"><span class="phc-emoji">🍷</span><span class="phc-name">French Wine</span><span class="phc-rate">13%</span><span class="phc-extra">Wine & spirits</span></div>
+                <div class="product-hero-card"><span class="phc-emoji">👜</span><span class="phc-name">Italian Luxury</span><span class="phc-rate">13%</span><span class="phc-extra">Fashion & leather</span></div>
+                <div class="product-hero-card"><span class="phc-emoji">🧀</span><span class="phc-name">European Food</span><span class="phc-rate">13%</span><span class="phc-extra">Cheese, olive oil</span></div>
+            </div>
+        </div>
+    </section>
+
+    <div class="container">
+        <section class="calculator-section scroll-reveal" id="calculator">
+            <h2 class="section-title">Calculate Your EU Tariff</h2>
+            <p class="section-subtitle">See how much extra you're paying on European imports</p>
+            <div class="calculator-grid">
+                <div class="calc-panel calc-input-panel">
+                    <div class="calc-header"><span class="calc-icon">🧮</span><h3>Enter Product Details</h3></div>
+                    <div class="form-group"><label class="form-label" for="product-category">Product Category</label><select class="form-select" id="product-category"><option value="">Select category...</option></select></div>
+                    <div class="form-group"><label class="form-label" for="country-origin">Country of Origin</label><select class="form-select" id="country-origin" disabled><option value="europe">🇪🇺 European Union</option></select></div>
+                    <div class="form-group"><label class="form-label" for="purchase-price">Purchase Price (USD)</label><input type="number" class="form-input" id="purchase-price" placeholder="e.g. 500" min="0.01" step="0.01"></div>
+                    <div class="form-group"><label class="form-label" for="purchase-frequency">Purchase Frequency</label><select class="form-select" id="purchase-frequency"><option value="once">One-time purchase</option><option value="weekly">Weekly</option><option value="monthly">Monthly</option><option value="quarterly">Every 3 months</option><option value="yearly">Once a year</option></select></div>
+                    <button class="calculate-btn" id="calculate-btn" onclick="calculateTariff()"><span class="btn-text">Calculate Tariff Impact</span><span class="btn-icon">→</span></button>
+                </div>
+                <div class="calc-panel calc-results-panel" id="results-panel">
+                    <div id="results-placeholder" class="results-placeholder"><div class="placeholder-icon">📊</div><p>Enter a product and price to see your EU tariff impact</p></div>
+                    <div id="results-content" style="display:none;">
+                        <div class="tariff-rate-display"><div class="rate-ring"><svg class="rate-svg" viewBox="0 0 120 120"><circle cx="60" cy="60" r="54" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="8"/><circle id="rate-circle" cx="60" cy="60" r="54" fill="none" stroke="#f87171" stroke-width="8" stroke-linecap="round" stroke-dasharray="339.29" stroke-dashoffset="339.29" transform="rotate(-90 60 60)"/></svg><div class="rate-center"><span class="rate-number" id="rate-value">0%</span></div></div><div class="rate-details"><div class="rate-label">Effective Tariff Rate</div><div class="rate-breakdown" id="rate-breakdown"></div></div></div>
+                        <div class="cost-cards"><div class="cost-card cost-card-red" id="card-extra"><span class="cost-card-label">Extra You're Paying</span><span class="cost-card-value" id="extra-cost-value">$0</span></div><div class="cost-card cost-card-amber" id="card-annual"><span class="cost-card-label">Annual Impact</span><span class="cost-card-value" id="annual-cost-value">$0</span></div><div class="cost-card cost-card-green" id="card-pretariff"><span class="cost-card-label">Pre-Tariff Price</span><span class="cost-card-value" id="pretariff-price-value">$0</span></div></div>
+                        <canvas id="price-chart"></canvas>
+                        <div class="context-card"><span class="context-icon">💡</span><p class="context-text" id="context-text"></p></div>
+                        <button class="share-btn" id="share-btn" onclick="shareResults()">📤 Share Your Tariff Impact</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-section scroll-reveal">
+            <div class="content-card">
+                <h2>US-EU Tariffs Explained (<span class="dynamic-year">2026</span>)</h2>
+                <p>The European Union is a massive trading bloc, and its exports to the US face a <strong>13% reciprocal tariff</strong>. However, the most significant impact is on the automotive sector, which is subject to a 25% import tariff.</p>
+
+                <div class="key-facts">
+                    <h3>📌 EU Tariff Key Facts</h3>
+                    <ul>
+                        <li><strong>Reciprocal rate:</strong> 13% on most goods from EU member states</li>
+                        <li><strong>Auto tariff:</strong> 25% on imported vehicles (affects German and Italian automakers heavily)</li>
+                        <li><strong>Luxury goods:</strong> 13% on French and Italian fashion, leather goods, and cosmetics</li>
+                        <li><strong>Food & Beverage:</strong> 13% on European wine, cheese, olive oil, and spirits</li>
+                        <li><strong>Machinery:</strong> High impact on specialized industrial equipment from Germany</li>
+                    </ul>
+                </div>
+
+                <h3>Most Affected European Imports</h3>
+                <p>The categories most impacted by the US-EU tariff include:</p>
+                <ul>
+                    <li><strong>Vehicles (Germany, Italy, Sweden):</strong> A Porsche, Audi, Mercedes, or BMW imported from Europe faces a 25% tariff, adding thousands to the sticker price. (Note: Many German brands have US factories that avoid this tariff).</li>
+                    <li><strong>Luxury Fashion (France, Italy):</strong> Brands like LVMH, Gucci, Prada, and Chanel face a 13% tariff, increasing the cost of high-end apparel and accessories.</li>
+                    <li><strong>Wine & Spirits (France, Italy, Spain):</strong> European wines, champagne, and certain spirits face the 13% reciprocal tariff.</li>
+                    <li><strong>Specialty Foods:</strong> Italian olive oil, French cheese, and Spanish meats cost more for US consumers.</li>
+                </ul>
+
+                <div class="highlight-box success">
+                    <h4>💡 Exemption Note: UK is Separate</h4>
+                    <p>Since Brexit, the United Kingdom is no longer part of the EU. The US and UK are negotiating a separate bilateral trade agreement, and UK goods may face different rates. See our <a href="uk-import-duty-calculator.html">UK Import Duty Calculator</a> for details.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="faq-section scroll-reveal" id="faq">
+            <h2 class="section-title">EU Tariff FAQ</h2>
+            <div class="faq-list">
+                <details class="faq-item"><summary class="faq-question">Why is the EU tariff 13%?<span class="faq-toggle">+</span></summary><div class="faq-answer"><p>The 13% tariff is a "reciprocal" tariff. The US administration calculated that the EU applies an average 13% tariff on American goods, so the US matches that rate for EU imports.</p></div></details>
+                <details class="faq-item"><summary class="faq-question">Does the 25% auto tariff apply to all European cars?<span class="faq-toggle">+</span></summary><div class="faq-answer"><p>It applies to all vehicles assembled in Europe and imported into the US. However, automakers like BMW (Spartanburg, SC), Mercedes-Benz (Vance, AL), and Volkswagen (Chattanooga, TN) have large US factories. Vehicles assembled in these US plants do not pay the import tariff.</p></div></details>
+                <details class="faq-item"><summary class="faq-question">Are Airbus planes subject to tariffs?<span class="faq-toggle">+</span></summary><div class="faq-answer"><p>Commercial aircraft have been subject to complex, fluctuating tariffs due to long-standing disputes at the WTO regarding aircraft subsidies (the Boeing-Airbus dispute), separate from the general 13% reciprocal rate.</p></div></details>
+                <details class="faq-item"><summary class="faq-question">Will the US and EU negotiate a new trade deal?<span class="faq-toggle">+</span></summary><div class="faq-answer"><p>Negotiations are possible, but historically difficult. Sticking points often include agricultural access (the EU strictly regulates GMOs and hormone-treated beef) and digital services taxes.</p></div></details>
+            </div>
+        </section>
+
+        <section class="content-section scroll-reveal"><div id="internal-links"></div></section>
+        <section class="content-section scroll-reveal"><h2 class="section-title">Related Calculators</h2><div id="related-calculators" class="related-grid"></div></section>
+    </div>
+
+    <footer id="site-footer" class="site-footer"></footer>
+    <script src="tariff-data.js"></script>
+    <script src="app.js"></script>
+    <script src="page-builder.js"></script>
+    <script>
+        initPage({
+            breadcrumbs: [{ label: 'Home', url: 'index.html' }, { label: 'EU Tariff Calculator' }],
+            prefill: { country: 'europe', lockCountry: true },
+            currentSlug: 'eu-tariff-calculator',
+            relatedCalculators: ['index.html', 'car-tariff-calculator.html', 'clothing-tariff-calculator.html', 'grocery-tariff-calculator.html', 'uk-import-duty-calculator.html', 'how-tariffs-work.html'],
+            buildInternalLinks: true,
+            buildExamples: true, exampleCountry: 'europe', exampleMax: 6,
+            schemas: [
+                buildWebApplicationSchema('EU Tariff Calculator', 'Calculate US tariffs on European Union imports including cars, wine, and luxury goods', 'https://tariffcalc.us/eu-tariff-calculator.html'),
+                buildBreadcrumbSchema([{ label: 'Home', url: 'index.html' }, { label: 'EU Tariff Calculator' }], 'https://tariffcalc.us/'),
+                buildFAQSchema([
+                    { question: 'Why is the EU tariff 13%?', answer: 'It is a reciprocal tariff, matching the average tariff rate the EU applies to American goods.' },
+                    { question: 'Does the 25% auto tariff apply to all European cars?', answer: 'Only to those assembled in Europe. Vehicles assembled in US plants (like many BMWs and Mercedes) are exempt.' },
+                    { question: 'Are Airbus planes subject to tariffs?', answer: 'Commercial aircraft have separate tariffs related to WTO disputes regarding aircraft subsidies.' },
+                    { question: 'Will the US and EU negotiate a new trade deal?', answer: 'Negotiations are possible but historically difficult, often stalling on agricultural access and digital services taxes.' }
+                ])
+            ]
+        });
+        // Populate category dropdown
+        const catSelect = document.getElementById('product-category');
+        Object.entries(CATEGORIES).forEach(([key, cat]) => {
+            catSelect.innerHTML += `<option value="${key}">${cat.emoji} ${cat.name}</option>`;
+        });
+    </script>
+</body>
+</html>

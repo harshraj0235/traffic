@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amazon Tariff Calculator 2026 — Does Amazon Include Tariffs? | TariffCalc</title>
+    <meta name="description" content="Calculate tariff costs on Amazon purchases. Find out who pays the tariff on Amazon orders, how FBA sellers handle import duties, and how to spot price increases.">
+    <meta name="keywords" content="Amazon tariff calculator, does amazon include tariffs, amazon import duty, FBA tariff, buying on amazon tariffs, who pays tariff on amazon">
+    <meta property="og:title" content="Amazon Tariff Calculator 2026 — Does Amazon Include Tariffs?">
+    <meta property="og:description" content="Find out exactly how tariffs affect your Amazon purchases, and calculate the hidden tariff costs in everyday items.">
+    <meta property="og:type" content="website">
+    <link rel="canonical" href="https://tariffcalc.us/amazon-tariff-calculator.html">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <div class="ambient-bg"><div class="ambient-orb ambient-orb-1"></div><div class="ambient-orb ambient-orb-2"></div><div class="ambient-orb ambient-orb-3"></div></div>
+    <nav id="main-nav" class="navbar"></nav>
+    <div id="breadcrumbs"></div>
+
+    <section class="page-hero">
+        <div class="hero-container">
+            <span class="hero-emoji">📦</span>
+            <h1 class="hero-title">Amazon Tariff Calculator<br><span class="gradient-text">Tariff Impact on Amazon Purchases</span></h1>
+            <p class="hero-subtitle">With the end of the de minimis loophole, almost all foreign-made goods on Amazon face tariffs. Calculate your real cost.</p>
+        </div>
+    </section>
+
+    <div class="container">
+        <section class="calculator-section scroll-reveal" id="calculator">
+            <h2 class="section-title">Calculate Amazon Tariff Impact</h2>
+            <p class="section-subtitle">See how much of your Amazon purchase price is going to tariffs</p>
+            <div class="calculator-grid">
+                <div class="calc-panel calc-input-panel">
+                    <div class="calc-header"><span class="calc-icon">🧮</span><h3>Enter Product Details</h3></div>
+                    <div class="form-group"><label class="form-label" for="product-category">Product Category</label><select class="form-select" id="product-category"><option value="">Select category...</option></select></div>
+                    <div class="form-group"><label class="form-label" for="country-origin">Manufacturing Country</label><select class="form-select" id="country-origin"><option value="">Select country...</option></select></div>
+                    <div class="form-group"><label class="form-label" for="purchase-price">Amazon Price (USD)</label><input type="number" class="form-input" id="purchase-price" placeholder="e.g. 120" min="0.01" step="0.01"></div>
+                    <div class="form-group"><label class="form-label" for="purchase-frequency">Purchase Frequency</label><select class="form-select" id="purchase-frequency"><option value="once">One-time purchase</option><option value="weekly">Weekly</option><option value="monthly">Monthly</option><option value="quarterly">Every 3 months</option><option value="yearly">Once a year</option></select></div>
+                    <button class="calculate-btn" id="calculate-btn" onclick="calculateTariff()"><span class="btn-text">Calculate Tariff Impact</span><span class="btn-icon">→</span></button>
+                </div>
+                <div class="calc-panel calc-results-panel" id="results-panel">
+                    <div id="results-placeholder" class="results-placeholder"><div class="placeholder-icon">📊</div><p>Enter a product and price to see your Amazon tariff impact</p></div>
+                    <div id="results-content" style="display:none;">
+                        <div class="tariff-rate-display"><div class="rate-ring"><svg class="rate-svg" viewBox="0 0 120 120"><circle cx="60" cy="60" r="54" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="8"/><circle id="rate-circle" cx="60" cy="60" r="54" fill="none" stroke="#f87171" stroke-width="8" stroke-linecap="round" stroke-dasharray="339.29" stroke-dashoffset="339.29" transform="rotate(-90 60 60)"/></svg><div class="rate-center"><span class="rate-number" id="rate-value">0%</span></div></div><div class="rate-details"><div class="rate-label">Effective Tariff Rate</div><div class="rate-breakdown" id="rate-breakdown"></div></div></div>
+                        <div class="cost-cards"><div class="cost-card cost-card-red" id="card-extra"><span class="cost-card-label">Hidden Tariff Cost</span><span class="cost-card-value" id="extra-cost-value">$0</span></div><div class="cost-card cost-card-amber" id="card-annual"><span class="cost-card-label">Annual Impact</span><span class="cost-card-value" id="annual-cost-value">$0</span></div><div class="cost-card cost-card-green" id="card-pretariff"><span class="cost-card-label">Pre-Tariff Price</span><span class="cost-card-value" id="pretariff-price-value">$0</span></div></div>
+                        <canvas id="price-chart"></canvas>
+                        <div class="context-card"><span class="context-icon">💡</span><p class="context-text" id="context-text"></p></div>
+                        <button class="share-btn" id="share-btn" onclick="shareResults()">📤 Share Your Tariff Impact</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-section scroll-reveal">
+            <div class="content-card">
+                <h2>Does Amazon Include Tariffs in Its Prices?</h2>
+                <p>Yes. If you are buying a product on Amazon.com that is shipped from within the US (like Amazon Prime items), <strong>the tariff cost is already embedded into the listed price</strong>.</p>
+                <p>Amazon sellers who import goods from China, Vietnam, or elsewhere must pay the US import tariff when the inventory arrives at the US border, long before you click "Add to Cart." To maintain their profit margins, sellers raise their retail prices on Amazon.</p>
+
+                <div class="key-facts">
+                    <h3>📌 How Amazon Tariffs Work</h3>
+                    <ul>
+                        <li><strong>FBA Sellers:</strong> Fulfillment by Amazon (FBA) sellers pay tariffs upfront when importing bulk inventory. They pass this cost to you in the list price.</li>
+                        <li><strong>Third-Party Direct Shippers:</strong> Sellers who ship directly from overseas to your door are now subject to tariffs because the <a href="de-minimis-calculator.html">$800 de minimis loophole</a> was suspended in 2025.</li>
+                        <li><strong>Amazon Basics:</strong> Amazon's own private label goods are predominantly manufactured in Asia and are subject to the same high tariff rates.</li>
+                    </ul>
+                </div>
+
+                <div class="highlight-box warning">
+                    <h4>⚠️ The End of De Minimis on Amazon</h4>
+                    <p>Before 2025, third-party Amazon sellers could ship items directly from China to your door duty-free if the value was under $800. With this loophole suspended for Chinese shipments, these direct-ship items are now hit with the full 54%+ combined tariff rate upon entering the US, resulting in massive price hikes for cheap electronics, clothing, and home goods on Amazon.</p>
+                </div>
+
+                <h3>How to Save Money on Amazon</h3>
+                <ul>
+                    <li><strong>Check "Country of Origin":</strong> Scroll down to the "Product Details" section. An item made in Mexico (25% tariff) might be cheaper than the exact same item made in China (54% tariff).</li>
+                    <li><strong>Filter for "Made in USA":</strong> Products manufactured domestically face no import tariffs.</li>
+                    <li><strong>Look for Refurbished:</strong> Amazon Renewed products are already in the country and avoid new import tariffs.</li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="faq-section scroll-reveal" id="faq">
+            <h2 class="section-title">Amazon Tariff FAQ</h2>
+            <div class="faq-list">
+                <details class="faq-item"><summary class="faq-question">Do I have to pay customs fees when my Amazon package arrives?<span class="faq-toggle">+</span></summary><div class="faq-answer"><p>Generally, no. If you are buying on Amazon.com and the item is shipped domestically (like Prime items), the seller has already paid the tariff, and it is included in the price you see. If you are buying an item that ships directly from a foreign country, Amazon may collect an "Import Fees Deposit" at checkout, so you still won't pay at the door.</p></div></details>
+                <details class="faq-item"><summary class="faq-question">Why did the price of cheap electronics on Amazon go up so much?<span class="faq-toggle">+</span></summary><div class="faq-answer"><p>Two reasons: The suspension of the $800 de minimis exemption, and the combined 54%+ tariff rate on Chinese goods. Previously, a $20 charging cable shipped from Shenzhen avoided tariffs. Now, it faces the full tariff rate, forcing the seller to raise the price significantly.</p></div></details>
+                <details class="faq-item"><summary class="faq-question">Are Amazon Basics products affected by tariffs?<span class="faq-toggle">+</span></summary><div class="faq-answer"><p>Yes. Amazon Basics products are largely manufactured in China, Vietnam, and other Asian countries. Amazon, as the importer of record, pays the tariffs and adjusts the retail prices accordingly.</p></div></details>
+                <details class="faq-item"><summary class="faq-question">How can I tell where an Amazon product is made before buying?<span class="faq-toggle">+</span></summary><div class="faq-answer"><p>Scroll down to the "Product Details" or "Product Information" section on the listing page. Look for the "Country of Origin" field. Note that some sellers obscure this information, but US law requires country of origin marking on physical products.</p></div></details>
+            </div>
+        </section>
+
+        <section class="content-section scroll-reveal"><div id="internal-links"></div></section>
+        <section class="content-section scroll-reveal"><h2 class="section-title">Related Calculators</h2><div id="related-calculators" class="related-grid"></div></section>
+    </div>
+
+    <footer id="site-footer" class="site-footer"></footer>
+    <script src="tariff-data.js"></script>
+    <script src="app.js"></script>
+    <script src="page-builder.js"></script>
+    <script>
+        initPage({
+            breadcrumbs: [{ label: 'Home', url: 'index.html' }, { label: 'Amazon Tariff Calculator' }],
+            prefill: { country: 'china' },
+            currentSlug: 'amazon-tariff-calculator',
+            relatedCalculators: ['online-shopping-tariff-calculator.html', 'shein-temu-tariff-calculator.html', 'electronics-tariff-calculator.html', 'clothing-tariff-calculator.html', 'de-minimis-calculator.html', 'index.html'],
+            buildInternalLinks: true,
+            schemas: [
+                buildWebApplicationSchema('Amazon Tariff Calculator', 'Calculate hidden tariff costs in your Amazon purchases and understand how Amazon handles import duties.', 'https://tariffcalc.us/amazon-tariff-calculator.html'),
+                buildBreadcrumbSchema([{ label: 'Home', url: 'index.html' }, { label: 'Amazon Tariff Calculator' }], 'https://tariffcalc.us/'),
+                buildFAQSchema([
+                    { question: 'Do I have to pay customs fees when my Amazon package arrives?', answer: 'Generally, no. FBA sellers have already paid the tariff and embedded it in the price. For direct foreign shipments, Amazon collects an Import Fees Deposit at checkout.' },
+                    { question: 'Why did the price of cheap electronics on Amazon go up so much?', answer: 'The suspension of the $800 de minimis exemption combined with the 54%+ tariff rate on Chinese goods forced sellers to raise prices.' },
+                    { question: 'Are Amazon Basics products affected by tariffs?', answer: 'Yes. Amazon Basics products are largely manufactured in Asia, so Amazon pays the tariffs and adjusts retail prices.' },
+                    { question: 'How can I tell where an Amazon product is made before buying?', answer: 'Check the "Country of Origin" field in the "Product Details" section of the listing.' }
+                ])
+            ]
+        });
+        // Populate dropdowns
+        const catSelect = document.getElementById('product-category');
+        Object.entries(CATEGORIES).forEach(([key, cat]) => { catSelect.innerHTML += `<option value="${key}">${cat.emoji} ${cat.name}</option>`; });
+        const countrySelect = document.getElementById('country-origin');
+        Object.entries(COUNTRIES).forEach(([key, c]) => { countrySelect.innerHTML += `<option value="${key}">${c.flag} ${c.name}</option>`; });
+    </script>
+</body>
+</html>

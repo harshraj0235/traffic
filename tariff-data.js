@@ -722,6 +722,11 @@ const ALL_PAGES = [
     { url: 'ev-tariff-calculator.html', title: 'EV Tariff Calculator', shortTitle: 'EV Tariffs', icon: '⚡', description: 'Electric vehicle import duty calculator', priority: 0.8 },
     { url: 'how-tariffs-work.html', title: 'How Do Tariffs Work?', shortTitle: 'How Tariffs Work', icon: '📖', description: 'Simple guide explaining tariffs for consumers', priority: 0.8 },
     { url: 'who-pays-tariffs.html', title: 'Who Pays Tariffs?', shortTitle: 'Who Pays', icon: '🤔', description: 'The truth about who really pays import tariffs', priority: 0.7 },
+    { url: 'india-tariff-calculator.html', title: 'India Tariff Calculator', shortTitle: 'India', icon: '🇮🇳', description: 'Tariffs on Indian pharmaceuticals and textiles', priority: 0.8 },
+    { url: 'eu-tariff-calculator.html', title: 'EU Tariff Calculator', shortTitle: 'European Union', icon: '🇪🇺', description: 'Tariffs on European cars, wine, and luxury goods', priority: 0.8 },
+    { url: 'amazon-tariff-calculator.html', title: 'Amazon Tariff Calculator', shortTitle: 'Amazon', icon: '📦', description: 'Hidden tariff costs in your Amazon purchases', priority: 0.8 },
+    { url: 'nike-tariff-calculator.html', title: 'Nike Tariff Calculator', shortTitle: 'Nike & Sneakers', icon: '👟', description: 'Tariffs on imported shoes and apparel', priority: 0.8 },
+    { url: 'ps5-tariff-calculator.html', title: 'PS5 Tariff Calculator', shortTitle: 'Gaming Consoles', icon: '🎮', description: 'Tariff impact on PS5, Xbox, and Nintendo', priority: 0.8 },
     { url: '404.html', title: '404 Page Not Found', shortTitle: '404', icon: '🔍', description: 'Page not found', priority: 0 }
 ];
 

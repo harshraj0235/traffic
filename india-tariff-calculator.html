@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>India Tariff Calculator 2026 — US Import Duties on Indian Goods | TariffCalc</title>
+    <meta name="description" content="Calculate the 26% reciprocal tariff on imports from India. See the impact on pharmaceuticals, textiles, spices, and IT equipment. Free calculator updated for 2026.">
+    <meta name="keywords" content="India tariff calculator, tariff on Indian goods, US India tariff, India import duty, pharmaceutical tariff, textiles tariff 2026">
+    <meta property="og:title" content="India Tariff Calculator 2026 — US Import Duties">
+    <meta property="og:description" content="Calculate the real cost of the 26% tariff on imports from India. See the impact on medicine, clothing, and spices.">
+    <meta property="og:type" content="website">
+    <link rel="canonical" href="https://tariffcalc.us/india-tariff-calculator.html">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <div class="ambient-bg"><div class="ambient-orb ambient-orb-1"></div><div class="ambient-orb ambient-orb-2"></div><div class="ambient-orb ambient-orb-3"></div></div>
+    <nav id="main-nav" class="navbar"></nav>
+    <div id="breadcrumbs"></div>
+
+    <section class="page-hero">
+        <div class="hero-container">
+            <span class="hero-emoji">🇮🇳</span>
+            <h1 class="hero-title">India Tariff Calculator<br><span class="gradient-text">US-India Import Duties <span class="dynamic-year">2026</span></span></h1>
+            <p class="hero-subtitle">India faces a 26% reciprocal tariff on most goods entering the US. Calculate the impact on pharmaceuticals, textiles, spices, and more.</p>
+            <div class="product-hero-cards">
+                <div class="product-hero-card"><span class="phc-emoji">💊</span><span class="phc-name">Medicine</span><span class="phc-rate">26%</span><span class="phc-extra">Pharmaceuticals</span></div>
+                <div class="product-hero-card"><span class="phc-emoji">👕</span><span class="phc-name">Textiles</span><span class="phc-rate">26%</span><span class="phc-extra">Clothing & fabrics</span></div>
+                <div class="product-hero-card"><span class="phc-emoji">🌶️</span><span class="phc-name">Spices</span><span class="phc-rate">26%</span><span class="phc-extra">Food & agriculture</span></div>
+                <div class="product-hero-card"><span class="phc-emoji">💻</span><span class="phc-name">Electronics</span><span class="phc-rate">26%</span><span class="phc-extra">Assembled in India</span></div>
+            </div>
+        </div>
+    </section>
+
+    <div class="container">
+        <section class="calculator-section scroll-reveal" id="calculator">
+            <h2 class="section-title">Calculate Your India Tariff</h2>
+            <p class="section-subtitle">See how much extra you're paying on Indian imports</p>
+            <div class="calculator-grid">
+                <div class="calc-panel calc-input-panel">
+                    <div class="calc-header"><span class="calc-icon">🧮</span><h3>Enter Product Details</h3></div>
+                    <div class="form-group"><label class="form-label" for="product-category">Product Category</label><select class="form-select" id="product-category"><option value="">Select category...</option></select></div>
+                    <div class="form-group"><label class="form-label" for="country-origin">Country of Origin</label><select class="form-select" id="country-origin" disabled><option value="india">🇮🇳 India</option></select></div>
+                    <div class="form-group"><label class="form-label" for="purchase-price">Purchase Price (USD)</label><input type="number" class="form-input" id="purchase-price" placeholder="e.g. 50" min="0.01" step="0.01"></div>
+                    <div class="form-group"><label class="form-label" for="purchase-frequency">Purchase Frequency</label><select class="form-select" id="purchase-frequency"><option value="once">One-time purchase</option><option value="weekly">Weekly</option><option value="monthly">Monthly</option><option value="quarterly">Every 3 months</option><option value="yearly">Once a year</option></select></div>
+                    <button class="calculate-btn" id="calculate-btn" onclick="calculateTariff()"><span class="btn-text">Calculate Tariff Impact</span><span class="btn-icon">→</span></button>
+                </div>
+                <div class="calc-panel calc-results-panel" id="results-panel">
+                    <div id="results-placeholder" class="results-placeholder"><div class="placeholder-icon">📊</div><p>Enter a product and price to see your India tariff impact</p></div>
+                    <div id="results-content" style="display:none;">
+                        <div class="tariff-rate-display"><div class="rate-ring"><svg class="rate-svg" viewBox="0 0 120 120"><circle cx="60" cy="60" r="54" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="8"/><circle id="rate-circle" cx="60" cy="60" r="54" fill="none" stroke="#f87171" stroke-width="8" stroke-linecap="round" stroke-dasharray="339.29" stroke-dashoffset="339.29" transform="rotate(-90 60 60)"/></svg><div class="rate-center"><span class="rate-number" id="rate-value">0%</span></div></div><div class="rate-details"><div class="rate-label">Effective Tariff Rate</div><div class="rate-breakdown" id="rate-breakdown"></div></div></div>
+                        <div class="cost-cards"><div class="cost-card cost-card-red" id="card-extra"><span class="cost-card-label">Extra You're Paying</span><span class="cost-card-value" id="extra-cost-value">$0</span></div><div class="cost-card cost-card-amber" id="card-annual"><span class="cost-card-label">Annual Impact</span><span class="cost-card-value" id="annual-cost-value">$0</span></div><div class="cost-card cost-card-green" id="card-pretariff"><span class="cost-card-label">Pre-Tariff Price</span><span class="cost-card-value" id="pretariff-price-value">$0</span></div></div>
+                        <canvas id="price-chart"></canvas>
+                        <div class="context-card"><span class="context-icon">💡</span><p class="context-text" id="context-text"></p></div>
+                        <button class="share-btn" id="share-btn" onclick="shareResults()">📤 Share Your Tariff Impact</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-section scroll-reveal">
+            <div class="content-card">
+                <h2>US-India Tariffs Explained (<span class="dynamic-year">2026</span>)</h2>
+                <p>India is a major supplier of pharmaceuticals, textiles, and increasingly, electronics (as companies diversify supply chains away from China). The US has imposed a <strong>26% reciprocal tariff</strong> on goods imported from India.</p>
+
+                <div class="key-facts">
+                    <h3>📌 India Tariff Key Facts</h3>
+                    <ul>
+                        <li><strong>Reciprocal rate:</strong> 26% on most Indian goods</li>
+                        <li><strong>Pharmaceuticals:</strong> India supplies ~40% of generic drugs in the US</li>
+                        <li><strong>Textiles:</strong> Significant impact on clothing and home textiles</li>
+                        <li><strong>Tech manufacturing:</strong> Affects iPhones and other electronics recently moved to Indian assembly</li>
+                        <li><strong>Diamonds:</strong> India is a major hub for diamond cutting and polishing</li>
+                    </ul>
+                </div>
+
+                <h3>Most Affected Indian Imports</h3>
+                <p>The categories most impacted by the US-India tariff include:</p>
+                <ul>
+                    <li><strong>Pharmaceuticals & Medicine:</strong> As a leading global provider of generic drugs, the 26% tariff significantly affects healthcare costs and out-of-pocket expenses for US consumers.</li>
+                    <li><strong>Textiles & Apparel:</strong> Clothing, bed sheets, and towels manufactured in India face higher retail prices.</li>
+                    <li><strong>Electronics (e.g., iPhones):</strong> Apple has shifted significant iPhone production to India. These devices are subject to the 26% reciprocal tariff when imported into the US.</li>
+                    <li><strong>Spices & Agriculture:</strong> Indian exports like rice, spices (pepper, turmeric), and tea face increased costs.</li>
+                </ul>
+
+                <div class="highlight-box">
+                    <h4>🔄 Supply Chain Shifts</h4>
+                    <p>Many US companies moved manufacturing from China to India to avoid Section 301 tariffs. While India's 26% tariff is lower than the 54%+ combined rate on Chinese goods, it still represents a significant cost increase compared to pre-2018 levels.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="faq-section scroll-reveal" id="faq">
+            <h2 class="section-title">India Tariff FAQ</h2>
+            <div class="faq-list">
+                <details class="faq-item"><summary class="faq-question">Why is there a 26% tariff on goods from India?<span class="faq-toggle">+</span></summary><div class="faq-answer"><p>The 26% tariff is a "reciprocal" tariff, calculated based on the average tariff rate that India applies to American goods imported into India.</p></div></details>
+                <details class="faq-item"><summary class="faq-question">Will this affect the price of my prescription drugs?<span class="faq-toggle">+</span></summary><div class="faq-answer"><p>Yes, likely. India supplies about 40% of the generic drugs sold in the US. A 26% import tax increases the cost for distributors, which is often passed down to pharmacies and consumers.</p></div></details>
+                <details class="faq-item"><summary class="faq-question">Are iPhones made in India subject to this tariff?<span class="faq-toggle">+</span></summary><div class="faq-answer"><p>Yes. iPhones and other electronics assembled in India and imported to the US face the 26% reciprocal tariff. Apple and retailers may absorb some costs, but retail prices generally reflect the increase.</p></div></details>
+                <details class="faq-item"><summary class="faq-question">Is the US negotiating a trade deal with India?<span class="faq-toggle">+</span></summary><div class="faq-answer"><p>Trade negotiations are ongoing, but historically, India has maintained high domestic tariffs to protect its own industries, making a comprehensive free trade agreement challenging to reach.</p></div></details>
+            </div>
+        </section>
+
+        <section class="content-section scroll-reveal"><div id="internal-links"></div></section>
+        <section class="content-section scroll-reveal"><h2 class="section-title">Related Calculators</h2><div id="related-calculators" class="related-grid"></div></section>
+    </div>
+
+    <footer id="site-footer" class="site-footer"></footer>
+    <script src="tariff-data.js"></script>
+    <script src="app.js"></script>
+    <script src="page-builder.js"></script>
+    <script>
+        initPage({
+            breadcrumbs: [{ label: 'Home', url: 'index.html' }, { label: 'India Tariff Calculator' }],
+            prefill: { country: 'india', lockCountry: true },
+            currentSlug: 'india-tariff-calculator',
+            relatedCalculators: ['index.html', 'china-tariff-calculator.html', 'iphone-tariff-calculator.html', 'clothing-tariff-calculator.html', 'tariff-by-country.html', 'how-tariffs-work.html'],
+            buildInternalLinks: true,
+            buildExamples: true, exampleCountry: 'india', exampleMax: 6,
+            schemas: [
+                buildWebApplicationSchema('India Tariff Calculator', 'Calculate US tariffs on Indian imports including medicine, clothing, and electronics', 'https://tariffcalc.us/india-tariff-calculator.html'),
+                buildBreadcrumbSchema([{ label: 'Home', url: 'index.html' }, { label: 'India Tariff Calculator' }], 'https://tariffcalc.us/'),
+                buildFAQSchema([
+                    { question: 'Why is there a 26% tariff on goods from India?', answer: 'The 26% tariff is a reciprocal tariff, calculated based on the average tariff rate that India applies to American goods.' },
+                    { question: 'Will this affect the price of my prescription drugs?', answer: 'Yes. India supplies about 40% of generic drugs in the US. A 26% tax increases costs for distributors and consumers.' },
+                    { question: 'Are iPhones made in India subject to this tariff?', answer: 'Yes. iPhones assembled in India and imported to the US face the 26% reciprocal tariff.' },
+                    { question: 'Is the US negotiating a trade deal with India?', answer: 'Negotiations are ongoing, but India\'s high domestic tariffs make a comprehensive agreement challenging.' }
+                ])
+            ]
+        });
+        // Populate category dropdown
+        const catSelect = document.getElementById('product-category');
+        Object.entries(CATEGORIES).forEach(([key, cat]) => {
+            catSelect.innerHTML += `<option value="${key}">${cat.emoji} ${cat.name}</option>`;
+        });
+    </script>
+</body>
+</html>

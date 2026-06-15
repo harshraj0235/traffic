@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PS5 Tariff Calculator 2026 — PlayStation & Console Import Duties | TariffCalc</title>
+    <meta name="description" content="Calculate tariff costs on the PS5, Xbox, and Nintendo Switch. See how the 24% Japan tariff and 54% China tariff affect gaming console prices in 2026.">
+    <meta name="keywords" content="PS5 tariff calculator, playstation tariff, xbox tariff, nintendo switch tariff, gaming console tariff, PS5 price increase 2026">
+    <meta property="og:title" content="PS5 & Console Tariff Calculator 2026">
+    <meta property="og:description" content="Calculate the hidden tariff costs on gaming consoles like the PS5, Xbox Series X, and Nintendo Switch.">
+    <meta property="og:type" content="website">
+    <link rel="canonical" href="https://tariffcalc.us/ps5-tariff-calculator.html">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <div class="ambient-bg"><div class="ambient-orb ambient-orb-1"></div><div class="ambient-orb ambient-orb-2"></div><div class="ambient-orb ambient-orb-3"></div></div>
+    <nav id="main-nav" class="navbar"></nav>
+    <div id="breadcrumbs"></div>
+
+    <section class="page-hero">
+        <div class="hero-container">
+            <span class="hero-emoji">🎮</span>
+            <h1 class="hero-title">PS5 & Console Tariff Calculator<br><span class="gradient-text">Tariff Impact on Gaming</span></h1>
+            <p class="hero-subtitle">Video game consoles are primarily manufactured in China and Japan. Calculate the tariff impact on your next PS5, Xbox, or Nintendo purchase.</p>
+        </div>
+    </section>
+
+    <div class="container">
+        <section class="calculator-section scroll-reveal" id="calculator">
+            <h2 class="section-title">Calculate Console Tariff Impact</h2>
+            <p class="section-subtitle">See how much extra you're paying due to import taxes</p>
+            <div class="calculator-grid">
+                <div class="calc-panel calc-input-panel">
+                    <div class="calc-header"><span class="calc-icon">🧮</span><h3>Enter Product Details</h3></div>
+                    <div class="form-group"><label class="form-label" for="product-category">Product Category</label><select class="form-select" id="product-category" disabled><option value="electronics">💻 Electronics & Tech</option></select></div>
+                    <div class="form-group"><label class="form-label" for="country-origin">Manufacturing Country</label><select class="form-select" id="country-origin"><option value="japan">🇯🇵 Japan (PS5/Nintendo)</option><option value="china">🇨🇳 China (Xbox/PS5)</option><option value="other">Other</option></select></div>
+                    <div class="form-group"><label class="form-label" for="purchase-price">Console Price (USD)</label><input type="number" class="form-input" id="purchase-price" placeholder="e.g. 500" min="0.01" step="0.01"></div>
+                    <div class="form-group"><label class="form-label" for="purchase-frequency">Purchase Frequency</label><select class="form-select" id="purchase-frequency"><option value="once">One-time purchase</option></select></div>
+                    <button class="calculate-btn" id="calculate-btn" onclick="calculateTariff()"><span class="btn-text">Calculate Tariff Impact</span><span class="btn-icon">→</span></button>
+                </div>
+                <div class="calc-panel calc-results-panel" id="results-panel">
+                    <div id="results-placeholder" class="results-placeholder"><div class="placeholder-icon">📊</div><p>Select a country and price to see your gaming tariff impact</p></div>
+                    <div id="results-content" style="display:none;">
+                        <div class="tariff-rate-display"><div class="rate-ring"><svg class="rate-svg" viewBox="0 0 120 120"><circle cx="60" cy="60" r="54" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="8"/><circle id="rate-circle" cx="60" cy="60" r="54" fill="none" stroke="#f87171" stroke-width="8" stroke-linecap="round" stroke-dasharray="339.29" stroke-dashoffset="339.29" transform="rotate(-90 60 60)"/></svg><div class="rate-center"><span class="rate-number" id="rate-value">0%</span></div></div><div class="rate-details"><div class="rate-label">Effective Tariff Rate</div><div class="rate-breakdown" id="rate-breakdown"></div></div></div>
+                        <div class="cost-cards"><div class="cost-card cost-card-red" id="card-extra"><span class="cost-card-label">Hidden Tariff Cost</span><span class="cost-card-value" id="extra-cost-value">$0</span></div><div class="cost-card cost-card-amber" id="card-annual"><span class="cost-card-label">Annual Impact</span><span class="cost-card-value" id="annual-cost-value">$0</span></div><div class="cost-card cost-card-green" id="card-pretariff"><span class="cost-card-label">Pre-Tariff Price</span><span class="cost-card-value" id="pretariff-price-value">$0</span></div></div>
+                        <canvas id="price-chart"></canvas>
+                        <div class="context-card"><span class="context-icon">💡</span><p class="context-text" id="context-text"></p></div>
+                        <button class="share-btn" id="share-btn" onclick="shareResults()">📤 Share Your Tariff Impact</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-section scroll-reveal">
+            <div class="content-card">
+                <h2>Why Are Consoles Getting More Expensive?</h2>
+                <p>The gaming industry relies heavily on complex Asian supply chains. Consoles like the PlayStation 5, Xbox Series X/S, and Nintendo Switch are almost entirely manufactured overseas, making them highly vulnerable to the 2026 tariff increases.</p>
+
+                <div class="key-facts">
+                    <h3>📌 Where Consoles Are Made</h3>
+                    <ul>
+                        <li><strong>Sony PlayStation 5:</strong> Primarily manufactured in Japan (24% tariff) and China (54% tariff). Sony has warned investors about significant cost increases due to US tariffs.</li>
+                        <li><strong>Microsoft Xbox:</strong> Historically manufactured almost exclusively in China, facing the highest combined tariff rates. Microsoft has been working to move some production to Vietnam, but still faces high reciprocal tariffs there.</li>
+                        <li><strong>Nintendo Switch:</strong> Assembled in China and Vietnam, utilizing components from Japan and Taiwan.</li>
+                    </ul>
+                </div>
+
+                <h3>Are Games Affected Too?</h3>
+                <p>Physical game discs and cartridges imported into the US face tariffs based on their country of origin. However, <strong>digital game downloads are NOT subject to import tariffs</strong>. This is why you may see physical games becoming slightly more expensive or harder to find compared to digital versions.</p>
+            </div>
+        </section>
+
+        <section class="faq-section scroll-reveal" id="faq">
+            <h2 class="section-title">Gaming Tariff FAQ</h2>
+            <div class="faq-list">
+                <details class="faq-item"><summary class="faq-question">Why did Sony raise the price of the PS5?<span class="faq-toggle">+</span></summary><div class="faq-answer"><p>Sony, like many electronics manufacturers, cited "challenging global economic conditions" and "increased operational costs"—which heavily includes the impact of the 24% reciprocal tariff on goods from Japan and the 54% tariff on goods from China.</p></div></details>
+                <details class="faq-item"><summary class="faq-question">Are digital games taxed by tariffs?<span class="faq-toggle">+</span></summary><div class="faq-answer"><p>No. Import tariffs only apply to physical goods crossing a physical border. Digital downloads from the PlayStation Store, Xbox Store, or Steam are exempt from import tariffs (though they may be subject to local state digital sales taxes).</p></div></details>
+                <details class="faq-item"><summary class="faq-question">Will the next-gen consoles be even more expensive?<span class="faq-toggle">+</span></summary><div class="faq-answer"><p>Yes, analysts expect that unless manufacturers can completely relocate supply chains to countries with lower tariffs (or unless tariffs are repealed), the baseline cost of next-generation consoles will be significantly higher to account for import duties on advanced semiconductor components.</p></div></details>
+            </div>
+        </section>
+
+        <section class="content-section scroll-reveal"><div id="internal-links"></div></section>
+        <section class="content-section scroll-reveal"><h2 class="section-title">Related Calculators</h2><div id="related-calculators" class="related-grid"></div></section>
+    </div>
+
+    <footer id="site-footer" class="site-footer"></footer>
+    <script src="tariff-data.js"></script>
+    <script src="app.js"></script>
+    <script src="page-builder.js"></script>
+    <script>
+        initPage({
+            breadcrumbs: [{ label: 'Home', url: 'index.html' }, { label: 'PS5 & Console Tariff Calculator' }],
+            prefill: { category: 'electronics', lockCategory: true, country: 'japan' },
+            currentSlug: 'ps5-tariff-calculator',
+            relatedCalculators: ['electronics-tariff-calculator.html', 'japan-tariff-calculator.html', 'china-tariff-calculator.html', 'index.html', 'how-tariffs-work.html'],
+            buildInternalLinks: true,
+            schemas: [
+                buildWebApplicationSchema('PS5 & Console Tariff Calculator', 'Calculate tariff costs on gaming consoles like PlayStation, Xbox, and Nintendo.', 'https://tariffcalc.us/ps5-tariff-calculator.html'),
+                buildBreadcrumbSchema([{ label: 'Home', url: 'index.html' }, { label: 'PS5 Tariff Calculator' }], 'https://tariffcalc.us/'),
+                buildFAQSchema([
+                    { question: 'Why did Sony raise the price of the PS5?', answer: 'Due to challenging economic conditions including the 24% reciprocal tariff on goods from Japan and 54% from China.' },
+                    { question: 'Are digital games taxed by tariffs?', answer: 'No. Import tariffs only apply to physical goods.' },
+                    { question: 'Will the next-gen consoles be even more expensive?', answer: 'Yes, baseline costs are expected to be higher due to import duties on advanced components.' }
+                ])
+            ]
+        });
+    </script>
+</body>
+</html>

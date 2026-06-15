@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nike Tariff Calculator 2026 — Tariffs on Shoes & Apparel | TariffCalc</title>
+    <meta name="description" content="Calculate tariff costs on Nike shoes and apparel. See how tariffs on manufacturing in Vietnam, China, and Indonesia affect sneaker prices. Free 2026 calculator.">
+    <meta name="keywords" content="Nike tariff calculator, Nike shoes tariff, sneaker tariff, clothing tariff, tariff on shoes from Vietnam, Nike price increase 2026">
+    <meta property="og:title" content="Nike Tariff Calculator 2026 — Sneaker & Apparel Tariffs">
+    <meta property="og:description" content="Calculate the hidden tariff costs embedded in Nike shoes. See the impact of manufacturing in Vietnam, China, and Indonesia.">
+    <meta property="og:type" content="website">
+    <link rel="canonical" href="https://tariffcalc.us/nike-tariff-calculator.html">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <div class="ambient-bg"><div class="ambient-orb ambient-orb-1"></div><div class="ambient-orb ambient-orb-2"></div><div class="ambient-orb ambient-orb-3"></div></div>
+    <nav id="main-nav" class="navbar"></nav>
+    <div id="breadcrumbs"></div>
+
+    <section class="page-hero">
+        <div class="hero-container">
+            <span class="hero-emoji">👟</span>
+            <h1 class="hero-title">Nike Tariff Calculator<br><span class="gradient-text">Tariff Impact on Sneakers</span></h1>
+            <p class="hero-subtitle">Most Nike shoes are manufactured in Vietnam, Indonesia, and China. Calculate how much import tariffs are adding to your sneaker bill.</p>
+        </div>
+    </section>
+
+    <div class="container">
+        <section class="calculator-section scroll-reveal" id="calculator">
+            <h2 class="section-title">Calculate Sneaker Tariff Impact</h2>
+            <p class="section-subtitle">See how much of the price is going to tariffs</p>
+            <div class="calculator-grid">
+                <div class="calc-panel calc-input-panel">
+                    <div class="calc-header"><span class="calc-icon">🧮</span><h3>Enter Product Details</h3></div>
+                    <div class="form-group"><label class="form-label" for="product-category">Product Category</label><select class="form-select" id="product-category" disabled><option value="clothing">👕 Clothing & Shoes</option></select></div>
+                    <div class="form-group"><label class="form-label" for="country-origin">Manufacturing Country</label><select class="form-select" id="country-origin"><option value="">Select country...</option><option value="vietnam">🇻🇳 Vietnam</option><option value="indonesia">🇮🇩 Indonesia</option><option value="china">🇨🇳 China</option><option value="other">Other</option></select></div>
+                    <div class="form-group"><label class="form-label" for="purchase-price">Shoe Price (USD)</label><input type="number" class="form-input" id="purchase-price" placeholder="e.g. 160" min="0.01" step="0.01"></div>
+                    <div class="form-group"><label class="form-label" for="purchase-frequency">Purchase Frequency</label><select class="form-select" id="purchase-frequency"><option value="once">One-time purchase</option><option value="weekly">Weekly</option><option value="monthly">Monthly</option><option value="quarterly">Every 3 months</option><option value="yearly">Once a year</option></select></div>
+                    <button class="calculate-btn" id="calculate-btn" onclick="calculateTariff()"><span class="btn-text">Calculate Tariff Impact</span><span class="btn-icon">→</span></button>
+                </div>
+                <div class="calc-panel calc-results-panel" id="results-panel">
+                    <div id="results-placeholder" class="results-placeholder"><div class="placeholder-icon">📊</div><p>Select a country and price to see your sneaker tariff impact</p></div>
+                    <div id="results-content" style="display:none;">
+                        <div class="tariff-rate-display"><div class="rate-ring"><svg class="rate-svg" viewBox="0 0 120 120"><circle cx="60" cy="60" r="54" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="8"/><circle id="rate-circle" cx="60" cy="60" r="54" fill="none" stroke="#f87171" stroke-width="8" stroke-linecap="round" stroke-dasharray="339.29" stroke-dashoffset="339.29" transform="rotate(-90 60 60)"/></svg><div class="rate-center"><span class="rate-number" id="rate-value">0%</span></div></div><div class="rate-details"><div class="rate-label">Effective Tariff Rate</div><div class="rate-breakdown" id="rate-breakdown"></div></div></div>
+                        <div class="cost-cards"><div class="cost-card cost-card-red" id="card-extra"><span class="cost-card-label">Hidden Tariff Cost</span><span class="cost-card-value" id="extra-cost-value">$0</span></div><div class="cost-card cost-card-amber" id="card-annual"><span class="cost-card-label">Annual Impact</span><span class="cost-card-value" id="annual-cost-value">$0</span></div><div class="cost-card cost-card-green" id="card-pretariff"><span class="cost-card-label">Pre-Tariff Price</span><span class="cost-card-value" id="pretariff-price-value">$0</span></div></div>
+                        <canvas id="price-chart"></canvas>
+                        <div class="context-card"><span class="context-icon">💡</span><p class="context-text" id="context-text"></p></div>
+                        <button class="share-btn" id="share-btn" onclick="shareResults()">📤 Share Your Tariff Impact</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-section scroll-reveal">
+            <div class="content-card">
+                <h2>Why Are Sneakers So Expensive Now?</h2>
+                <p>The apparel and footwear industry faces some of the highest historical tariff rates, which were exacerbated by the 2025-2026 trade policy changes. Almost <strong>0% of Nike footwear is manufactured in the United States</strong>, meaning nearly every pair of Nike shoes sold in America is subject to import tariffs.</p>
+
+                <div class="key-facts">
+                    <h3>📌 Where Nike Shoes Are Made (and Tariff Rates)</h3>
+                    <ul>
+                        <li><strong>Vietnam (~50% of Nike shoes):</strong> Faces a 46% reciprocal tariff rate in 2026.</li>
+                        <li><strong>Indonesia (~25% of Nike shoes):</strong> Faces a 32% reciprocal tariff rate.</li>
+                        <li><strong>China (~20% of Nike shoes):</strong> Faces the highest combined tariff rate of 54%+.</li>
+                    </ul>
+                </div>
+
+                <h3>How This Affects Retail Prices</h3>
+                <p>If Nike imports a pair of Air Force 1s manufactured in Vietnam for a landed wholesale cost of $50, they must pay a 46% tariff ($23) to US Customs. This raises their wholesale cost to $73. To maintain standard retail margins, the final sticker price you see at the mall is raised significantly.</p>
+
+                <div class="highlight-box success">
+                    <h4>💡 How to Check Where Your Nikes Were Made</h4>
+                    <p>You can find the manufacturing country on the size tag inside the shoe (usually under the tongue or on the inner side). Look for "Made in Vietnam," "Made in Indonesia," or "Made in China."</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="faq-section scroll-reveal" id="faq">
+            <h2 class="section-title">Sneaker Tariff FAQ</h2>
+            <div class="faq-list">
+                <details class="faq-item"><summary class="faq-question">Does Nike make any shoes in the USA?<span class="faq-toggle">+</span></summary><div class="faq-answer"><p>Currently, Nike does not manufacture any of its footwear in the United States. All Nike shoes are imported and subject to tariffs. They do manufacture some components (like the Air soles) in the US, but the final assembly happens overseas.</p></div></details>
+                <details class="faq-item"><summary class="faq-question">Why did Nike move production from China to Vietnam?<span class="faq-toggle">+</span></summary><div class="faq-answer"><p>Nike and other apparel brands began shifting production from China to Vietnam and Indonesia years ago to find lower labor costs and, more recently, to avoid the steep Section 301 tariffs applied to Chinese goods. However, the new reciprocal tariffs now impact Vietnam and Indonesia heavily as well.</p></div></details>
+                <details class="faq-item"><summary class="faq-question">Are Adidas and Puma affected by the same tariffs?<span class="faq-toggle">+</span></summary><div class="faq-answer"><p>Yes. Adidas, Puma, New Balance, and Under Armour rely on the same Southeast Asian supply chains as Nike. All imported footwear is subject to the same country-of-origin tariff rates.</p></div></details>
+            </div>
+        </section>
+
+        <section class="content-section scroll-reveal"><div id="internal-links"></div></section>
+        <section class="content-section scroll-reveal"><h2 class="section-title">Related Calculators</h2><div id="related-calculators" class="related-grid"></div></section>
+    </div>
+
+    <footer id="site-footer" class="site-footer"></footer>
+    <script src="tariff-data.js"></script>
+    <script src="app.js"></script>
+    <script src="page-builder.js"></script>
+    <script>
+        initPage({
+            breadcrumbs: [{ label: 'Home', url: 'index.html' }, { label: 'Nike Tariff Calculator' }],
+            prefill: { category: 'clothing', lockCategory: true, country: 'vietnam' },
+            currentSlug: 'nike-tariff-calculator',
+            relatedCalculators: ['clothing-tariff-calculator.html', 'amazon-tariff-calculator.html', 'china-tariff-calculator.html', 'index.html', 'how-tariffs-work.html'],
+            buildInternalLinks: true,
+            schemas: [
+                buildWebApplicationSchema('Nike Tariff Calculator', 'Calculate tariff costs on imported shoes and apparel.', 'https://tariffcalc.us/nike-tariff-calculator.html'),
+                buildBreadcrumbSchema([{ label: 'Home', url: 'index.html' }, { label: 'Nike Tariff Calculator' }], 'https://tariffcalc.us/'),
+                buildFAQSchema([
+                    { question: 'Does Nike make any shoes in the USA?', answer: 'No. All Nike shoes are imported and subject to tariffs.' },
+                    { question: 'Why did Nike move production from China to Vietnam?', answer: 'To find lower labor costs and avoid Section 301 tariffs on Chinese goods.' },
+                    { question: 'Are Adidas and Puma affected by the same tariffs?', answer: 'Yes, all imported footwear faces the same country-of-origin tariff rates.' }
+                ])
+            ]
+        });
+    </script>
+</body>
+</html>
