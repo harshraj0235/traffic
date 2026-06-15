@@ -6,11 +6,18 @@
 
 // ── Theme System (runs immediately to prevent FOUC) ──
 (function() {
-    const saved = localStorage.getItem('tariffcalc-theme');
-    if (saved) {
-        document.documentElement.setAttribute('data-theme', saved);
-    } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
-        document.documentElement.setAttribute('data-theme', 'light');
+    try {
+        const saved = localStorage.getItem('tariffcalc-theme');
+        if (saved) {
+            document.documentElement.setAttribute('data-theme', saved);
+        } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
+            document.documentElement.setAttribute('data-theme', 'light');
+        }
+    } catch (e) {
+        // Ignore localStorage access errors (e.g. from file:// protocol or privacy settings)
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches) {
+            document.documentElement.setAttribute('data-theme', 'light');
+        }
     }
 })();
 
@@ -19,7 +26,9 @@ function toggleTheme() {
     const current = html.getAttribute('data-theme') || 'dark';
     const next = current === 'dark' ? 'light' : 'dark';
     html.setAttribute('data-theme', next);
-    localStorage.setItem('tariffcalc-theme', next);
+    try {
+        localStorage.setItem('tariffcalc-theme', next);
+    } catch (e) {}
     // Update toggle button icons
     document.querySelectorAll('.theme-icon').forEach(el => {
         el.textContent = next === 'dark' ? '☀️' : '🌙';
@@ -649,7 +658,14 @@ function initPage(options = {}) {
     // Listen for system theme changes
     if (window.matchMedia) {
         window.matchMedia('(prefers-color-scheme: light)').addEventListener('change', (e) => {
-            if (!localStorage.getItem('tariffcalc-theme')) {
+            try {
+                if (!localStorage.getItem('tariffcalc-theme')) {
+                    document.documentElement.setAttribute('data-theme', e.matches ? 'light' : 'dark');
+                    document.querySelectorAll('.theme-icon').forEach(el => {
+                        el.textContent = e.matches ? '🌙' : '☀️';
+                    });
+                }
+            } catch (err) {
                 document.documentElement.setAttribute('data-theme', e.matches ? 'light' : 'dark');
                 document.querySelectorAll('.theme-icon').forEach(el => {
                     el.textContent = e.matches ? '🌙' : '☀️';
