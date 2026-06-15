@@ -716,7 +716,13 @@ const ALL_PAGES = [
     { url: 'canada-tariff-calculator.html', title: 'Canada Tariff Calculator', shortTitle: 'Canada', icon: '🇨🇦', description: 'US-Canada tariff calculator', priority: 0.6 },
     { url: 'uk-import-duty-calculator.html', title: 'UK Import Duty Calculator', shortTitle: 'UK Import Duty', icon: '🇬🇧', description: 'UK customs duty and VAT calculator', priority: 0.6 },
     { url: 'furniture-tariff-calculator.html', title: 'Furniture Tariff Calculator', shortTitle: 'Furniture', icon: '🪑', description: 'Tariffs on imported furniture', priority: 0.6 },
-    { url: 'toys-tariff-calculator.html', title: 'Toys Tariff Calculator', shortTitle: 'Toys', icon: '🧸', description: 'Tariff impact on toy prices', priority: 0.6 }
+    { url: 'toys-tariff-calculator.html', title: 'Toys Tariff Calculator', shortTitle: 'Toys', icon: '🧸', description: 'Tariff impact on toy prices', priority: 0.6 },
+    { url: 'mexico-tariff-calculator.html', title: 'Mexico Tariff Calculator', shortTitle: 'Mexico', icon: '🇲🇽', description: 'US-Mexico tariff calculator with USMCA info', priority: 0.8 },
+    { url: 'japan-tariff-calculator.html', title: 'Japan Tariff Calculator', shortTitle: 'Japan', icon: '🇯🇵', description: 'Tariffs on Japanese cars, electronics & gaming', priority: 0.7 },
+    { url: 'ev-tariff-calculator.html', title: 'EV Tariff Calculator', shortTitle: 'EV Tariffs', icon: '⚡', description: 'Electric vehicle import duty calculator', priority: 0.8 },
+    { url: 'how-tariffs-work.html', title: 'How Do Tariffs Work?', shortTitle: 'How Tariffs Work', icon: '📖', description: 'Simple guide explaining tariffs for consumers', priority: 0.8 },
+    { url: 'who-pays-tariffs.html', title: 'Who Pays Tariffs?', shortTitle: 'Who Pays', icon: '🤔', description: 'The truth about who really pays import tariffs', priority: 0.7 },
+    { url: '404.html', title: '404 Page Not Found', shortTitle: '404', icon: '🔍', description: 'Page not found', priority: 0 }
 ];
 
 // ── Frequency Multipliers ──

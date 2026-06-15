@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EV Tariff Calculator 2026 — Electric Vehicle Import Duty | TariffCalc</title>
+    <meta name="description" content="Calculate tariffs on electric vehicles. Chinese EVs face 55%+ tariffs, European EVs 20-25%. See how much more you're paying for Tesla, BYD, BMW, VW electric cars.">
+    <meta name="keywords" content="EV tariff calculator, electric vehicle tariff, Chinese EV tariff, Tesla tariff, BYD tariff, electric car import duty 2026">
+    <meta property="og:title" content="EV Tariff Calculator 2026 — Electric Vehicle Import Duties">
+    <meta property="og:description" content="Chinese EVs face 55%+ tariffs. Calculate the real tariff impact on electric vehicles from all countries.">
+    <meta property="og:type" content="website">
+    <link rel="canonical" href="https://tariffcalc.us/ev-tariff-calculator.html">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <div class="ambient-bg"><div class="ambient-orb ambient-orb-1"></div><div class="ambient-orb ambient-orb-2"></div><div class="ambient-orb ambient-orb-3"></div></div>
+    <nav id="main-nav" class="navbar"></nav>
+    <div id="breadcrumbs"></div>
+    <section class="page-hero">
+        <div class="hero-container">
+            <span class="hero-emoji">⚡</span>
+            <h1 class="hero-title">EV Tariff Calculator<br><span class="gradient-text">Electric Vehicle Import Duties <span class="dynamic-year">2026</span></span></h1>
+            <p class="hero-subtitle">Electric vehicles face some of the highest tariff rates. Chinese EVs pay 55%+, while European and Asian EVs face 20-25%. Calculate the real cost.</p>
+            <div class="product-hero-cards">
+                <div class="product-hero-card"><span class="phc-emoji">🇨🇳</span><span class="phc-name">Chinese EVs</span><span class="phc-rate">55%+</span><span class="phc-extra">BYD, NIO, XPeng</span></div>
+                <div class="product-hero-card"><span class="phc-emoji">🇪🇺</span><span class="phc-name">European EVs</span><span class="phc-rate">25%</span><span class="phc-extra">BMW, VW, Porsche</span></div>
+                <div class="product-hero-card"><span class="phc-emoji">🇯🇵</span><span class="phc-name">Japanese EVs</span><span class="phc-rate">25%</span><span class="phc-extra">Nissan, Toyota</span></div>
+                <div class="product-hero-card"><span class="phc-emoji">🇰🇷</span><span class="phc-name">Korean EVs</span><span class="phc-rate">25%</span><span class="phc-extra">Hyundai, Kia</span></div>
+            </div>
+        </div>
+    </section>
+    <div class="container">
+        <section class="calculator-section scroll-reveal" id="calculator">
+            <h2 class="section-title">Calculate Your EV Tariff</h2>
+            <p class="section-subtitle">Select your electric vehicle's origin country and price</p>
+            <div class="calculator-grid">
+                <div class="calc-panel calc-input-panel">
+                    <div class="calc-header"><span class="calc-icon">⚡</span><h3>EV Details</h3></div>
+                    <div class="form-group"><label class="form-label" for="product-category">Vehicle Type</label><select class="form-select" id="product-category" disabled><option value="automotive">🚗 Auto Parts & Vehicles</option></select></div>
+                    <div class="form-group"><label class="form-label" for="country-origin">Manufacturing Country</label><select class="form-select" id="country-origin"><option value="">Select country...</option></select></div>
+                    <div class="form-group"><label class="form-label" for="purchase-price">Vehicle Price (USD)</label><input type="number" class="form-input" id="purchase-price" placeholder="e.g. 45000" min="0.01" step="0.01"></div>
+                    <div class="form-group"><label class="form-label" for="purchase-frequency">Purchase Type</label><select class="form-select" id="purchase-frequency"><option value="once">One-time purchase</option></select></div>
+                    <button class="calculate-btn" id="calculate-btn" onclick="calculateTariff()"><span class="btn-text">Calculate EV Tariff</span><span class="btn-icon">→</span></button>
+                </div>
+                <div class="calc-panel calc-results-panel" id="results-panel">
+                    <div id="results-placeholder" class="results-placeholder"><div class="placeholder-icon">⚡</div><p>Select manufacturing country and enter EV price to see tariff impact</p></div>
+                    <div id="results-content" style="display:none;">
+                        <div class="tariff-rate-display"><div class="rate-ring"><svg class="rate-svg" viewBox="0 0 120 120"><circle cx="60" cy="60" r="54" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="8"/><circle id="rate-circle" cx="60" cy="60" r="54" fill="none" stroke="#f87171" stroke-width="8" stroke-linecap="round" stroke-dasharray="339.29" stroke-dashoffset="339.29" transform="rotate(-90 60 60)"/></svg><div class="rate-center"><span class="rate-number" id="rate-value">0%</span></div></div><div class="rate-details"><div class="rate-label">Effective Tariff Rate</div><div class="rate-breakdown" id="rate-breakdown"></div></div></div>
+                        <div class="cost-cards"><div class="cost-card cost-card-red" id="card-extra"><span class="cost-card-label">Extra You're Paying</span><span class="cost-card-value" id="extra-cost-value">$0</span></div><div class="cost-card cost-card-amber" id="card-annual"><span class="cost-card-label">Annual Impact</span><span class="cost-card-value" id="annual-cost-value">$0</span></div><div class="cost-card cost-card-green" id="card-pretariff"><span class="cost-card-label">Pre-Tariff Price</span><span class="cost-card-value" id="pretariff-price-value">$0</span></div></div>
+                        <canvas id="price-chart"></canvas>
+                        <div class="context-card"><span class="context-icon">💡</span><p class="context-text" id="context-text"></p></div>
+                        <button class="share-btn" id="share-btn" onclick="shareResults()">📤 Share Results</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="content-section scroll-reveal">
+            <div class="content-card">
+                <h2>EV Tariffs Explained (<span class="dynamic-year">2026</span>)</h2>
+                <p>Electric vehicles face <strong>some of the highest effective tariff rates</strong> of any product category. This is driven by two overlapping policies: the general 25% auto tariff on all imported vehicles, and the additional Section 301 tariffs on Chinese EVs specifically.</p>
+                <div class="key-facts"><h3>📌 EV Tariff Key Facts</h3><ul>
+                    <li><strong>Chinese EVs:</strong> 55%+ effective rate (25% auto + 30% base China tariff + Section 301)</li>
+                    <li><strong>All other imported EVs:</strong> 25% auto tariff + country reciprocal rate</li>
+                    <li><strong>US-assembled EVs:</strong> No import tariff (Tesla US-made, Rivian, Lucid)</li>
+                    <li><strong>EV batteries:</strong> Chinese-origin batteries face separate tariffs affecting even US-assembled vehicles' costs</li>
+                    <li><strong>IRA tax credits:</strong> Up to $7,500 federal credit can offset tariff increases on qualifying EVs</li>
+                </ul></div>
+                <h3>Why Chinese EVs Face the Highest Tariffs</h3>
+                <p>Chinese automakers like <strong>BYD, NIO, XPeng, and Li Auto</strong> produce EVs at remarkably low prices — some as low as $10,000-$15,000. The US government imposed 100% tariffs on Chinese EVs in 2024 under Section 301, on top of existing tariffs, specifically to prevent Chinese EVs from dominating the US market. The combined effective rate exceeds 55% on most Chinese electric vehicles.</p>
+                <h3>Impact on EV Adoption</h3>
+                <p>Tariffs on imported EVs have mixed effects on EV adoption in the US. They make imported EVs more expensive (potentially slowing adoption), but they also incentivize domestic EV production (Tesla, Rivian, Lucid, GM's Ultium, Ford's electric lineup). The <strong>Inflation Reduction Act (IRA) tax credits</strong> of up to $7,500 can partially offset tariff-related price increases for qualifying vehicles.</p>
+                <div class="highlight-box success">
+                    <h4>💡 Pro Tip: Check Assembly Location</h4>
+                    <p>Many EVs sold in the US are assembled domestically and <strong>avoid the import tariff entirely</strong>. Check if your EV is made in a US plant: Tesla (Fremont, CA / Austin, TX), Rivian (Normal, IL), Lucid (Casa Grande, AZ), GM Ultium (Spring Hill, TN), Ford (Dearborn, MI). Even some "foreign" brands assemble in the US — BMW in Spartanburg, SC and VW in Chattanooga, TN.</p>
+                </div>
+            </div>
+        </section>
+        <section class="faq-section scroll-reveal" id="faq">
+            <h2 class="section-title">EV Tariff FAQ</h2>
+            <div class="faq-list">
+                <details class="faq-item"><summary class="faq-question">How much is the tariff on Chinese electric cars?<span class="faq-toggle">+</span></summary><div class="faq-answer"><p>Chinese EVs face a combined tariff rate of approximately 55% or more, including the 25% auto tariff, the 30% base China tariff, and additional Section 301 duties specifically targeting Chinese EVs. This effectively doubles the cost of a Chinese EV in the US market.</p></div></details>
+                <details class="faq-item"><summary class="faq-question">Does Tesla pay tariffs?<span class="faq-toggle">+</span></summary><div class="faq-answer"><p>Tesla vehicles assembled in the US (Fremont, CA and Austin, TX) do not pay import tariffs. However, Tesla's Shanghai factory produces vehicles for other markets, and any Tesla imported from China would face the full China tariff rate. Some Tesla components imported from China may also face tariffs.</p></div></details>
+                <details class="faq-item"><summary class="faq-question">Can the $7,500 EV tax credit offset the tariff?<span class="faq-toggle">+</span></summary><div class="faq-answer"><p>The Inflation Reduction Act provides up to $7,500 in tax credits for qualifying EVs. This can partially offset tariff-related price increases, but eligibility requirements (including domestic assembly and battery sourcing) limit which vehicles qualify. Many imported EVs do not qualify for the credit.</p></div></details>
+                <details class="faq-item"><summary class="faq-question">Why are Chinese EVs so cheap before tariffs?<span class="faq-toggle">+</span></summary><div class="faq-answer"><p>Chinese EV manufacturers benefit from lower labor costs, massive government subsidies, vertically integrated supply chains (especially for batteries), and economies of scale. BYD, for example, makes its own batteries, chips, and many components in-house.</p></div></details>
+            </div>
+        </section>
+        <section class="content-section scroll-reveal"><div id="internal-links"></div></section>
+        <section class="content-section scroll-reveal"><h2 class="section-title">Related Calculators</h2><div id="related-calculators" class="related-grid"></div></section>
+    </div>
+    <footer id="site-footer" class="site-footer"></footer>
+    <script src="tariff-data.js"></script>
+    <script src="app.js"></script>
+    <script src="page-builder.js"></script>
+    <script>
+        initPage({
+            breadcrumbs: [{ label: 'Home', url: 'index.html' }, { label: 'EV Tariff Calculator' }],
+            prefill: { category: 'automotive', lockCategory: true },
+            currentSlug: 'ev-tariff-calculator',
+            relatedCalculators: ['car-tariff-calculator.html', 'china-tariff-calculator.html', 'japan-tariff-calculator.html', 'index.html', 'tariff-by-country.html', 'how-tariffs-work.html'],
+            buildInternalLinks: true,
+            schemas: [
+                buildWebApplicationSchema('EV Tariff Calculator', 'Calculate US tariffs on electric vehicles from all countries', 'https://tariffcalc.us/ev-tariff-calculator.html'),
+                buildBreadcrumbSchema([{ label: 'Home', url: 'index.html' }, { label: 'EV Tariff Calculator' }], 'https://tariffcalc.us/'),
+                buildFAQSchema([
+                    { question: 'How much is the tariff on Chinese electric cars?', answer: 'Chinese EVs face a combined rate of approximately 55% or more, including 25% auto tariff, 30% base China tariff, and Section 301 duties.' },
+                    { question: 'Does Tesla pay tariffs?', answer: 'Tesla vehicles assembled in the US do not pay import tariffs. Vehicles from Shanghai would face full China tariff rates.' },
+                    { question: 'Can the $7,500 EV tax credit offset the tariff?', answer: 'Partially, but eligibility requirements limit which imported vehicles qualify for the credit.' },
+                    { question: 'Why are Chinese EVs so cheap before tariffs?', answer: 'Lower labor costs, government subsidies, vertically integrated supply chains, and economies of scale.' }
+                ])
+            ]
+        });
+        // Populate country dropdown
+        const countrySelect = document.getElementById('country-origin');
+        Object.entries(COUNTRIES).forEach(([key, c]) => { countrySelect.innerHTML += `<option value="${key}">${c.flag} ${c.name}</option>`; });
+    </script>
+</body>
+</html>

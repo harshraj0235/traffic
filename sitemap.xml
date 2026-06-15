@@ -1,32 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-    <!-- Hub Page -->
-    <url><loc>https://tariffcalc.us/</loc><changefreq>weekly</changefreq><priority>1.0</priority></url>
-    <url><loc>https://tariffcalc.us/index.html</loc><changefreq>weekly</changefreq><priority>1.0</priority></url>
-
-    <!-- Phase 2: High Volume Pages -->
-    <url><loc>https://tariffcalc.us/how-much-tariffs-cost-me.html</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
-    <url><loc>https://tariffcalc.us/china-tariff-calculator.html</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
-    <url><loc>https://tariffcalc.us/iphone-tariff-calculator.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-    <url><loc>https://tariffcalc.us/shein-temu-tariff-calculator.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-    <url><loc>https://tariffcalc.us/online-shopping-tariff-calculator.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-    <url><loc>https://tariffcalc.us/grocery-tariff-calculator.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-    <url><loc>https://tariffcalc.us/car-tariff-calculator.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-    <url><loc>https://tariffcalc.us/clothing-tariff-calculator.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-    <url><loc>https://tariffcalc.us/tariff-by-country.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
-    <url><loc>https://tariffcalc.us/de-minimis-calculator.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-
-    <!-- Phase 3: Medium Volume Pages -->
-    <url><loc>https://tariffcalc.us/import-duty-calculator.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+    <url><loc>https://tariffcalc.us/</loc><changefreq>daily</changefreq><priority>1.0</priority></url>
+    <url><loc>https://tariffcalc.us/china-tariff-calculator.html</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+    <url><loc>https://tariffcalc.us/how-much-tariffs-cost-me.html</loc><changefreq>weekly</changefreq><priority>0.9</priority></url>
+    <url><loc>https://tariffcalc.us/iphone-tariff-calculator.html</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+    <url><loc>https://tariffcalc.us/online-shopping-tariff-calculator.html</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+    <url><loc>https://tariffcalc.us/shein-temu-tariff-calculator.html</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+    <url><loc>https://tariffcalc.us/grocery-tariff-calculator.html</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+    <url><loc>https://tariffcalc.us/car-tariff-calculator.html</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+    <url><loc>https://tariffcalc.us/mexico-tariff-calculator.html</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+    <url><loc>https://tariffcalc.us/ev-tariff-calculator.html</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+    <url><loc>https://tariffcalc.us/how-tariffs-work.html</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+    <url><loc>https://tariffcalc.us/tariff-by-country.html</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+    <url><loc>https://tariffcalc.us/import-duty-calculator.html</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+    <url><loc>https://tariffcalc.us/clothing-tariff-calculator.html</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+    <url><loc>https://tariffcalc.us/de-minimis-calculator.html</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
     <url><loc>https://tariffcalc.us/tariff-savings-tips.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-    <url><loc>https://tariffcalc.us/electronics-tariff-calculator.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-    <url><loc>https://tariffcalc.us/laptop-tariff-calculator.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-    <url><loc>https://tariffcalc.us/tariff-comparison-tool.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+    <url><loc>https://tariffcalc.us/electronics-tariff-calculator.html</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+    <url><loc>https://tariffcalc.us/laptop-tariff-calculator.html</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+    <url><loc>https://tariffcalc.us/tariff-comparison-tool.html</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
     <url><loc>https://tariffcalc.us/tariff-timeline.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
-
-    <!-- Phase 4: Geo-Targeted + Niche Pages -->
-    <url><loc>https://tariffcalc.us/canada-tariff-calculator.html</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
-    <url><loc>https://tariffcalc.us/uk-import-duty-calculator.html</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
-    <url><loc>https://tariffcalc.us/furniture-tariff-calculator.html</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
-    <url><loc>https://tariffcalc.us/toys-tariff-calculator.html</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+    <url><loc>https://tariffcalc.us/japan-tariff-calculator.html</loc><changefreq>weekly</changefreq><priority>0.7</priority></url>
+    <url><loc>https://tariffcalc.us/who-pays-tariffs.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+    <url><loc>https://tariffcalc.us/canada-tariff-calculator.html</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+    <url><loc>https://tariffcalc.us/uk-import-duty-calculator.html</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+    <url><loc>https://tariffcalc.us/furniture-tariff-calculator.html</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
+    <url><loc>https://tariffcalc.us/toys-tariff-calculator.html</loc><changefreq>weekly</changefreq><priority>0.6</priority></url>
 </urlset>

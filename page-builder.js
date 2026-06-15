@@ -308,6 +308,53 @@ function buildFAQSchema(faqs) {
     };
 }
 
+function buildWebApplicationSchema(name, description, url) {
+    return {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": name || "US Tariff Calculator",
+        "description": description || "Free consumer tariff impact calculator for American shoppers",
+        "url": url || "https://tariffcalc.us",
+        "applicationCategory": "FinanceApplication",
+        "operatingSystem": "Web",
+        "browserRequirements": "Requires JavaScript",
+        "softwareVersion": DATA_VERSION,
+        "dateModified": DATA_LAST_UPDATED,
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+        },
+        "creator": {
+            "@type": "Organization",
+            "name": "TariffCalc",
+            "url": "https://tariffcalc.us"
+        }
+    };
+}
+
+function buildArticleSchema(title, description, url, datePublished) {
+    return {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": title,
+        "description": description,
+        "url": url,
+        "datePublished": datePublished || DATA_LAST_UPDATED,
+        "dateModified": DATA_LAST_UPDATED,
+        "author": {
+            "@type": "Organization",
+            "name": "TariffCalc",
+            "url": "https://tariffcalc.us"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "TariffCalc",
+            "url": "https://tariffcalc.us"
+        }
+    };
+}
+
 function buildOrganizationSchema() {
     return {
         "@context": "https://schema.org",
@@ -564,6 +611,39 @@ function initPage(options = {}) {
         meta.setAttribute('property', 'og:type');
         meta.content = 'website';
         document.head.appendChild(meta);
+    }
+
+    // SEO: Add og:site_name if missing
+    if (!document.querySelector('meta[property="og:site_name"]')) {
+        const meta = document.createElement('meta');
+        meta.setAttribute('property', 'og:site_name');
+        meta.content = 'TariffCalc — US Tariff Impact Calculator';
+        document.head.appendChild(meta);
+    }
+
+    // SEO: Add og:url if missing
+    if (!document.querySelector('meta[property="og:url"]')) {
+        const meta = document.createElement('meta');
+        meta.setAttribute('property', 'og:url');
+        meta.content = window.location.href.split('?')[0];
+        document.head.appendChild(meta);
+    }
+
+    // SEO: Add twitter:card if missing
+    if (!document.querySelector('meta[name="twitter:card"]')) {
+        const meta = document.createElement('meta');
+        meta.name = 'twitter:card';
+        meta.content = 'summary_large_image';
+        document.head.appendChild(meta);
+    }
+
+    // SEO: Inject "Last Updated" badge into footer
+    const footerDisclaimer = document.querySelector('.footer-disclaimer');
+    if (footerDisclaimer && typeof DATA_LAST_UPDATED !== 'undefined') {
+        const badge = document.createElement('p');
+        badge.style.cssText = 'font-size:0.75rem;color:var(--text-muted);margin-top:8px;';
+        badge.innerHTML = `📅 Tariff data last updated: <strong>${DATA_LAST_UPDATED}</strong> · Data version: ${DATA_VERSION}`;
+        footerDisclaimer.parentNode.insertBefore(badge, footerDisclaimer.nextSibling);
     }
 
     // Listen for system theme changes

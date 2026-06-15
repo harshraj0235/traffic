@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mexico Tariff Calculator 2026 — Calculate US-Mexico Import Duties | TariffCalc</title>
+    <meta name="description" content="Calculate tariffs on Mexican imports to the US. See the 25% IEEPA tariff impact on avocados, cars, beer, tequila & more. Free calculator with USMCA exemption info.">
+    <meta name="keywords" content="Mexico tariff calculator, US Mexico tariff, tariff on Mexican goods, USMCA tariff, Mexico import duty 2026, avocado tariff">
+    <meta property="og:title" content="Mexico Tariff Calculator 2026 — US-Mexico Import Duties">
+    <meta property="og:description" content="Calculate the real cost of tariffs on Mexican imports. 25% IEEPA tariff rates, USMCA exemptions, and product-specific calculations.">
+    <meta property="og:type" content="website">
+    <link rel="canonical" href="https://tariffcalc.us/mexico-tariff-calculator.html">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <div class="ambient-bg"><div class="ambient-orb ambient-orb-1"></div><div class="ambient-orb ambient-orb-2"></div><div class="ambient-orb ambient-orb-3"></div></div>
+    <nav id="main-nav" class="navbar"></nav>
+    <div id="breadcrumbs"></div>
+
+    <section class="page-hero">
+        <div class="hero-container">
+            <span class="hero-emoji">🇲🇽</span>
+            <h1 class="hero-title">Mexico Tariff Calculator<br><span class="gradient-text">US-Mexico Import Duties <span class="dynamic-year">2026</span></span></h1>
+            <p class="hero-subtitle">Mexico is the #1 US trading partner by total volume. Calculate the 25% IEEPA tariff impact on vehicles, produce, beer, tequila, and more.</p>
+            <div class="product-hero-cards">
+                <div class="product-hero-card"><span class="phc-emoji">🥑</span><span class="phc-name">Avocados</span><span class="phc-rate">25%</span><span class="phc-extra">Fresh produce</span></div>
+                <div class="product-hero-card"><span class="phc-emoji">🚗</span><span class="phc-name">Vehicles</span><span class="phc-rate">25%</span><span class="phc-extra">Auto tariff</span></div>
+                <div class="product-hero-card"><span class="phc-emoji">🍺</span><span class="phc-name">Beer</span><span class="phc-rate">25%</span><span class="phc-extra">Corona, Modelo</span></div>
+                <div class="product-hero-card"><span class="phc-emoji">🌮</span><span class="phc-name">Food Items</span><span class="phc-rate">25%</span><span class="phc-extra">Peppers, tomatoes</span></div>
+            </div>
+        </div>
+    </section>
+
+    <div class="container">
+        <section class="calculator-section scroll-reveal" id="calculator">
+            <h2 class="section-title">Calculate Your Mexico Tariff</h2>
+            <p class="section-subtitle">See how much extra you're paying on Mexican imports</p>
+            <div class="calculator-grid">
+                <div class="calc-panel calc-input-panel">
+                    <div class="calc-header"><span class="calc-icon">🧮</span><h3>Enter Product Details</h3></div>
+                    <div class="form-group"><label class="form-label" for="product-category">Product Category</label><select class="form-select" id="product-category"><option value="">Select category...</option></select></div>
+                    <div class="form-group"><label class="form-label" for="country-origin">Country of Origin</label><select class="form-select" id="country-origin" disabled><option value="mexico">🇲🇽 Mexico</option></select></div>
+                    <div class="form-group"><label class="form-label" for="purchase-price">Purchase Price (USD)</label><input type="number" class="form-input" id="purchase-price" placeholder="e.g. 150" min="0.01" step="0.01"></div>
+                    <div class="form-group"><label class="form-label" for="purchase-frequency">Purchase Frequency</label><select class="form-select" id="purchase-frequency"><option value="once">One-time purchase</option><option value="weekly">Weekly</option><option value="monthly">Monthly</option><option value="quarterly">Every 3 months</option><option value="yearly">Once a year</option></select></div>
+                    <button class="calculate-btn" id="calculate-btn" onclick="calculateTariff()"><span class="btn-text">Calculate Tariff Impact</span><span class="btn-icon">→</span></button>
+                </div>
+                <div class="calc-panel calc-results-panel" id="results-panel">
+                    <div id="results-placeholder" class="results-placeholder"><div class="placeholder-icon">📊</div><p>Enter a product and price to see your Mexico tariff impact</p></div>
+                    <div id="results-content" style="display:none;">
+                        <div class="tariff-rate-display"><div class="rate-ring"><svg class="rate-svg" viewBox="0 0 120 120"><circle cx="60" cy="60" r="54" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="8"/><circle id="rate-circle" cx="60" cy="60" r="54" fill="none" stroke="#f87171" stroke-width="8" stroke-linecap="round" stroke-dasharray="339.29" stroke-dashoffset="339.29" transform="rotate(-90 60 60)"/></svg><div class="rate-center"><span class="rate-number" id="rate-value">0%</span></div></div><div class="rate-details"><div class="rate-label">Effective Tariff Rate</div><div class="rate-breakdown" id="rate-breakdown"></div></div></div>
+                        <div class="cost-cards"><div class="cost-card cost-card-red" id="card-extra"><span class="cost-card-label">Extra You're Paying</span><span class="cost-card-value" id="extra-cost-value">$0</span></div><div class="cost-card cost-card-amber" id="card-annual"><span class="cost-card-label">Annual Impact</span><span class="cost-card-value" id="annual-cost-value">$0</span></div><div class="cost-card cost-card-green" id="card-pretariff"><span class="cost-card-label">Pre-Tariff Price</span><span class="cost-card-value" id="pretariff-price-value">$0</span></div></div>
+                        <canvas id="price-chart"></canvas>
+                        <div class="context-card"><span class="context-icon">💡</span><p class="context-text" id="context-text"></p></div>
+                        <button class="share-btn" id="share-btn" onclick="shareResults()">📤 Share Your Tariff Impact</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="content-section scroll-reveal">
+            <div class="content-card">
+                <h2>Understanding US-Mexico Tariffs in <span class="dynamic-year">2026</span></h2>
+                <p>Mexico is the <strong>largest US trading partner by total trade volume</strong>, with over $800 billion in goods crossing the border annually. The current 25% tariff was imposed under the International Emergency Economic Powers Act (IEEPA) citing fentanyl trafficking concerns.</p>
+
+                <div class="key-facts">
+                    <h3>📌 Mexico Tariff Key Facts</h3>
+                    <ul>
+                        <li><strong>Current rate:</strong> 25% IEEPA tariff on most Mexican goods</li>
+                        <li><strong>USMCA exemption:</strong> Goods meeting USMCA (formerly NAFTA) rules of origin may qualify for 0% duty</li>
+                        <li><strong>Auto tariff:</strong> 25% on all imported vehicles regardless of USMCA status</li>
+                        <li><strong>Fresh produce:</strong> ~50% of US fresh fruits and vegetables come from Mexico</li>
+                        <li><strong>Beer impact:</strong> Corona, Modelo, Dos Equis, Pacifico all face the 25% tariff</li>
+                    </ul>
+                </div>
+
+                <h3>Most Affected Mexican Imports</h3>
+                <p>The categories most impacted by the US-Mexico tariff include:</p>
+                <ul>
+                    <li><strong>Vehicles & Auto Parts:</strong> Mexico is home to major GM, Ford, Toyota, and VW assembly plants. The 25% auto tariff adds $7,000-$12,000 to imported vehicles.</li>
+                    <li><strong>Fresh Produce:</strong> Avocados, tomatoes, peppers, berries, and lettuce from Mexico face the 25% tariff, directly impacting grocery prices.</li>
+                    <li><strong>Beer & Spirits:</strong> Mexico is the largest beer exporter to the US. Corona, Modelo, and Dos Equis prices have risen 15-25%.</li>
+                    <li><strong>Tequila & Mezcal:</strong> Premium spirits from Mexico face the full 25% duty.</li>
+                    <li><strong>Electronics Assembly:</strong> Many electronics assembled in Mexican maquiladoras face tariffs on components.</li>
+                </ul>
+
+                <div class="highlight-box">
+                    <h4>🔄 USMCA Exemption</h4>
+                    <p>Products that meet USMCA (US-Mexico-Canada Agreement) rules of origin — meaning sufficient manufacturing or processing occurred in North America — may qualify for reduced or zero tariff rates. However, the IEEPA tariffs override USMCA benefits for many product categories. Check with a customs broker for specific product eligibility.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="faq-section scroll-reveal" id="faq">
+            <h2 class="section-title">Mexico Tariff FAQ</h2>
+            <div class="faq-list">
+                <details class="faq-item"><summary class="faq-question">Why are there tariffs on Mexican goods?<span class="faq-toggle">+</span></summary><div class="faq-answer"><p>The 25% tariff on Mexican imports was imposed under the International Emergency Economic Powers Act (IEEPA) in 2025, citing fentanyl trafficking concerns. It is not a reciprocal trade tariff but rather an emergency measure.</p></div></details>
+                <details class="faq-item"><summary class="faq-question">Does USMCA protect Mexican goods from tariffs?<span class="faq-toggle">+</span></summary><div class="faq-answer"><p>Partially. USMCA-compliant goods may qualify for reduced or zero duty rates, but the IEEPA tariffs override USMCA benefits for many product categories. The 25% auto tariff applies regardless of USMCA status.</p></div></details>
+                <details class="faq-item"><summary class="faq-question">How do Mexico tariffs affect grocery prices?<span class="faq-toggle">+</span></summary><div class="faq-answer"><p>Significantly. About 50% of US fresh fruit and vegetable imports come from Mexico. Avocados, tomatoes, peppers, berries, and lettuce have all seen price increases of 15-30% due to the 25% tariff.</p></div></details>
+                <details class="faq-item"><summary class="faq-question">Are Corona and Modelo beer prices going up?<span class="faq-toggle">+</span></summary><div class="faq-answer"><p>Yes. All Mexican beer exports face the 25% IEEPA tariff. Constellation Brands, which distributes Corona and Modelo in the US, has raised prices 15-25% to offset tariff costs.</p></div></details>
+                <details class="faq-item"><summary class="faq-question">Will Mexico tariffs be reduced?<span class="faq-toggle">+</span></summary><div class="faq-answer"><p>It depends on bilateral negotiations. The tariffs are tied to fentanyl enforcement cooperation. If Mexico demonstrates sufficient anti-trafficking measures, the administration has indicated willingness to reduce rates.</p></div></details>
+            </div>
+        </section>
+
+        <section class="content-section scroll-reveal"><div id="internal-links"></div></section>
+        <section class="content-section scroll-reveal"><h2 class="section-title">Related Calculators</h2><div id="related-calculators" class="related-grid"></div></section>
+    </div>
+
+    <footer id="site-footer" class="site-footer"></footer>
+    <script src="tariff-data.js"></script>
+    <script src="app.js"></script>
+    <script src="page-builder.js"></script>
+    <script>
+        initPage({
+            breadcrumbs: [{ label: 'Home', url: 'index.html' }, { label: 'Mexico Tariff Calculator' }],
+            prefill: { country: 'mexico', lockCountry: true },
+            currentSlug: 'mexico-tariff-calculator',
+            relatedCalculators: ['index.html', 'canada-tariff-calculator.html', 'grocery-tariff-calculator.html', 'car-tariff-calculator.html', 'tariff-by-country.html', 'how-tariffs-work.html'],
+            buildInternalLinks: true,
+            buildExamples: true, exampleCountry: 'mexico', exampleMax: 6,
+            schemas: [
+                buildWebApplicationSchema('Mexico Tariff Calculator', 'Calculate US tariffs on Mexican imports including vehicles, produce, beer, and more', 'https://tariffcalc.us/mexico-tariff-calculator.html'),
+                buildBreadcrumbSchema([{ label: 'Home', url: 'index.html' }, { label: 'Mexico Tariff Calculator' }], 'https://tariffcalc.us/'),
+                buildFAQSchema([
+                    { question: 'Why are there tariffs on Mexican goods?', answer: 'The 25% tariff on Mexican imports was imposed under the IEEPA in 2025, citing fentanyl trafficking concerns.' },
+                    { question: 'Does USMCA protect Mexican goods from tariffs?', answer: 'Partially. USMCA-compliant goods may qualify for reduced rates, but IEEPA tariffs override USMCA for many categories.' },
+                    { question: 'How do Mexico tariffs affect grocery prices?', answer: 'About 50% of US fresh fruit and vegetable imports come from Mexico. Prices have risen 15-30% due to the 25% tariff.' },
+                    { question: 'Are Corona and Modelo beer prices going up?', answer: 'Yes. All Mexican beer exports face the 25% IEEPA tariff, with prices rising 15-25%.' },
+                    { question: 'Will Mexico tariffs be reduced?', answer: 'It depends on bilateral negotiations tied to fentanyl enforcement cooperation.' }
+                ])
+            ]
+        });
+        // Populate category dropdown
+        const catSelect = document.getElementById('product-category');
+        Object.entries(CATEGORIES).forEach(([key, cat]) => {
+            catSelect.innerHTML += `<option value="${key}">${cat.emoji} ${cat.name}</option>`;
+        });
+    </script>
+</body>
+</html>

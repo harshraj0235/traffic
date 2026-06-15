@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Japan Tariff Calculator 2026 — Toyota, Honda, Sony Import Duties | TariffCalc</title>
+    <meta name="description" content="Calculate US tariffs on Japanese imports. 24% reciprocal tariff + 25% auto tariff on Toyota, Honda, Nissan. See impact on PlayStation, Nintendo Switch & more.">
+    <meta name="keywords" content="Japan tariff calculator, tariff on Japanese cars, Toyota tariff, Honda tariff, PlayStation tariff, Nintendo Switch tariff 2026">
+    <meta property="og:title" content="Japan Tariff Calculator 2026 — Cars, Electronics & Gaming">
+    <meta property="og:description" content="Calculate tariffs on Japanese imports: Toyota, Honda, Sony PlayStation, Nintendo. 24% reciprocal + 25% auto tariff.">
+    <meta property="og:type" content="website">
+    <link rel="canonical" href="https://tariffcalc.us/japan-tariff-calculator.html">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <div class="ambient-bg"><div class="ambient-orb ambient-orb-1"></div><div class="ambient-orb ambient-orb-2"></div><div class="ambient-orb ambient-orb-3"></div></div>
+    <nav id="main-nav" class="navbar"></nav>
+    <div id="breadcrumbs"></div>
+    <section class="page-hero">
+        <div class="hero-container">
+            <span class="hero-emoji">🇯🇵</span>
+            <h1 class="hero-title">Japan Tariff Calculator<br><span class="gradient-text">US-Japan Import Duties <span class="dynamic-year">2026</span></span></h1>
+            <p class="hero-subtitle">Japan faces a 24% reciprocal tariff plus 25% on all vehicles. Calculate the impact on Toyota, Honda, Sony, Nintendo & more.</p>
+            <div class="product-hero-cards">
+                <div class="product-hero-card"><span class="phc-emoji">🚗</span><span class="phc-name">Toyota/Honda</span><span class="phc-rate">25%</span><span class="phc-extra">Auto tariff</span></div>
+                <div class="product-hero-card"><span class="phc-emoji">🎮</span><span class="phc-name">PlayStation 5</span><span class="phc-rate">24%</span><span class="phc-extra">Reciprocal</span></div>
+                <div class="product-hero-card"><span class="phc-emoji">📷</span><span class="phc-name">Canon/Nikon</span><span class="phc-rate">24%</span><span class="phc-extra">Electronics</span></div>
+                <div class="product-hero-card"><span class="phc-emoji">🥃</span><span class="phc-name">Japanese Whisky</span><span class="phc-rate">24%</span><span class="phc-extra">Spirits</span></div>
+            </div>
+        </div>
+    </section>
+    <div class="container">
+        <section class="calculator-section scroll-reveal" id="calculator">
+            <h2 class="section-title">Calculate Your Japan Tariff</h2>
+            <p class="section-subtitle">See how much extra you're paying on Japanese imports</p>
+            <div class="calculator-grid">
+                <div class="calc-panel calc-input-panel">
+                    <div class="calc-header"><span class="calc-icon">🧮</span><h3>Enter Product Details</h3></div>
+                    <div class="form-group"><label class="form-label" for="product-category">Product Category</label><select class="form-select" id="product-category"><option value="">Select category...</option></select></div>
+                    <div class="form-group"><label class="form-label" for="country-origin">Country of Origin</label><select class="form-select" id="country-origin" disabled><option value="japan">🇯🇵 Japan</option></select></div>
+                    <div class="form-group"><label class="form-label" for="purchase-price">Purchase Price (USD)</label><input type="number" class="form-input" id="purchase-price" placeholder="e.g. 28000" min="0.01" step="0.01"></div>
+                    <div class="form-group"><label class="form-label" for="purchase-frequency">Purchase Frequency</label><select class="form-select" id="purchase-frequency"><option value="once">One-time purchase</option><option value="weekly">Weekly</option><option value="monthly">Monthly</option><option value="quarterly">Every 3 months</option><option value="yearly">Once a year</option></select></div>
+                    <button class="calculate-btn" id="calculate-btn" onclick="calculateTariff()"><span class="btn-text">Calculate Tariff Impact</span><span class="btn-icon">→</span></button>
+                </div>
+                <div class="calc-panel calc-results-panel" id="results-panel">
+                    <div id="results-placeholder" class="results-placeholder"><div class="placeholder-icon">📊</div><p>Enter a product and price to see your Japan tariff impact</p></div>
+                    <div id="results-content" style="display:none;">
+                        <div class="tariff-rate-display"><div class="rate-ring"><svg class="rate-svg" viewBox="0 0 120 120"><circle cx="60" cy="60" r="54" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="8"/><circle id="rate-circle" cx="60" cy="60" r="54" fill="none" stroke="#f87171" stroke-width="8" stroke-linecap="round" stroke-dasharray="339.29" stroke-dashoffset="339.29" transform="rotate(-90 60 60)"/></svg><div class="rate-center"><span class="rate-number" id="rate-value">0%</span></div></div><div class="rate-details"><div class="rate-label">Effective Tariff Rate</div><div class="rate-breakdown" id="rate-breakdown"></div></div></div>
+                        <div class="cost-cards"><div class="cost-card cost-card-red" id="card-extra"><span class="cost-card-label">Extra You're Paying</span><span class="cost-card-value" id="extra-cost-value">$0</span></div><div class="cost-card cost-card-amber" id="card-annual"><span class="cost-card-label">Annual Impact</span><span class="cost-card-value" id="annual-cost-value">$0</span></div><div class="cost-card cost-card-green" id="card-pretariff"><span class="cost-card-label">Pre-Tariff Price</span><span class="cost-card-value" id="pretariff-price-value">$0</span></div></div>
+                        <canvas id="price-chart"></canvas>
+                        <div class="context-card"><span class="context-icon">💡</span><p class="context-text" id="context-text"></p></div>
+                        <button class="share-btn" id="share-btn" onclick="shareResults()">📤 Share Results</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="content-section scroll-reveal">
+            <div class="content-card">
+                <h2>US-Japan Tariffs Explained (<span class="dynamic-year">2026</span>)</h2>
+                <p>Japan is one of the <strong>most significantly impacted US allies</strong> by the current tariff regime. As a close security partner, the imposition of tariffs has created diplomatic tension alongside economic costs for American consumers.</p>
+                <div class="key-facts"><h3>📌 Japan Tariff Key Facts</h3><ul>
+                    <li><strong>Reciprocal rate:</strong> 24% on most Japanese goods</li>
+                    <li><strong>Auto tariff:</strong> 25% on all vehicles (Toyota, Honda, Nissan, Subaru, Mazda)</li>
+                    <li><strong>Gaming:</strong> PlayStation 5 and Nintendo Switch face 24% tariff</li>
+                    <li><strong>Cameras:</strong> Canon, Nikon, Sony cameras face 24% duty</li>
+                    <li><strong>Japanese whisky</strong> and sake face the full 24% reciprocal tariff</li>
+                </ul></div>
+                <h3>Impact on Japanese Auto Brands</h3>
+                <p>The <strong>25% auto tariff</strong> is the single largest impact. A Toyota Camry assembled in Japan that cost $28,000 pre-tariff now costs approximately $5,600 more. Japanese automakers Toyota, Honda, Nissan, Subaru, and Mazda have all raised US prices. Some models assembled in US or Canadian plants may avoid the tariff.</p>
+                <h3>Impact on Gaming & Electronics</h3>
+                <p>Sony's PlayStation 5 Pro (assembled in Japan) faces a 24% tariff, adding ~$170 to its cost. Nintendo Switch 2 faces similar rates on Japan-assembled units. Canon and Nikon cameras, Sony audio equipment, and Panasonic electronics also face the full 24% reciprocal tariff.</p>
+            </div>
+        </section>
+        <section class="faq-section scroll-reveal" id="faq">
+            <h2 class="section-title">Japan Tariff FAQ</h2>
+            <div class="faq-list">
+                <details class="faq-item"><summary class="faq-question">How much is the tariff on Japanese cars?<span class="faq-toggle">+</span></summary><div class="faq-answer"><p>25% on all imported passenger vehicles. This applies to any Toyota, Honda, Nissan, Subaru, or Mazda assembled in Japan. Vehicles assembled in US plants (like some Toyota Camry and Honda Accord models) are not subject to this tariff.</p></div></details>
+                <details class="faq-item"><summary class="faq-question">Is the PlayStation 5 affected by tariffs?<span class="faq-toggle">+</span></summary><div class="faq-answer"><p>Yes. PlayStation 5 units assembled in Japan face a 24% reciprocal tariff. Sony has partially absorbed costs but retail prices have increased. Units assembled in China face even higher combined tariffs.</p></div></details>
+                <details class="faq-item"><summary class="faq-question">Are Japanese cars made in the US tariff-free?<span class="faq-toggle">+</span></summary><div class="faq-answer"><p>Yes, vehicles assembled in US plants are not subject to the 25% import tariff. Many Japanese automakers have US factories: Toyota (Kentucky, Indiana), Honda (Ohio, Alabama), Nissan (Tennessee), and Subaru (Indiana).</p></div></details>
+                <details class="faq-item"><summary class="faq-question">Will Japan negotiate a trade deal?<span class="faq-toggle">+</span></summary><div class="faq-answer"><p>Negotiations are ongoing. As a close security ally, Japan is considered a priority for a bilateral trade agreement. However, agricultural market access (rice, beef) remains a sticking point in negotiations.</p></div></details>
+            </div>
+        </section>
+        <section class="content-section scroll-reveal"><div id="internal-links"></div></section>
+        <section class="content-section scroll-reveal"><h2 class="section-title">Related Calculators</h2><div id="related-calculators" class="related-grid"></div></section>
+    </div>
+    <footer id="site-footer" class="site-footer"></footer>
+    <script src="tariff-data.js"></script>
+    <script src="app.js"></script>
+    <script src="page-builder.js"></script>
+    <script>
+        initPage({
+            breadcrumbs: [{ label: 'Home', url: 'index.html' }, { label: 'Japan Tariff Calculator' }],
+            prefill: { country: 'japan', lockCountry: true },
+            currentSlug: 'japan-tariff-calculator',
+            relatedCalculators: ['car-tariff-calculator.html', 'electronics-tariff-calculator.html', 'tariff-by-country.html', 'index.html', 'how-tariffs-work.html'],
+            buildInternalLinks: true,
+            schemas: [
+                buildWebApplicationSchema('Japan Tariff Calculator', 'Calculate US tariffs on Japanese imports including Toyota, Honda, Sony, and Nintendo', 'https://tariffcalc.us/japan-tariff-calculator.html'),
+                buildBreadcrumbSchema([{ label: 'Home', url: 'index.html' }, { label: 'Japan Tariff Calculator' }], 'https://tariffcalc.us/'),
+                buildFAQSchema([
+                    { question: 'How much is the tariff on Japanese cars?', answer: '25% on all imported passenger vehicles from Japan. Vehicles assembled in US plants are exempt.' },
+                    { question: 'Is the PlayStation 5 affected by tariffs?', answer: 'Yes. PS5 units assembled in Japan face a 24% reciprocal tariff.' },
+                    { question: 'Are Japanese cars made in the US tariff-free?', answer: 'Yes, vehicles assembled in US plants are not subject to the 25% import tariff.' },
+                    { question: 'Will Japan negotiate a trade deal?', answer: 'Negotiations are ongoing. Japan is a priority for a bilateral agreement as a close security ally.' }
+                ])
+            ]
+        });
+        const catSelect = document.getElementById('product-category');
+        Object.entries(CATEGORIES).forEach(([key, cat]) => { catSelect.innerHTML += `<option value="${key}">${cat.emoji} ${cat.name}</option>`; });
+    </script>
+</body>
+</html>
