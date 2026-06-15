@@ -1828,12 +1828,25 @@ img { max-width: 100%; display: block; }
     color: var(--accent-blue);
 }
 
+.mobile-controls {
+    display: none;
+    align-items: center;
+    gap: 12px;
+}
+
+.mobile-theme-toggle {
+    width: 36px;
+    height: 36px;
+    font-size: 1rem;
+}
+
 body.menu-open {
     overflow: hidden;
 }
 
 @media (max-width: 768px) {
     .nav-links { display: none !important; }
+    .mobile-controls { display: flex; }
     .mobile-menu-btn { display: flex; }
     .mobile-menu { display: block; }
 }

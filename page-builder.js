@@ -85,8 +85,8 @@ function buildNavigation() {
                     <span class="theme-icon">${(document.documentElement.getAttribute('data-theme') || 'dark') === 'dark' ? '☀️' : '🌙'}</span>
                 </button>
             </div>
-            <div style="display:flex;align-items:center;gap:8px;">
-                <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark/light theme" title="Toggle theme" style="width:38px;height:38px;font-size:1rem;">
+            <div class="mobile-controls">
+                <button class="theme-toggle mobile-theme-toggle" onclick="toggleTheme()" aria-label="Toggle dark/light theme" title="Toggle theme">
                     <span class="theme-icon">${(document.documentElement.getAttribute('data-theme') || 'dark') === 'dark' ? '☀️' : '🌙'}</span>
                 </button>
                 <button class="mobile-menu-btn" id="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Toggle navigation menu">
