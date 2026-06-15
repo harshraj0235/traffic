@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>China Tariff Calculator 2026 — Calculate Tariffs on Chinese Imports</title>
+    <meta name="description" content="Free China tariff impact calculator. See exact tariff rates on Chinese imports including electronics, clothing, toys & more. Section 301 + IEEPA duties explained.">
+    <meta name="keywords" content="China tariff calculator, China tariff rate 2026, tariff on Chinese goods, Section 301 tariff, China import duty, tariff on products from China">
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="China Tariff Calculator — How Much Are Chinese Import Tariffs Costing You?">
+    <meta property="og:description" content="Calculate exact tariff rates on Chinese imports. Electronics, clothing, toys, furniture — see how much you're really paying.">
+    <meta property="og:type" content="website">
+    <link rel="canonical" href="https://tariffcalc.us/china-tariff-calculator.html">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <div class="ambient-bg"><div class="ambient-orb ambient-orb-1"></div><div class="ambient-orb ambient-orb-2"></div><div class="ambient-orb ambient-orb-3"></div></div>
+    <nav id="main-nav" class="navbar"></nav>
+    <div id="breadcrumbs"></div>
+
+    <header class="page-hero">
+        <div class="hero-container">
+            <div class="hero-badge"><span class="badge-pulse"></span><span>Updated <span class="dynamic-year"></span> China Tariff Rates</span></div>
+            <span class="hero-emoji">🇨🇳</span>
+            <h1 class="hero-title">China Tariff Impact Calculator <span class="dynamic-year"></span></h1>
+            <p class="hero-subtitle">China faces the <strong>highest US tariff rates</strong> of any country — up to 145% on some goods. Calculate exactly how much you're paying on Chinese imports across all product categories.</p>
+            <div class="product-hero-cards" id="china-hero-cards"></div>
+        </div>
+    </header>
+
+    <section id="calculator" class="calculator-section">
+        <div class="section-container">
+            <div class="section-header">
+                <h2 class="section-title">Calculate China Import Tariffs</h2>
+                <p class="section-desc">Select a product category and enter the price to see the full tariff breakdown for Chinese imports.</p>
+            </div>
+            <div class="calculator-grid">
+                <div class="calc-panel input-panel" id="input-panel">
+                    <div class="panel-header"><div class="panel-icon">🇨🇳</div><h3>Chinese Import Details</h3></div>
+                    <div class="form-group"><label for="product-category" class="form-label"><span class="label-icon">🏷️</span>Product Category</label><div class="select-wrapper"><select id="product-category" class="form-select"><option value="">Select a category...</option><option value="electronics">📱 Electronics & Tech</option><option value="clothing">👕 Clothing & Apparel</option><option value="automotive">🚗 Auto Parts & Vehicles</option><option value="food">🍎 Food & Groceries</option><option value="furniture">🪑 Furniture & Home</option><option value="toys">🧸 Toys & Games</option><option value="appliances">🏠 Home Appliances</option><option value="sports">⚽ Sports & Outdoor</option><option value="beauty">💄 Beauty & Personal Care</option><option value="tools">🔧 Tools & Hardware</option><option value="medical">💊 Medical & Health</option><option value="shoes">👟 Footwear</option></select></div></div>
+                    <div class="form-group"><label for="country-origin" class="form-label"><span class="label-icon">🌍</span>Country of Manufacture</label><div class="select-wrapper"><select id="country-origin" class="form-select" disabled><option value="china" selected>🇨🇳 China</option></select></div></div>
+                    <div class="form-group"><label for="purchase-price" class="form-label"><span class="label-icon">💵</span>Purchase Price (USD)</label><div class="price-input-wrapper"><span class="price-prefix">$</span><input type="number" id="purchase-price" class="form-input" placeholder="e.g. 999" min="1" step="0.01"></div></div>
+                    <div class="form-group"><label for="purchase-frequency" class="form-label"><span class="label-icon">🔄</span>How Often Do You Buy This?</label><div class="select-wrapper"><select id="purchase-frequency" class="form-select"><option value="once">One-time purchase</option><option value="weekly">Weekly</option><option value="monthly">Monthly</option><option value="quarterly">Every 3 months</option><option value="yearly">Once a year</option></select></div></div>
+                    <button id="calculate-btn" class="calculate-btn" onclick="calculateTariff()"><span class="btn-text">Calculate China Tariff Impact</span><span class="btn-icon">⚡</span></button>
+                </div>
+                <div class="calc-panel results-panel" id="results-panel">
+                    <div class="results-placeholder" id="results-placeholder"><div class="placeholder-icon">📊</div><h3>Your China Tariff Results</h3><p>Select a product category and price to see the full tariff breakdown.</p></div>
+                    <div class="results-content" id="results-content" style="display:none;">
+                        <div class="panel-header results-header"><div class="panel-icon">📊</div><h3>Your China Tariff Impact</h3></div>
+                        <div class="tariff-rate-display" id="tariff-rate-display"><div class="rate-ring" id="rate-ring"><svg viewBox="0 0 120 120" class="rate-svg"><circle cx="60" cy="60" r="54" class="rate-bg-circle"/><circle cx="60" cy="60" r="54" class="rate-progress-circle" id="rate-circle"/></svg><div class="rate-value" id="rate-value">0%</div></div><div class="rate-info"><span class="rate-label">Estimated Tariff Rate</span><span class="rate-breakdown" id="rate-breakdown">--</span></div></div>
+                        <div class="cost-cards" id="cost-cards"><div class="cost-card extra-cost" id="card-extra"><div class="cost-card-icon">💸</div><div class="cost-card-info"><span class="cost-card-label">Extra You're Paying</span><span class="cost-card-value" id="extra-cost-value">$0.00</span></div></div><div class="cost-card annual-cost" id="card-annual"><div class="cost-card-icon">📅</div><div class="cost-card-info"><span class="cost-card-label">Annual Impact</span><span class="cost-card-value" id="annual-cost-value">$0.00</span></div></div><div class="cost-card pretariff-price" id="card-pretariff"><div class="cost-card-icon">⏪</div><div class="cost-card-info"><span class="cost-card-label">Pre-Tariff Price</span><span class="cost-card-value" id="pretariff-price-value">$0.00</span></div></div></div>
+                        <div class="chart-container" id="chart-container"><h4 class="chart-title">Price Comparison: Before vs After China Tariffs</h4><canvas id="price-chart"></canvas></div>
+                        <div class="context-card" id="context-card"><div class="context-icon">💡</div><p class="context-text" id="context-text"></p></div>
+                        <button class="share-btn" id="share-btn" onclick="shareResults()"><span>📤 Share Your Results</span></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="product-examples" class="examples-section"></section>
+
+    <section class="content-section">
+        <div class="section-container">
+            <div class="content-card">
+                <h2>Understanding US Tariffs on Chinese Goods in <span class="dynamic-year"></span></h2>
+                <p>China faces the most complex and highest tariff rates of any US trading partner. The current tariff situation is the result of multiple overlapping trade actions that began during the first Trump administration trade war in 2018 and escalated dramatically in 2025.</p>
+                <h3>How China Tariff Rates Are Calculated</h3>
+                <p>The effective tariff rate on any Chinese product is a combination of several layers:</p>
+                <ul>
+                    <li><strong>Pre-existing Section 301 Tariffs (2018-2019):</strong> These range from 7.5% to 25% depending on the product list (Lists 1-4A). Most consumer electronics, clothing, and toys were on List 4A at 7.5%.</li>
+                    <li><strong>IEEPA Tariffs (Feb-Mar 2025):</strong> An additional 20% tariff imposed under the International Emergency Economic Powers Act, citing fentanyl trafficking as a national emergency.</li>
+                    <li><strong>Reciprocal Tariffs (Apr 2025):</strong> An additional 34% "reciprocal" tariff announced on April 2, 2025, bringing the combined IEEPA + reciprocal total to 145% at peak.</li>
+                    <li><strong>Geneva Deal Reduction (May 2025):</strong> The US-China deal reduced the combined IEEPA + reciprocal portion to approximately 30%, while Section 301 duties remain on top.</li>
+                </ul>
+                <h3>The De Minimis Suspension: A Game-Changer</h3>
+                <p>Perhaps the most impactful change for everyday consumers is the suspension of the de minimis exemption for Chinese shipments. Previously, packages worth under $800 could enter the US duty-free. Since May 2, 2025, this exemption no longer applies to goods shipped from China. This directly impacts millions of Americans who shop on platforms like <a href="shein-temu-tariff-calculator.html">Shein, Temu, and AliExpress</a>. Even a $20 purchase from these platforms now faces full tariff rates or flat postal fees of $75-$150.</p>
+                <div class="key-facts">
+                    <h3>📋 Key Facts About China Tariffs</h3>
+                    <ul>
+                        <li>China is the largest source of US imports by value</li>
+                        <li>Over $400 billion in annual Chinese imports are affected</li>
+                        <li>De minimis ($800 duty-free) exemption is suspended for China</li>
+                        <li>Section 301 duties apply ON TOP of the base 30% rate</li>
+                        <li>Electronics, toys, and furniture from China are hardest hit</li>
+                        <li>The average American household pays $800-$1,500 more due to China tariffs alone</li>
+                    </ul>
+                </div>
+                <h3>Which Products Are Most Affected?</h3>
+                <p>Electronics are the most impacted category, with effective rates of 54%+ on smartphones, laptops, and tablets from China. Toys and games face similar rates since over 80% of toys sold in the US are made in China. Clothing from China faces compounded tariffs of 45%+, though many brands have shifted production to <a href="tariff-by-country.html">Vietnam, Bangladesh, and India</a>.</p>
+                <p>Looking for ways to save money on Chinese imports? Check out our <a href="tariff-savings-tips.html">Tariff Savings Tips</a> guide with 15+ actionable strategies.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="faq-section">
+        <div class="section-container">
+            <div class="section-header"><h2 class="section-title">China Tariff FAQ</h2><p class="section-desc">Common questions about tariffs on Chinese imports.</p></div>
+            <div class="faq-list">
+                <details class="faq-item"><summary class="faq-question"><span>What is the current tariff rate on Chinese goods?</span><span class="faq-toggle">+</span></summary><div class="faq-answer"><p>The base tariff rate on Chinese goods is approximately 30% (post-May 2025 Geneva deal). However, Section 301 duties of 7.5-25% still apply on top for most product categories, bringing effective rates to 37.5-55%+ depending on the product. Some categories like EVs and semiconductors face even higher combined rates.</p></div></details>
+                <details class="faq-item"><summary class="faq-question"><span>Are tariffs on China going to go down?</span><span class="faq-toggle">+</span></summary><div class="faq-answer"><p>The US-China tariff situation is fluid. The May 2025 Geneva deal reduced rates from 145% to ~30% base, showing that negotiations can produce results. However, the underlying trade tensions remain, and Section 301 tariffs have been in place since 2018. Future elections, trade negotiations, and geopolitical developments will all influence tariff levels.</p></div></details>
+                <details class="faq-item"><summary class="faq-question"><span>Can I still order from Shein and Temu?</span><span class="faq-toggle">+</span></summary><div class="faq-answer"><p>Yes, you can still order from Chinese platforms like Shein and Temu, but you'll pay significantly more. With the de minimis exemption suspended, orders now face full tariff rates or flat postal duties of $75-$150 per package. Many shoppers find that small orders are no longer economical. See our <a href="shein-temu-tariff-calculator.html">Shein/Temu tariff calculator</a> for specific estimates.</p></div></details>
+                <details class="faq-item"><summary class="faq-question"><span>Do tariffs apply to products made in China but sold by US companies?</span><span class="faq-toggle">+</span></summary><div class="faq-answer"><p>Yes. Tariffs are applied based on country of manufacture, not the brand. An iPhone designed by Apple in California but assembled in China faces the full China tariff rate. This is why many companies are diversifying manufacturing to India, Vietnam, and other countries.</p></div></details>
+                <details class="faq-item"><summary class="faq-question"><span>How do I check if my product is made in China?</span><span class="faq-toggle">+</span></summary><div class="faq-answer"><p>Check the product label or packaging for "Made in China" or "Made in PRC" markings. For online purchases, check the product listing details, or look at the customs declaration on the shipping label. Most electronics, toys, and fast fashion items are manufactured in China unless explicitly stated otherwise.</p></div></details>
+                <details class="faq-item"><summary class="faq-question"><span>What's the difference between Section 301 and IEEPA tariffs?</span><span class="faq-toggle">+</span></summary><div class="faq-answer"><p>Section 301 tariffs were imposed in 2018-2019 specifically targeting unfair Chinese trade practices (IP theft, forced technology transfer). They apply to specific product lists at 7.5-25%. IEEPA tariffs were imposed in 2025 under emergency powers citing fentanyl trafficking. They apply broadly to ALL Chinese imports at a flat rate. Both apply simultaneously, which is why effective rates are so high.</p></div></details>
+            </div>
+        </div>
+    </section>
+
+    <section id="related-calculators" class="content-section"></section>
+    <section id="internal-links" class="content-section"></section>
+    <footer id="site-footer" class="site-footer"></footer>
+
+    <script src="tariff-data.js"></script>
+    <script src="app.js"></script>
+    <script src="page-builder.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Build hero cards showing China tariff rates by category
+            const heroCards = document.getElementById('china-hero-cards');
+            const topCategories = ['electronics', 'toys', 'clothing', 'furniture', 'appliances', 'shoes'];
+            heroCards.innerHTML = topCategories.map(cat => {
+                const c = CATEGORIES[cat];
+                const rate = 30 + c.chinaAdditional;
+                return `<div class="product-hero-card"><span class="phc-emoji">${c.emoji}</span><span class="phc-name">${c.name}</span><span class="phc-rate">${rate}%</span><span class="phc-extra">effective rate</span></div>`;
+            }).join('');
+
+            initPage({
+                breadcrumbs: [{ label: 'Home', url: 'index.html' }, { label: 'China Tariff Calculator' }],
+                prefill: { country: 'china', lockCountry: true },
+                buildInternalLinks: true,
+                buildExamples: true, exampleCountry: 'china', exampleMax: 12,
+                relatedCalculators: ['shein-temu', 'electronics', 'de-minimis', 'tariff-by-country', 'how-much', 'tariff-savings'],
+                schemas: [
+                    buildWebAppSchema('China Tariff Calculator ' + CURRENT_YEAR, 'Calculate tariff rates on Chinese imports to the US. See exact rates for electronics, clothing, toys and more.'),
+                    buildFAQSchema([
+                        { question: 'What is the current tariff rate on Chinese goods?', answer: 'The base tariff rate is approximately 30% post-May 2025 Geneva deal, with Section 301 duties of 7.5-25% on top for most categories.' },
+                        { question: 'Are tariffs on China going to go down?', answer: 'The situation is fluid. The May 2025 deal reduced rates from 145% to ~30%, but underlying tensions remain.' },
+                        { question: 'Can I still order from Shein and Temu?', answer: 'Yes, but with the de minimis exemption suspended, orders now face full tariffs or flat postal fees of $75-$150.' },
+                        { question: 'Do tariffs apply to US brands made in China?', answer: 'Yes, tariffs are based on country of manufacture, not the brand. iPhones made in China face full China tariff rates.' }
+                    ]),
+                    buildBreadcrumbSchema([{ label: 'Home', url: 'index.html' }, { label: 'China Tariff Calculator' }], 'https://tariffcalc.us/')
+                ]
+            });
+        });
+    </script>
+</body>
+</html>

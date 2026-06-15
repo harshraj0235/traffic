@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Electronics Tariff Calculator 2026 — Tariffs on Electronics from China</title>
+    <meta name="description" content="Calculate tariffs on electronics including phones, laptops, TVs, gaming consoles, and more. See rates for every major brand from Apple to Sony to Nintendo.">
+    <meta name="keywords" content="electronics tariff calculator, tariff on electronics from China, tech tariff calculator, electronics import duty">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://tariffcalc.us/electronics-tariff-calculator.html">
+    <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <div class="ambient-bg"><div class="ambient-orb ambient-orb-1"></div><div class="ambient-orb ambient-orb-2"></div><div class="ambient-orb ambient-orb-3"></div></div>
+    <nav id="main-nav" class="navbar"></nav><div id="breadcrumbs"></div>
+    <header class="page-hero"><div class="hero-container"><div class="hero-badge"><span class="badge-pulse"></span><span>Updated <span class="dynamic-year"></span></span></div><span class="hero-emoji">💻</span><h1 class="hero-title">Electronics Tariff Calculator <span class="dynamic-year"></span></h1><p class="hero-subtitle">Over <strong>85% of consumer electronics</strong> are imported. From iPhones to PlayStations to laptops — calculate the tariff cost on any electronic device.</p><div class="product-hero-cards" id="electronics-hero-cards"></div></div></header>
+
+    <section id="calculator" class="calculator-section">
+        <div class="section-container">
+            <div class="section-header"><h2 class="section-title">Calculate Electronics Tariff</h2><p class="section-desc">Select your device and see the tariff breakdown.</p></div>
+            <div class="calculator-grid">
+                <div class="calc-panel input-panel" id="input-panel">
+                    <div class="panel-header"><div class="panel-icon">💻</div><h3>Electronics Details</h3></div>
+                    <div class="form-group"><label for="product-category" class="form-label"><span class="label-icon">🏷️</span>Category</label><div class="select-wrapper"><select id="product-category" class="form-select" disabled><option value="electronics" selected>📱 Electronics & Tech</option></select></div></div>
+                    <div class="form-group"><label for="country-origin" class="form-label"><span class="label-icon">🌍</span>Country of Manufacture</label><div class="select-wrapper"><select id="country-origin" class="form-select"><option value="china" selected>🇨🇳 China</option><option value="south_korea">🇰🇷 South Korea</option><option value="japan">🇯🇵 Japan</option><option value="taiwan">🇹🇼 Taiwan</option><option value="vietnam">🇻🇳 Vietnam</option><option value="india">🇮🇳 India</option><option value="other">🌐 Other</option></select></div></div>
+                    <div class="form-group"><label for="purchase-price" class="form-label"><span class="label-icon">💵</span>Price (USD)</label><div class="price-input-wrapper"><span class="price-prefix">$</span><input type="number" id="purchase-price" class="form-input" placeholder="e.g. 999" min="1" step="0.01" value="999"></div></div>
+                    <div class="form-group"><label for="purchase-frequency" class="form-label"><span class="label-icon">🔄</span>Frequency</label><div class="select-wrapper"><select id="purchase-frequency" class="form-select"><option value="once">One-time</option><option value="yearly" selected>Yearly</option></select></div></div>
+                    <button id="calculate-btn" class="calculate-btn" onclick="calculateTariff()"><span class="btn-text">Calculate Electronics Tariff</span><span class="btn-icon">⚡</span></button>
+                </div>
+                <div class="calc-panel results-panel" id="results-panel">
+                    <div class="results-placeholder" id="results-placeholder"><div class="placeholder-icon">📊</div><h3>Electronics Tariff Results</h3><p>Enter details to calculate.</p></div>
+                    <div class="results-content" id="results-content" style="display:none;">
+                        <div class="panel-header results-header"><div class="panel-icon">📊</div><h3>Electronics Tariff Impact</h3></div>
+                        <div class="tariff-rate-display" id="tariff-rate-display"><div class="rate-ring" id="rate-ring"><svg viewBox="0 0 120 120" class="rate-svg"><circle cx="60" cy="60" r="54" class="rate-bg-circle"/><circle cx="60" cy="60" r="54" class="rate-progress-circle" id="rate-circle"/></svg><div class="rate-value" id="rate-value">0%</div></div><div class="rate-info"><span class="rate-label">Tariff Rate</span><span class="rate-breakdown" id="rate-breakdown">--</span></div></div>
+                        <div class="cost-cards" id="cost-cards"><div class="cost-card extra-cost" id="card-extra"><div class="cost-card-icon">💸</div><div class="cost-card-info"><span class="cost-card-label">Tariff Cost</span><span class="cost-card-value" id="extra-cost-value">$0.00</span></div></div><div class="cost-card annual-cost" id="card-annual"><div class="cost-card-icon">📅</div><div class="cost-card-info"><span class="cost-card-label">Annual</span><span class="cost-card-value" id="annual-cost-value">$0.00</span></div></div><div class="cost-card pretariff-price" id="card-pretariff"><div class="cost-card-icon">⏪</div><div class="cost-card-info"><span class="cost-card-label">Pre-Tariff</span><span class="cost-card-value" id="pretariff-price-value">$0.00</span></div></div></div>
+                        <div class="chart-container" id="chart-container"><h4 class="chart-title">Before vs After Tariffs</h4><canvas id="price-chart"></canvas></div>
+                        <div class="context-card" id="context-card"><div class="context-icon">💡</div><p class="context-text" id="context-text"></p></div>
+                        <button class="share-btn" id="share-btn" onclick="shareResults()"><span>📤 Share</span></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="product-examples" class="examples-section"></section>
+
+    <section class="content-section"><div class="section-container"><div class="content-card">
+        <h2>Electronics Tariffs Explained (<span class="dynamic-year"></span>)</h2>
+        <p>Electronics face some of the most significant tariff impacts. China manufactures the vast majority of consumer electronics, and those products now face 54%+ combined tariff rates.</p>
+        <h3>Gaming Consoles</h3>
+        <ul>
+            <li><strong>PlayStation 5 Pro ($699, Japan):</strong> ~$130 in tariffs at 24% Japan rate</li>
+            <li><strong>Nintendo Switch 2 ($449, China):</strong> ~$110 in tariffs at 54% China rate</li>
+            <li><strong>Xbox Series X ($499, China):</strong> ~$120 in tariffs at 54% China rate</li>
+        </ul>
+        <h3>TVs & Monitors</h3>
+        <p>Samsung (South Korea, 25%), LG (South Korea, 25%), Sony (Japan, 24%), and Chinese-brand TVs (54%+) all face significant tariffs. Budget TV brands assembled in China are hit hardest.</p>
+        <p>For iPhone-specific calculations, see our <a href="iphone-tariff-calculator.html">iPhone tariff calculator</a>. For laptops, see our <a href="laptop-tariff-calculator.html">laptop tariff calculator</a>.</p>
+    </div></div></section>
+
+    <section id="related-calculators" class="content-section"></section>
+    <section id="internal-links" class="content-section"></section>
+    <footer id="site-footer" class="site-footer"></footer>
+    <script src="tariff-data.js"></script><script src="app.js"></script><script src="page-builder.js"></script>
+    <script>document.addEventListener('DOMContentLoaded', () => {
+        const heroCards = document.getElementById('electronics-hero-cards');
+        const items = [
+            { name: 'iPhone 16 Pro', country: 'china', price: 999, emoji: '📱' },
+            { name: 'PS5 Pro', country: 'japan', price: 699, emoji: '🎮' },
+            { name: 'Switch 2', country: 'china', price: 449, emoji: '🎮' },
+            { name: 'MacBook Air', country: 'china', price: 1299, emoji: '💻' },
+            { name: 'Samsung TV', country: 'south_korea', price: 599, emoji: '📺' },
+            { name: 'AirPods Pro', country: 'china', price: 249, emoji: '🎧' }
+        ];
+        heroCards.innerHTML = items.map(m => { const r = calcTariff('electronics', m.country, m.price); return `<div class="product-hero-card" onclick="document.getElementById('country-origin').value='${m.country}';document.getElementById('purchase-price').value=${m.price};calculateTariff();" style="cursor:pointer"><span class="phc-emoji">${m.emoji}</span><span class="phc-name">${m.name}</span><span class="phc-rate">+${formatUSD(r.tariffCost)}</span><span class="phc-extra">${COUNTRIES[m.country].flag} ${r.effectiveRate}%</span></div>`; }).join('');
+        initPage({ breadcrumbs: [{ label: 'Home', url: 'index.html' }, { label: 'Electronics Tariff Calculator' }], prefill: { category: 'electronics', lockCategory: true }, buildInternalLinks: true, buildExamples: true, exampleCategory: 'electronics', exampleMax: 14, relatedCalculators: ['iphone', 'laptop', 'china', 'how-much', 'tariff-savings', 'online-shopping'], schemas: [buildWebAppSchema('Electronics Tariff Calculator ' + CURRENT_YEAR, 'Calculate tariffs on electronics from China, Japan, South Korea and more.'), buildBreadcrumbSchema([{ label: 'Home', url: 'index.html' }, { label: 'Electronics Tariff Calculator' }], 'https://tariffcalc.us/')] });
+    });</script>
+</body>
+</html>

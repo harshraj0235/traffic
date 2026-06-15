@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>US Tariff Timeline 2026 — History of Recent Tariff Changes</title>
+    <meta name="description" content="A complete timeline of US tariff changes from 2018 to 2026. Track the implementation of Section 301, Section 122, and IEEPA tariffs affecting US imports.">
+    <meta name="keywords" content="tariff timeline, history of US tariffs, when did tariffs start, 2025 tariff changes, Section 301 timeline, US import duty history">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://tariffcalc.us/tariff-timeline.html">
+    <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="index.css">
+    <style>
+        .timeline{position:relative;max-width:800px;margin:2rem auto;padding-left:2rem;border-left:3px solid var(--accent-color)}.timeline-event{position:relative;margin-bottom:2rem}.timeline-event::before{content:'';position:absolute;left:-2.5rem;top:0;width:1rem;height:1rem;border-radius:50%;background:var(--accent-color);border:3px solid var(--card-bg)}.timeline-date{font-weight:700;color:var(--accent-color);margin-bottom:0.5rem;font-size:1.1rem}.timeline-content{background:var(--card-bg);border:1px solid var(--border-color);padding:1.5rem;border-radius:12px}.timeline-content h3{margin-top:0;margin-bottom:0.5rem}.timeline-tag{display:inline-block;padding:0.2rem 0.6rem;background:var(--bg-color);border:1px solid var(--border-color);border-radius:20px;font-size:0.8rem;margin-right:0.5rem;margin-bottom:0.5rem}
+    </style>
+</head>
+<body>
+    <div class="ambient-bg"><div class="ambient-orb ambient-orb-1"></div><div class="ambient-orb ambient-orb-2"></div><div class="ambient-orb ambient-orb-3"></div></div>
+    <nav id="main-nav" class="navbar"></nav><div id="breadcrumbs"></div>
+    <header class="page-hero"><div class="hero-container"><div class="hero-badge"><span class="badge-pulse"></span><span>Historical Reference</span></div><span class="hero-emoji">📅</span><h1 class="hero-title">US Tariff Timeline (2018-2026)</h1><p class="hero-subtitle">How did we get here? Track the escalation of US import tariffs from the initial 2018 trade war through the sweeping 2025-2026 tariff increases.</p></div></header>
+
+    <section class="content-section"><div class="section-container">
+        <div class="timeline" id="tariff-timeline-container">
+            <!-- Populated via JS -->
+        </div>
+    </div></section>
+
+    <section id="related-calculators" class="content-section"></section>
+    <section id="internal-links" class="content-section"></section>
+    <footer id="site-footer" class="site-footer"></footer>
+    <script src="tariff-data.js"></script><script src="page-builder.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const container = document.getElementById('tariff-timeline-container');
+            container.innerHTML = TARIFF_TIMELINE.map(event => `
+                <div class="timeline-event">
+                    <div class="timeline-date">${event.date}</div>
+                    <div class="timeline-content">
+                        <h3>${event.title}</h3>
+                        ${event.tags ? event.tags.map(t => `<span class="timeline-tag">${t}</span>`).join('') : ''}
+                        <p>${event.description}</p>
+                    </div>
+                </div>
+            `).join('');
+            
+            initPage({ breadcrumbs: [{ label: 'Home', url: 'index.html' }, { label: 'US Tariff Timeline' }], buildInternalLinks: true, relatedCalculators: ['tariff-by-country', 'china', 'how-much', 'electronics'], schemas: [buildBreadcrumbSchema([{ label: 'Home', url: 'index.html' }, { label: 'US Tariff Timeline' }], 'https://tariffcalc.us/')] });
+        });
+    </script>
+</body>
+</html>

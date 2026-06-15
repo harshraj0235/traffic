@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clothing Tariff Calculator 2026 — Tariff on Imported Clothing & Fashion</title>
+    <meta name="description" content="Calculate tariffs on imported clothing. See how tariffs affect Nike, Zara, H&M, Gap, Lululemon and fast fashion brands. Clothing import duty calculator.">
+    <meta name="keywords" content="clothing tariff calculator, tariff on clothing, clothing import duty, fast fashion tariff, tariff on clothes from China">
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="Clothing Tariff Calculator — How Much Tariff on Your Clothes?">
+    <meta property="og:description" content="The US imports 97% of its clothing. See how tariffs affect clothing prices from China, Vietnam, Bangladesh and more.">
+    <meta property="og:type" content="website">
+    <link rel="canonical" href="https://tariffcalc.us/clothing-tariff-calculator.html">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <div class="ambient-bg"><div class="ambient-orb ambient-orb-1"></div><div class="ambient-orb ambient-orb-2"></div><div class="ambient-orb ambient-orb-3"></div></div>
+    <nav id="main-nav" class="navbar"></nav>
+    <div id="breadcrumbs"></div>
+
+    <header class="page-hero">
+        <div class="hero-container">
+            <div class="hero-badge"><span class="badge-pulse"></span><span>Updated <span class="dynamic-year"></span> Clothing Tariff Rates</span></div>
+            <span class="hero-emoji">👕</span>
+            <h1 class="hero-title">Clothing Tariff Calculator <span class="dynamic-year"></span></h1>
+            <p class="hero-subtitle">The US imports <strong>97% of its clothing</strong>. From fast fashion to premium brands, tariffs are making your wardrobe more expensive. Calculate the tariff impact on clothing from any country.</p>
+            <div class="product-hero-cards" id="clothing-hero-cards"></div>
+        </div>
+    </header>
+
+    <section id="calculator" class="calculator-section">
+        <div class="section-container">
+            <div class="section-header"><h2 class="section-title">Calculate Clothing Tariff</h2><p class="section-desc">Select the type of clothing and where it's made to see the tariff impact.</p></div>
+            <div class="calculator-grid">
+                <div class="calc-panel input-panel" id="input-panel">
+                    <div class="panel-header"><div class="panel-icon">👕</div><h3>Clothing Details</h3></div>
+                    <div class="form-group"><label for="product-category" class="form-label"><span class="label-icon">🏷️</span>Category</label><div class="select-wrapper"><select id="product-category" class="form-select"><option value="clothing" selected>👕 Clothing & Apparel</option><option value="shoes">👟 Footwear</option></select></div></div>
+                    <div class="form-group"><label for="country-origin" class="form-label"><span class="label-icon">🌍</span>Country of Manufacture</label><div class="select-wrapper"><select id="country-origin" class="form-select"><option value="">Select country...</option><option value="china" selected>🇨🇳 China</option><option value="vietnam">🇻🇳 Vietnam</option><option value="bangladesh">🇧🇩 Bangladesh</option><option value="india">🇮🇳 India</option><option value="indonesia">🇮🇩 Indonesia</option><option value="mexico">🇲🇽 Mexico</option><option value="eu">🇪🇺 European Union</option><option value="other">🌐 Other</option></select></div></div>
+                    <div class="form-group"><label for="purchase-price" class="form-label"><span class="label-icon">💵</span>Price (USD)</label><div class="price-input-wrapper"><span class="price-prefix">$</span><input type="number" id="purchase-price" class="form-input" placeholder="e.g. 50" min="1" step="0.01" value="50"></div></div>
+                    <div class="form-group"><label for="purchase-frequency" class="form-label"><span class="label-icon">🔄</span>How Often?</label><div class="select-wrapper"><select id="purchase-frequency" class="form-select"><option value="once">One-time</option><option value="monthly" selected>Monthly</option><option value="quarterly">Quarterly</option><option value="yearly">Yearly</option></select></div></div>
+                    <button id="calculate-btn" class="calculate-btn" onclick="calculateTariff()"><span class="btn-text">Calculate Clothing Tariff</span><span class="btn-icon">⚡</span></button>
+                </div>
+                <div class="calc-panel results-panel" id="results-panel">
+                    <div class="results-placeholder" id="results-placeholder"><div class="placeholder-icon">📊</div><h3>Clothing Tariff Results</h3><p>Enter details to see tariff breakdown.</p></div>
+                    <div class="results-content" id="results-content" style="display:none;">
+                        <div class="panel-header results-header"><div class="panel-icon">📊</div><h3>Clothing Tariff Impact</h3></div>
+                        <div class="tariff-rate-display" id="tariff-rate-display"><div class="rate-ring" id="rate-ring"><svg viewBox="0 0 120 120" class="rate-svg"><circle cx="60" cy="60" r="54" class="rate-bg-circle"/><circle cx="60" cy="60" r="54" class="rate-progress-circle" id="rate-circle"/></svg><div class="rate-value" id="rate-value">0%</div></div><div class="rate-info"><span class="rate-label">Estimated Tariff Rate</span><span class="rate-breakdown" id="rate-breakdown">--</span></div></div>
+                        <div class="cost-cards" id="cost-cards"><div class="cost-card extra-cost" id="card-extra"><div class="cost-card-icon">💸</div><div class="cost-card-info"><span class="cost-card-label">Extra You're Paying</span><span class="cost-card-value" id="extra-cost-value">$0.00</span></div></div><div class="cost-card annual-cost" id="card-annual"><div class="cost-card-icon">📅</div><div class="cost-card-info"><span class="cost-card-label">Annual Impact</span><span class="cost-card-value" id="annual-cost-value">$0.00</span></div></div><div class="cost-card pretariff-price" id="card-pretariff"><div class="cost-card-icon">⏪</div><div class="cost-card-info"><span class="cost-card-label">Pre-Tariff Price</span><span class="cost-card-value" id="pretariff-price-value">$0.00</span></div></div></div>
+                        <div class="chart-container" id="chart-container"><h4 class="chart-title">Clothing Price: Before vs After Tariffs</h4><canvas id="price-chart"></canvas></div>
+                        <div class="context-card" id="context-card"><div class="context-icon">💡</div><p class="context-text" id="context-text"></p></div>
+                        <button class="share-btn" id="share-btn" onclick="shareResults()"><span>📤 Share Your Results</span></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="product-examples" class="examples-section"></section>
+
+    <section class="content-section">
+        <div class="section-container">
+            <div class="content-card">
+                <h2>How Tariffs Affect Clothing Prices in <span class="dynamic-year"></span></h2>
+                <p>Clothing is one of the most tariff-impacted consumer categories. The US imports 97% of its clothing, and apparel already had some of the highest pre-existing tariff rates (12-32%) before the 2025 increases.</p>
+                <h3>Brand-by-Brand Impact</h3>
+                <ul>
+                    <li><strong>Shein / Temu (China):</strong> 45%+ effective rate. The de minimis suspension means no more duty-free small packages.</li>
+                    <li><strong>Nike (Vietnam/Indonesia):</strong> 46-32% tariff rate depending on factory location. Athletic shoes face additional existing duties.</li>
+                    <li><strong>H&M (Bangladesh/China):</strong> 37-45% rate. Budget basics hit hardest.</li>
+                    <li><strong>Zara (China/India/Bangladesh):</strong> 26-45% depending on where each item is manufactured.</li>
+                    <li><strong>Lululemon (Vietnam):</strong> 46% reciprocal tariff on Vietnamese goods.</li>
+                    <li><strong>Gap / Old Navy (Vietnam/Bangladesh):</strong> 37-46% rate. Budget family clothing significantly affected.</li>
+                </ul>
+                <div class="key-facts">
+                    <h3>📋 Key Clothing Tariff Facts</h3>
+                    <ul>
+                        <li>The US imports 97% of clothing sold domestically</li>
+                        <li>Clothing already had 12-32% pre-existing tariffs before 2025</li>
+                        <li>New tariffs compound on top of existing rates</li>
+                        <li>China-made clothing: 45%+ effective rate</li>
+                        <li>Vietnam-made clothing: up to 46% reciprocal tariff</li>
+                        <li>Bangladesh-made clothing: 37% reciprocal tariff</li>
+                        <li>Thrift stores and secondhand shops offer tariff-free alternatives</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="faq-section">
+        <div class="section-container">
+            <div class="section-header"><h2 class="section-title">Clothing Tariff FAQ</h2><p class="section-desc">Questions about tariffs on clothing and fashion.</p></div>
+            <div class="faq-list">
+                <details class="faq-item"><summary class="faq-question"><span>Why are clothing tariffs so high?</span><span class="faq-toggle">+</span></summary><div class="faq-answer"><p>Clothing has historically had some of the highest US tariff rates (12-32% even before 2025). The new tariffs compound on top of these existing rates. China-made clothing faces the highest combined rates at 45%+, while clothing from other Asian countries faces 26-46% reciprocal tariffs.</p></div></details>
+                <details class="faq-item"><summary class="faq-question"><span>Which brands are cheapest after tariffs?</span><span class="faq-toggle">+</span></summary><div class="faq-answer"><p>US-made brands avoid import tariffs entirely. Look for "Made in USA" labels from brands like American Giant, Todd Shelton, or some New Balance products. Second-hand clothing from ThredUp, Poshmark, or local thrift stores is also tariff-free since the original tariff was already paid.</p></div></details>
+                <details class="faq-item"><summary class="faq-question"><span>Are luxury brands affected too?</span><span class="faq-toggle">+</span></summary><div class="faq-answer"><p>Yes, luxury brands face the same tariff rates based on country of manufacture. European luxury brands face 20% EU tariff, while brands manufacturing in China face 45%+. However, luxury brands have wider margins to absorb tariff costs.</p></div></details>
+            </div>
+        </div>
+    </section>
+
+    <section id="related-calculators" class="content-section"></section>
+    <section id="internal-links" class="content-section"></section>
+    <footer id="site-footer" class="site-footer"></footer>
+
+    <script src="tariff-data.js"></script>
+    <script src="app.js"></script>
+    <script src="page-builder.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const heroCards = document.getElementById('clothing-hero-cards');
+            const brands = [
+                { name: 'Shein Order', country: 'china', price: 50, emoji: '🛍️' },
+                { name: 'Nike Shoes', country: 'vietnam', price: 130, emoji: '👟', cat: 'shoes' },
+                { name: 'H&M Basics', country: 'bangladesh', price: 25, emoji: '👕' },
+                { name: 'Zara Dress', country: 'china', price: 60, emoji: '👗' },
+                { name: 'Lululemon', country: 'vietnam', price: 98, emoji: '👖' }
+            ];
+            heroCards.innerHTML = brands.map(m => {
+                const r = calcTariff(m.cat || 'clothing', m.country, m.price);
+                return `<div class="product-hero-card"><span class="phc-emoji">${m.emoji}</span><span class="phc-name">${m.name}</span><span class="phc-rate">${r.effectiveRate}%</span><span class="phc-extra">${COUNTRIES[m.country].flag} ${COUNTRIES[m.country].name}</span></div>`;
+            }).join('');
+
+            initPage({
+                breadcrumbs: [{ label: 'Home', url: 'index.html' }, { label: 'Clothing Tariff Calculator' }],
+                buildInternalLinks: true,
+                buildExamples: true, exampleCategory: 'clothing', exampleMax: 8,
+                relatedCalculators: ['shein-temu', 'china', 'how-much', 'de-minimis', 'tariff-savings', 'online-shopping'],
+                schemas: [
+                    buildWebAppSchema('Clothing Tariff Calculator ' + CURRENT_YEAR, 'Calculate tariffs on imported clothing and fashion.'),
+                    buildBreadcrumbSchema([{ label: 'Home', url: 'index.html' }, { label: 'Clothing Tariff Calculator' }], 'https://tariffcalc.us/')
+                ]
+            });
+        });
+    </script>
+</body>
+</html>

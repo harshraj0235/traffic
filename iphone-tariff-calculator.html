@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>iPhone Tariff Calculator 2026 — How Much Tariff on Your iPhone?</title>
+    <meta name="description" content="Calculate the exact tariff cost on every iPhone model. See how much of the iPhone price goes to China tariffs. iPhone 16 Pro, iPhone 16, SE — all models covered.">
+    <meta name="keywords" content="iPhone tariff calculator, tariff cost iPhone, iPhone price tariff, how much tariff on iPhone, iPhone China tariff, Apple tariff impact">
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="iPhone Tariff Calculator — See How Much Tariff You Pay on Your iPhone">
+    <meta property="og:description" content="iPhones are assembled in China and face 54%+ tariffs. Calculate the exact tariff cost on any iPhone model.">
+    <meta property="og:type" content="website">
+    <link rel="canonical" href="https://tariffcalc.us/iphone-tariff-calculator.html">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <div class="ambient-bg"><div class="ambient-orb ambient-orb-1"></div><div class="ambient-orb ambient-orb-2"></div><div class="ambient-orb ambient-orb-3"></div></div>
+    <nav id="main-nav" class="navbar"></nav>
+    <div id="breadcrumbs"></div>
+
+    <header class="page-hero">
+        <div class="hero-container">
+            <div class="hero-badge"><span class="badge-pulse"></span><span>Updated <span class="dynamic-year"></span> iPhone Tariff Data</span></div>
+            <span class="hero-emoji">📱</span>
+            <h1 class="hero-title">iPhone Tariff Calculator <span class="dynamic-year"></span></h1>
+            <p class="hero-subtitle">iPhones are assembled in China and face <strong>54%+ combined tariff rates</strong>. Calculate exactly how much of your iPhone's price goes to tariffs — and what it would cost without them.</p>
+            <div class="product-hero-cards" id="iphone-hero-cards"></div>
+        </div>
+    </header>
+
+    <section id="calculator" class="calculator-section">
+        <div class="section-container">
+            <div class="section-header">
+                <h2 class="section-title">Calculate iPhone Tariff Cost</h2>
+                <p class="section-desc">See the tariff breakdown for any iPhone model. Click a model below or enter a custom price.</p>
+            </div>
+            <div class="calculator-grid">
+                <div class="calc-panel input-panel" id="input-panel">
+                    <div class="panel-header"><div class="panel-icon">📱</div><h3>iPhone Details</h3></div>
+                    <div class="form-group"><label for="product-category" class="form-label"><span class="label-icon">🏷️</span>Product Category</label><div class="select-wrapper"><select id="product-category" class="form-select" disabled><option value="electronics" selected>📱 Electronics & Tech</option></select></div></div>
+                    <div class="form-group"><label for="country-origin" class="form-label"><span class="label-icon">🌍</span>Country of Manufacture</label><div class="select-wrapper"><select id="country-origin" class="form-select" disabled><option value="china" selected>🇨🇳 China (Assembled by Foxconn)</option></select></div></div>
+                    <div class="form-group"><label for="purchase-price" class="form-label"><span class="label-icon">💵</span>iPhone Price (USD)</label><div class="price-input-wrapper"><span class="price-prefix">$</span><input type="number" id="purchase-price" class="form-input" placeholder="e.g. 999" min="1" step="0.01" value="999"></div></div>
+                    <div class="form-group"><label for="purchase-frequency" class="form-label"><span class="label-icon">🔄</span>How Often Do You Upgrade?</label><div class="select-wrapper"><select id="purchase-frequency" class="form-select"><option value="once">One-time purchase</option><option value="yearly" selected>Every year</option><option value="quarterly">Every 2 years (approx.)</option></select></div></div>
+                    <button id="calculate-btn" class="calculate-btn" onclick="calculateTariff()"><span class="btn-text">Calculate iPhone Tariff</span><span class="btn-icon">⚡</span></button>
+                </div>
+                <div class="calc-panel results-panel" id="results-panel">
+                    <div class="results-placeholder" id="results-placeholder"><div class="placeholder-icon">📊</div><h3>Your iPhone Tariff Results</h3><p>Click a model above or enter a price to see the tariff breakdown.</p></div>
+                    <div class="results-content" id="results-content" style="display:none;">
+                        <div class="panel-header results-header"><div class="panel-icon">📊</div><h3>Your iPhone Tariff Impact</h3></div>
+                        <div class="tariff-rate-display" id="tariff-rate-display"><div class="rate-ring" id="rate-ring"><svg viewBox="0 0 120 120" class="rate-svg"><circle cx="60" cy="60" r="54" class="rate-bg-circle"/><circle cx="60" cy="60" r="54" class="rate-progress-circle" id="rate-circle"/></svg><div class="rate-value" id="rate-value">0%</div></div><div class="rate-info"><span class="rate-label">iPhone Tariff Rate</span><span class="rate-breakdown" id="rate-breakdown">--</span></div></div>
+                        <div class="cost-cards" id="cost-cards"><div class="cost-card extra-cost" id="card-extra"><div class="cost-card-icon">💸</div><div class="cost-card-info"><span class="cost-card-label">Tariff Cost Per iPhone</span><span class="cost-card-value" id="extra-cost-value">$0.00</span></div></div><div class="cost-card annual-cost" id="card-annual"><div class="cost-card-icon">📅</div><div class="cost-card-info"><span class="cost-card-label">Annual Impact</span><span class="cost-card-value" id="annual-cost-value">$0.00</span></div></div><div class="cost-card pretariff-price" id="card-pretariff"><div class="cost-card-icon">⏪</div><div class="cost-card-info"><span class="cost-card-label">Pre-Tariff Price</span><span class="cost-card-value" id="pretariff-price-value">$0.00</span></div></div></div>
+                        <div class="chart-container" id="chart-container"><h4 class="chart-title">iPhone Price: Before vs After Tariffs</h4><canvas id="price-chart"></canvas></div>
+                        <div class="context-card" id="context-card"><div class="context-icon">💡</div><p class="context-text" id="context-text"></p></div>
+                        <button class="share-btn" id="share-btn" onclick="shareResults()"><span>📤 Share Your Results</span></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="product-examples" class="examples-section"></section>
+
+    <section class="content-section">
+        <div class="section-container">
+            <div class="content-card">
+                <h2>Understanding iPhone Tariffs in <span class="dynamic-year"></span></h2>
+                <p>Apple's iPhone is one of the most high-profile products affected by US-China tariffs. Despite being designed in California, the vast majority of iPhones are assembled at Foxconn and Pegatron factories in China, making them subject to the full China tariff rate.</p>
+                <h3>iPhone Models and Tariff Impact</h3>
+                <p>Here's how tariffs affect each current iPhone model:</p>
+                <ul>
+                    <li><strong>iPhone 16 Pro Max ($1,199):</strong> Approximately $230-$280 in tariff costs</li>
+                    <li><strong>iPhone 16 Pro ($999):</strong> Approximately $190-$230 in tariff costs</li>
+                    <li><strong>iPhone 16 ($799):</strong> Approximately $150-$185 in tariff costs</li>
+                    <li><strong>iPhone SE ($429):</strong> Approximately $80-$100 in tariff costs</li>
+                    <li><strong>AirPods Pro ($249):</strong> Approximately $47-$58 in tariff costs</li>
+                    <li><strong>Apple Watch Ultra ($799):</strong> Approximately $150-$185 in tariff costs</li>
+                </ul>
+                <h3>Is Apple Moving iPhone Production Out of China?</h3>
+                <p>Apple has been diversifying its supply chain. India (via Tata Electronics and Foxconn) now produces a growing percentage of iPhones, primarily the standard models. However, Pro models and most other Apple products remain China-assembled. Even India-assembled iPhones face a 26% tariff rate, though this is significantly lower than China's 54%+ rate.</p>
+                <div class="key-facts">
+                    <h3>📋 Key iPhone Tariff Facts</h3>
+                    <ul>
+                        <li>Most iPhones are assembled in China (Foxconn, Zhengzhou)</li>
+                        <li>Effective tariff rate: 54%+ (30% base + 24% Section 301)</li>
+                        <li>India-assembled iPhones face 26% tariff (lower but still significant)</li>
+                        <li>Apple has absorbed some tariff costs to keep retail prices stable</li>
+                        <li>Accessories (cases, chargers) face the same China tariff rates</li>
+                        <li>Refurbished iPhones purchased domestically avoid additional tariffs</li>
+                    </ul>
+                </div>
+                <p>Looking for ways to save on your next iPhone purchase? Check our <a href="tariff-savings-tips.html">tariff savings tips</a> or compare with <a href="electronics-tariff-calculator.html">other electronics</a>.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="faq-section">
+        <div class="section-container">
+            <div class="section-header"><h2 class="section-title">iPhone Tariff FAQ</h2><p class="section-desc">Common questions about tariffs on iPhones and Apple products.</p></div>
+            <div class="faq-list">
+                <details class="faq-item"><summary class="faq-question"><span>How much tariff is on an iPhone?</span><span class="faq-toggle">+</span></summary><div class="faq-answer"><p>iPhones assembled in China face an effective tariff rate of approximately 54% (30% base China tariff + 24% Section 301 electronics duty). On a $999 iPhone 16 Pro, that's roughly $190-$230 in tariff costs built into the retail price.</p></div></details>
+                <details class="faq-item"><summary class="faq-question"><span>Why are iPhones still the same price if tariffs are so high?</span><span class="faq-toggle">+</span></summary><div class="faq-answer"><p>Apple has partially absorbed tariff costs to maintain competitive pricing, which reduces their profit margins. Additionally, some analysts believe Apple had built up pre-tariff inventory. However, prices have gradually crept up — the iPhone 16 Pro starts at $999 vs. older models that started at $899-$949.</p></div></details>
+                <details class="faq-item"><summary class="faq-question"><span>Are iPhones made in India tariff-free?</span><span class="faq-toggle">+</span></summary><div class="faq-answer"><p>No. India-assembled iPhones face a 26% reciprocal tariff rate — lower than China's 54%+, but still significant. Apple is expanding India production partly to reduce tariff exposure, but the savings aren't passed directly to consumers yet.</p></div></details>
+                <details class="faq-item"><summary class="faq-question"><span>Should I buy a refurbished iPhone to avoid tariffs?</span><span class="faq-toggle">+</span></summary><div class="faq-answer"><p>Buying a refurbished iPhone from a domestic seller (Apple Refurbished, Best Buy, etc.) means the tariff was already paid on the original import. You benefit from a lower price without paying additional tariff costs. This is one of the most effective tariff-saving strategies.</p></div></details>
+                <details class="faq-item"><summary class="faq-question"><span>Do AirPods and Apple Watch also have tariffs?</span><span class="faq-toggle">+</span></summary><div class="faq-answer"><p>Yes. AirPods are assembled in China and face the same 54%+ tariff rate. Apple Watch is also primarily China-assembled. All Apple accessories (cases, chargers, cables) manufactured in China face full tariff rates.</p></div></details>
+            </div>
+        </div>
+    </section>
+
+    <section id="related-calculators" class="content-section"></section>
+    <section id="internal-links" class="content-section"></section>
+    <footer id="site-footer" class="site-footer"></footer>
+
+    <script src="tariff-data.js"></script>
+    <script src="app.js"></script>
+    <script src="page-builder.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Build hero cards for iPhone models
+            const heroCards = document.getElementById('iphone-hero-cards');
+            const models = [
+                { name: 'iPhone 16 Pro Max', price: 1199, emoji: '📱' },
+                { name: 'iPhone 16 Pro', price: 999, emoji: '📱' },
+                { name: 'iPhone 16', price: 799, emoji: '📱' },
+                { name: 'iPhone SE', price: 429, emoji: '📱' },
+                { name: 'AirPods Pro', price: 249, emoji: '🎧' },
+                { name: 'Apple Watch Ultra', price: 799, emoji: '⌚' }
+            ];
+            heroCards.innerHTML = models.map(m => {
+                const result = calcTariff('electronics', 'china', m.price);
+                return `<div class="product-hero-card" onclick="document.getElementById('purchase-price').value=${m.price};calculateTariff();" style="cursor:pointer">
+                    <span class="phc-emoji">${m.emoji}</span>
+                    <span class="phc-name">${m.name}</span>
+                    <span class="phc-rate">+${formatUSD(result.tariffCost)}</span>
+                    <span class="phc-extra">tariff cost</span>
+                </div>`;
+            }).join('');
+
+            initPage({
+                breadcrumbs: [{ label: 'Home', url: 'index.html' }, { label: 'iPhone Tariff Calculator' }],
+                prefill: { category: 'electronics', lockCategory: true, country: 'china', lockCountry: true, price: 999 },
+                buildInternalLinks: true,
+                buildExamples: true, exampleCategory: 'electronics', exampleMax: 8,
+                relatedCalculators: ['china', 'electronics', 'laptop', 'shein-temu', 'how-much', 'tariff-savings'],
+                schemas: [
+                    buildWebAppSchema('iPhone Tariff Calculator ' + CURRENT_YEAR, 'Calculate the exact tariff cost on any iPhone model.'),
+                    buildFAQSchema([
+                        { question: 'How much tariff is on an iPhone?', answer: 'iPhones face ~54% effective tariff rate. On a $999 iPhone 16 Pro, that is roughly $190-$230 in tariff costs.' },
+                        { question: 'Are iPhones made in India tariff-free?', answer: 'No, India-assembled iPhones face a 26% reciprocal tariff, lower than China but still significant.' }
+                    ]),
+                    buildBreadcrumbSchema([{ label: 'Home', url: 'index.html' }, { label: 'iPhone Tariff Calculator' }], 'https://tariffcalc.us/')
+                ]
+            });
+
+            // Auto-calculate on load
+            setTimeout(() => calculateTariff(), 500);
+        });
+    </script>
+</body>
+</html>

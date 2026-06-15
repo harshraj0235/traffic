@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>US Tariff Impact Calculator 2026 — How Much Are You Really Paying?</title>
+    <meta name="description" content="Free consumer tariff calculator for 2026. Find out exactly how much more you're paying on electronics, clothing, groceries & more due to new US tariffs on China, EU, Mexico imports.">
+    <meta name="keywords" content="tariff calculator USA 2026, how much tariffs cost me, tariff impact consumer goods, import duty calculator, China tariff calculator, de minimis rule 2026">
+    <meta name="author" content="TariffCalc">
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="US Tariff Impact Calculator 2026 — See Your Real Cost">
+    <meta property="og:description" content="The first consumer-friendly tariff calculator. See exactly how much new 2025-2026 tariffs are costing you on everyday purchases.">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    <link rel="canonical" href="https://tariffcalc.us">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <!-- Ambient background effects -->
+    <div class="ambient-bg">
+        <div class="ambient-orb ambient-orb-1"></div>
+        <div class="ambient-orb ambient-orb-2"></div>
+        <div class="ambient-orb ambient-orb-3"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav id="main-nav" class="navbar">
+        <div class="nav-container">
+            <a href="#" class="nav-logo" id="nav-logo">
+                <span class="logo-icon">🇺🇸</span>
+                <span class="logo-text">TariffCalc</span>
+                <span class="logo-badge">2026</span>
+            </a>
+            <div class="nav-links">
+                <a href="#calculator" class="nav-link" id="nav-calculator">Calculator</a>
+                <a href="#most-affected" class="nav-link" id="nav-affected">Most Affected</a>
+                <a href="#faq" class="nav-link" id="nav-faq">FAQ</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header id="hero" class="hero-section">
+        <div class="hero-container">
+            <div class="hero-badge" id="hero-badge">
+                <span class="badge-pulse"></span>
+                <span>Updated for June 2026 Tariff Rates</span>
+            </div>
+            <h1 id="hero-title" class="hero-title">
+                How Much Are <span class="gradient-text">New Tariffs</span> Really Costing You?
+            </h1>
+            <p id="hero-subtitle" class="hero-subtitle">
+                The average American household is paying <strong>$1,500 – $3,000 more per year</strong> due to 2025-2026 tariff increases. 
+                Use our free calculator to see your personal impact.
+            </p>
+            <div class="hero-stats">
+                <div class="stat-card" id="stat-global">
+                    <span class="stat-value">10%</span>
+                    <span class="stat-label">Global Baseline Surcharge</span>
+                </div>
+                <div class="stat-card" id="stat-china">
+                    <span class="stat-value">145%</span>
+                    <span class="stat-label">Max China Tariff Rate</span>
+                </div>
+                <div class="stat-card" id="stat-deminimis">
+                    <span class="stat-value">$0</span>
+                    <span class="stat-label">New De Minimis Threshold</span>
+                </div>
+            </div>
+            <a href="#calculator" class="hero-cta" id="hero-cta">
+                <span>Calculate My Tariff Impact</span>
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M10 3L17 10L10 17M17 10H3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </a>
+        </div>
+    </header>
+
+    <!-- Calculator Section -->
+    <section id="calculator" class="calculator-section">
+        <div class="section-container">
+            <div class="section-header">
+                <h2 class="section-title">Tariff Impact Calculator</h2>
+                <p class="section-desc">Enter your purchase details below to see how much you're really paying in hidden tariff costs.</p>
+            </div>
+
+            <div class="calculator-grid">
+                <!-- Input Panel -->
+                <div class="calc-panel input-panel" id="input-panel">
+                    <div class="panel-header">
+                        <div class="panel-icon">📦</div>
+                        <h3>Your Purchase Details</h3>
+                    </div>
+
+                    <div class="form-group" id="form-category">
+                        <label for="product-category" class="form-label">
+                            <span class="label-icon">🏷️</span>
+                            Product Category
+                        </label>
+                        <div class="select-wrapper">
+                            <select id="product-category" class="form-select">
+                                <option value="">Select a category...</option>
+                                <option value="electronics">📱 Electronics & Tech</option>
+                                <option value="clothing">👕 Clothing & Apparel</option>
+                                <option value="automotive">🚗 Auto Parts & Vehicles</option>
+                                <option value="food">🍎 Food & Groceries</option>
+                                <option value="furniture">🪑 Furniture & Home</option>
+                                <option value="toys">🧸 Toys & Games</option>
+                                <option value="appliances">🏠 Home Appliances</option>
+                                <option value="sports">⚽ Sports & Outdoor</option>
+                                <option value="beauty">💄 Beauty & Personal Care</option>
+                                <option value="tools">🔧 Tools & Hardware</option>
+                                <option value="medical">💊 Medical & Health</option>
+                                <option value="shoes">👟 Footwear</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group" id="form-origin">
+                        <label for="country-origin" class="form-label">
+                            <span class="label-icon">🌍</span>
+                            Country of Manufacture
+                        </label>
+                        <div class="select-wrapper">
+                            <select id="country-origin" class="form-select">
+                                <option value="">Select country...</option>
+                                <option value="china">🇨🇳 China</option>
+                                <option value="vietnam">🇻🇳 Vietnam</option>
+                                <option value="india">🇮🇳 India</option>
+                                <option value="mexico">🇲🇽 Mexico</option>
+                                <option value="canada">🇨🇦 Canada</option>
+                                <option value="eu">🇪🇺 European Union</option>
+                                <option value="japan">🇯🇵 Japan</option>
+                                <option value="south_korea">🇰🇷 South Korea</option>
+                                <option value="taiwan">🇹🇼 Taiwan</option>
+                                <option value="thailand">🇹🇭 Thailand</option>
+                                <option value="bangladesh">🇧🇩 Bangladesh</option>
+                                <option value="indonesia">🇮🇩 Indonesia</option>
+                                <option value="uk">🇬🇧 United Kingdom</option>
+                                <option value="brazil">🇧🇷 Brazil</option>
+                                <option value="other">🌐 Other Country</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group" id="form-price">
+                        <label for="purchase-price" class="form-label">
+                            <span class="label-icon">💵</span>
+                            Purchase Price (USD)
+                        </label>
+                        <div class="price-input-wrapper">
+                            <span class="price-prefix">$</span>
+                            <input type="number" id="purchase-price" class="form-input" placeholder="e.g. 999" min="1" step="0.01">
+                        </div>
+                    </div>
+
+                    <div class="form-group" id="form-frequency">
+                        <label for="purchase-frequency" class="form-label">
+                            <span class="label-icon">🔄</span>
+                            How Often Do You Buy This?
+                        </label>
+                        <div class="select-wrapper">
+                            <select id="purchase-frequency" class="form-select">
+                                <option value="once">One-time purchase</option>
+                                <option value="weekly">Weekly</option>
+                                <option value="monthly">Monthly</option>
+                                <option value="quarterly">Every 3 months</option>
+                                <option value="yearly">Once a year</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <button id="calculate-btn" class="calculate-btn" onclick="calculateTariff()">
+                        <span class="btn-text">Calculate My Tariff Impact</span>
+                        <span class="btn-icon">⚡</span>
+                    </button>
+
+                    <p class="form-disclaimer" id="form-disclaimer">
+                        Based on current US tariff schedules effective June 2026. Actual tariffs may vary by specific HTS code.
+                    </p>
+                </div>
+
+                <!-- Results Panel -->
+                <div class="calc-panel results-panel" id="results-panel">
+                    <div class="results-placeholder" id="results-placeholder">
+                        <div class="placeholder-icon">📊</div>
+                        <h3>Your Results Will Appear Here</h3>
+                        <p>Fill in the details on the left and click calculate to see your tariff impact breakdown.</p>
+                    </div>
+
+                    <div class="results-content" id="results-content" style="display: none;">
+                        <div class="panel-header results-header">
+                            <div class="panel-icon">📊</div>
+                            <h3>Your Tariff Impact</h3>
+                        </div>
+
+                        <!-- Tariff Rate Display -->
+                        <div class="tariff-rate-display" id="tariff-rate-display">
+                            <div class="rate-ring" id="rate-ring">
+                                <svg viewBox="0 0 120 120" class="rate-svg">
+                                    <circle cx="60" cy="60" r="54" class="rate-bg-circle"/>
+                                    <circle cx="60" cy="60" r="54" class="rate-progress-circle" id="rate-circle"/>
+                                </svg>
+                                <div class="rate-value" id="rate-value">0%</div>
+                            </div>
+                            <div class="rate-info">
+                                <span class="rate-label">Estimated Tariff Rate</span>
+                                <span class="rate-breakdown" id="rate-breakdown">--</span>
+                            </div>
+                        </div>
+
+                        <!-- Cost Cards -->
+                        <div class="cost-cards" id="cost-cards">
+                            <div class="cost-card extra-cost" id="card-extra">
+                                <div class="cost-card-icon">💸</div>
+                                <div class="cost-card-info">
+                                    <span class="cost-card-label">Extra You're Paying</span>
+                                    <span class="cost-card-value" id="extra-cost-value">$0.00</span>
+                                </div>
+                            </div>
+                            <div class="cost-card annual-cost" id="card-annual">
+                                <div class="cost-card-icon">📅</div>
+                                <div class="cost-card-info">
+                                    <span class="cost-card-label">Annual Impact</span>
+                                    <span class="cost-card-value" id="annual-cost-value">$0.00</span>
+                                </div>
+                            </div>
+                            <div class="cost-card pretariff-price" id="card-pretariff">
+                                <div class="cost-card-icon">⏪</div>
+                                <div class="cost-card-info">
+                                    <span class="cost-card-label">Pre-Tariff Price</span>
+                                    <span class="cost-card-value" id="pretariff-price-value">$0.00</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Chart -->
+                        <div class="chart-container" id="chart-container">
+                            <h4 class="chart-title">Price Comparison: Before vs After Tariffs</h4>
+                            <canvas id="price-chart"></canvas>
+                        </div>
+
+                        <!-- Context Card -->
+                        <div class="context-card" id="context-card">
+                            <div class="context-icon">💡</div>
+                            <p class="context-text" id="context-text"></p>
+                        </div>
+
+                        <!-- Share Button -->
+                        <button class="share-btn" id="share-btn" onclick="shareResults()">
+                            <span>📤 Share Your Results</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quick Examples Section -->
+    <section id="quick-examples" class="examples-section">
+        <div class="section-container">
+            <div class="section-header">
+                <h2 class="section-title">Real-World Tariff Examples</h2>
+                <p class="section-desc">See how tariffs impact everyday items Americans buy. Click any example to auto-fill the calculator.</p>
+            </div>
+            <div class="examples-grid" id="examples-grid">
+                <button class="example-card" id="example-iphone" onclick="fillExample('electronics','china',999,'yearly')">
+                    <div class="example-emoji">📱</div>
+                    <div class="example-info">
+                        <span class="example-name">iPhone 16 Pro</span>
+                        <span class="example-detail">Made in China · $999</span>
+                    </div>
+                    <span class="example-arrow">→</span>
+                </button>
+                <button class="example-card" id="example-nike" onclick="fillExample('shoes','vietnam',120,'yearly')">
+                    <div class="example-emoji">👟</div>
+                    <div class="example-info">
+                        <span class="example-name">Nike Running Shoes</span>
+                        <span class="example-detail">Made in Vietnam · $120</span>
+                    </div>
+                    <span class="example-arrow">→</span>
+                </button>
+                <button class="example-card" id="example-grocery" onclick="fillExample('food','mexico',150,'weekly')">
+                    <div class="example-emoji">🥑</div>
+                    <div class="example-info">
+                        <span class="example-name">Weekly Groceries</span>
+                        <span class="example-detail">Mexico produce · $150/week</span>
+                    </div>
+                    <span class="example-arrow">→</span>
+                </button>
+                <button class="example-card" id="example-laptop" onclick="fillExample('electronics','china',1299,'yearly')">
+                    <div class="example-emoji">💻</div>
+                    <div class="example-info">
+                        <span class="example-name">Laptop Computer</span>
+                        <span class="example-detail">Made in China · $1,299</span>
+                    </div>
+                    <span class="example-arrow">→</span>
+                </button>
+                <button class="example-card" id="example-tshirt" onclick="fillExample('clothing','bangladesh',25,'monthly')">
+                    <div class="example-emoji">👕</div>
+                    <div class="example-info">
+                        <span class="example-name">T-Shirt / Basics</span>
+                        <span class="example-detail">Made in Bangladesh · $25</span>
+                    </div>
+                    <span class="example-arrow">→</span>
+                </button>
+                <button class="example-card" id="example-car" onclick="fillExample('automotive','japan',35000,'once')">
+                    <div class="example-emoji">🚗</div>
+                    <div class="example-info">
+                        <span class="example-name">Japanese Car</span>
+                        <span class="example-detail">Made in Japan · $35,000</span>
+                    </div>
+                    <span class="example-arrow">→</span>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Most Affected Products -->
+    <section id="most-affected" class="affected-section">
+        <div class="section-container">
+            <div class="section-header">
+                <h2 class="section-title">Products Most Affected by 2026 Tariffs</h2>
+                <p class="section-desc">These product categories are seeing the biggest price increases due to new tariff policies.</p>
+            </div>
+            <div class="affected-grid" id="affected-grid">
+                <article class="affected-card" id="affected-electronics">
+                    <div class="affected-rank">#1</div>
+                    <div class="affected-icon">📱</div>
+                    <h3>Electronics from China</h3>
+                    <div class="affected-rate">
+                        <span class="affected-rate-value">54% – 145%</span>
+                        <span class="affected-rate-label">Tariff Rate</span>
+                    </div>
+                    <p>Smartphones, laptops, tablets, gaming consoles, and accessories. China tariffs include the 20% baseline + 34% reciprocal tariff + additional Section 301 duties up to 100% on specific tech categories.</p>
+                    <div class="affected-examples">
+                        <span class="affected-tag">iPhone: +$200-350</span>
+                        <span class="affected-tag">Laptop: +$300-500</span>
+                    </div>
+                </article>
+                <article class="affected-card" id="affected-auto">
+                    <div class="affected-rank">#2</div>
+                    <div class="affected-icon">🚗</div>
+                    <h3>Automobiles & Parts</h3>
+                    <div class="affected-rate">
+                        <span class="affected-rate-value">25% – 50%</span>
+                        <span class="affected-rate-label">Tariff Rate</span>
+                    </div>
+                    <p>All imported vehicles face a 25% tariff effective April 2025, with auto parts at 25% from May 2025. This applies regardless of country of origin, including Canada, Mexico, Japan, and the EU.</p>
+                    <div class="affected-examples">
+                        <span class="affected-tag">New Car: +$4,000-12,000</span>
+                        <span class="affected-tag">Parts: +25%</span>
+                    </div>
+                </article>
+                <article class="affected-card" id="affected-clothing">
+                    <div class="affected-rank">#3</div>
+                    <div class="affected-icon">👗</div>
+                    <h3>Clothing & Textiles</h3>
+                    <div class="affected-rate">
+                        <span class="affected-rate-value">27% – 145%</span>
+                        <span class="affected-rate-label">Tariff Rate</span>
+                    </div>
+                    <p>Fast fashion from China hit hardest. The de minimis exemption suspension means even small Shein/Temu orders now face full tariffs. Vietnam and Bangladesh clothing face the 10% global surcharge on top of existing duties.</p>
+                    <div class="affected-examples">
+                        <span class="affected-tag">Shein order: +90-145%</span>
+                        <span class="affected-tag">Basics: +15-30%</span>
+                    </div>
+                </article>
+                <article class="affected-card" id="affected-food">
+                    <div class="affected-rank">#4</div>
+                    <div class="affected-icon">🍎</div>
+                    <h3>Food & Groceries</h3>
+                    <div class="affected-rate">
+                        <span class="affected-rate-value">10% – 25%</span>
+                        <span class="affected-rate-label">Tariff Rate</span>
+                    </div>
+                    <p>Fresh produce from Mexico, seafood, olive oil from EU, and specialty foods all face increased tariffs. The 10% global surcharge impacts virtually all imported food products, raising grocery bills nationwide.</p>
+                    <div class="affected-examples">
+                        <span class="affected-tag">Avocados: +15-20%</span>
+                        <span class="affected-tag">Olive Oil: +20%</span>
+                    </div>
+                </article>
+                <article class="affected-card" id="affected-appliances">
+                    <div class="affected-rank">#5</div>
+                    <div class="affected-icon">🏠</div>
+                    <h3>Home Appliances</h3>
+                    <div class="affected-rate">
+                        <span class="affected-rate-value">35% – 75%</span>
+                        <span class="affected-rate-label">Tariff Rate</span>
+                    </div>
+                    <p>Washing machines, refrigerators, air conditioners, and small kitchen appliances manufactured in China or with Chinese components face compounded tariffs. Even products assembled elsewhere may use Chinese parts.</p>
+                    <div class="affected-examples">
+                        <span class="affected-tag">Washer: +$200-400</span>
+                        <span class="affected-tag">A/C Unit: +$150-300</span>
+                    </div>
+                </article>
+                <article class="affected-card" id="affected-toys">
+                    <div class="affected-rank">#6</div>
+                    <div class="affected-icon">🧸</div>
+                    <h3>Toys & Games</h3>
+                    <div class="affected-rate">
+                        <span class="affected-rate-value">54% – 145%</span>
+                        <span class="affected-rate-label">Tariff Rate</span>
+                    </div>
+                    <p>Over 80% of toys sold in the US are made in China. Full China tariff rates apply, making holiday shopping significantly more expensive. Board games, action figures, and educational toys all impacted.</p>
+                    <div class="affected-examples">
+                        <span class="affected-tag">LEGO set: +30-50%</span>
+                        <span class="affected-tag">Action figures: +50%+</span>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tariff Timeline -->
+    <section id="timeline" class="timeline-section">
+        <div class="section-container">
+            <div class="section-header">
+                <h2 class="section-title">2025-2026 US Tariff Timeline</h2>
+                <p class="section-desc">A chronological breakdown of major tariff changes affecting consumers.</p>
+            </div>
+            <div class="timeline" id="timeline-container">
+                <div class="timeline-item" id="timeline-1">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <span class="timeline-date">Feb 4, 2025</span>
+                        <h3>China Tariff Increase Begins</h3>
+                        <p>10% additional tariff imposed on all Chinese imports under IEEPA authority, on top of existing Section 301 tariffs.</p>
+                    </div>
+                </div>
+                <div class="timeline-item" id="timeline-2">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <span class="timeline-date">Mar 4, 2025</span>
+                        <h3>China Tariffs Doubled to 20%</h3>
+                        <p>Additional IEEPA tariff on China raised from 10% to 20%, citing fentanyl-related emergency.</p>
+                    </div>
+                </div>
+                <div class="timeline-item" id="timeline-3">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <span class="timeline-date">Apr 2, 2025</span>
+                        <h3>Section 122 Global Tariff</h3>
+                        <p>10% baseline tariff on ALL imports from ALL countries. Higher "reciprocal" tariffs announced for specific nations.</p>
+                    </div>
+                </div>
+                <div class="timeline-item" id="timeline-4">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <span class="timeline-date">Apr 9, 2025</span>
+                        <h3>China Tariffs Escalate to 145%</h3>
+                        <p>Combined tariff rate on Chinese goods reaches 145% after multiple escalations. 90-day pause on other reciprocal tariffs.</p>
+                    </div>
+                </div>
+                <div class="timeline-item" id="timeline-5">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <span class="timeline-date">May 2, 2025</span>
+                        <h3>De Minimis Exemption Suspended</h3>
+                        <p>$800 duty-free threshold for small packages eliminated for China. All Shein, Temu, and AliExpress orders now subject to full tariffs or flat fees.</p>
+                    </div>
+                </div>
+                <div class="timeline-item" id="timeline-6">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <span class="timeline-date">May 14, 2025</span>
+                        <h3>US-China 90-Day Deal</h3>
+                        <p>Tariffs temporarily reduced: US lowers China tariffs to 30% (from 145%), China lowers US tariffs to 10% (from 125%). 90-day negotiation window.</p>
+                    </div>
+                </div>
+                <div class="timeline-item active" id="timeline-7">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <span class="timeline-date">June 2026</span>
+                        <h3>Current Status</h3>
+                        <p>10% global baseline remains. China effective rates vary 30-54%+ depending on product category. Auto tariffs at 25%. De minimis suspension continues.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section id="faq" class="faq-section">
+        <div class="section-container">
+            <div class="section-header">
+                <h2 class="section-title">Frequently Asked Questions</h2>
+                <p class="section-desc">Everything you need to know about how the 2025-2026 tariffs affect you.</p>
+            </div>
+            <div class="faq-list" id="faq-list">
+                <details class="faq-item" id="faq-1">
+                    <summary class="faq-question">
+                        <span>What are tariffs and why do they affect my prices?</span>
+                        <span class="faq-toggle">+</span>
+                    </summary>
+                    <div class="faq-answer">
+                        <p>Tariffs are taxes imposed on imported goods by the US government. When tariffs increase, importers pay more to bring goods into the country, and these costs are almost always passed on to consumers through higher retail prices. Studies show that 90-100% of tariff costs are ultimately borne by American consumers and businesses, not by foreign countries.</p>
+                    </div>
+                </details>
+                <details class="faq-item" id="faq-2">
+                    <summary class="faq-question">
+                        <span>How accurate is this calculator?</span>
+                        <span class="faq-toggle">+</span>
+                    </summary>
+                    <div class="faq-answer">
+                        <p>Our calculator provides estimates based on current published tariff schedules and category-level rates. Actual tariffs can vary based on the specific HTS (Harmonized Tariff Schedule) classification of each product, which can include thousands of sub-categories. Our estimates are designed to give consumers a realistic approximation of their tariff burden. For precise duty calculations on specific products, consult a customs broker.</p>
+                    </div>
+                </details>
+                <details class="faq-item" id="faq-3">
+                    <summary class="faq-question">
+                        <span>What is the de minimis rule change and how does it affect me?</span>
+                        <span class="faq-toggle">+</span>
+                    </summary>
+                    <div class="faq-answer">
+                        <p>Previously, packages worth under $800 could enter the US duty-free under the "de minimis" exemption. Starting May 2, 2025, this exemption was suspended for goods from China (and later expanded). This means small online orders from sites like Shein, Temu, AliExpress, and other Chinese retailers now face either full tariff rates or flat postal fees of $75-150 per package. This is a massive change for budget shoppers.</p>
+                    </div>
+                </details>
+                <details class="faq-item" id="faq-4">
+                    <summary class="faq-question">
+                        <span>Are there any products exempt from the new tariffs?</span>
+                        <span class="faq-toggle">+</span>
+                    </summary>
+                    <div class="faq-answer">
+                        <p>Some product categories have temporary exemptions or reduced rates. Pharmaceuticals and certain critical minerals have partial exemptions. Some electronics had temporary relief that has since expired. The tariff landscape is constantly evolving, with exemptions being granted and revoked. Our calculator uses the most current effective rates as of June 2026.</p>
+                    </div>
+                </details>
+                <details class="faq-item" id="faq-5">
+                    <summary class="faq-question">
+                        <span>How much is the average American family paying in extra tariffs?</span>
+                        <span class="faq-toggle">+</span>
+                    </summary>
+                    <div class="faq-answer">
+                        <p>According to multiple economic analyses, the average American household is paying approximately $1,500 to $3,000 more per year due to the 2025-2026 tariff increases. Lower-income households are disproportionately affected because they spend a higher percentage of their income on consumer goods. The impact varies significantly based on spending habits, with heavy online shoppers and those buying electronics or vehicles seeing the largest increases.</p>
+                    </div>
+                </details>
+                <details class="faq-item" id="faq-6">
+                    <summary class="faq-question">
+                        <span>Will these tariffs be permanent?</span>
+                        <span class="faq-toggle">+</span>
+                    </summary>
+                    <div class="faq-answer">
+                        <p>The tariff landscape is fluid and subject to ongoing trade negotiations. The 10% global baseline tariff is currently in effect with no announced expiration. China-specific tariffs have already been adjusted multiple times (from 145% to 30% after the May 2025 deal). Trade deals with individual countries could reduce or eliminate tariffs. We recommend checking back regularly as our calculator is updated when rates change.</p>
+                    </div>
+                </details>
+            </div>
+        </div>
+    </section>
+
+    <!-- Annual Household Calculator -->
+    <section id="household" class="household-section">
+        <div class="section-container">
+            <div class="section-header">
+                <h2 class="section-title">Estimate Your Household Tariff Burden</h2>
+                <p class="section-desc">Quickly estimate how much your entire household is paying in tariffs annually based on your spending profile.</p>
+            </div>
+            <div class="household-card" id="household-card">
+                <div class="household-grid">
+                    <div class="household-input-group">
+                        <label for="household-income" class="form-label">
+                            <span class="label-icon">💰</span>
+                            Annual Household Income
+                        </label>
+                        <div class="select-wrapper">
+                            <select id="household-income" class="form-select">
+                                <option value="30000">Under $30,000</option>
+                                <option value="50000">$30,000 – $50,000</option>
+                                <option value="75000" selected>$50,000 – $100,000</option>
+                                <option value="125000">$100,000 – $150,000</option>
+                                <option value="200000">$150,000 – $250,000</option>
+                                <option value="300000">$250,000+</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="household-input-group">
+                        <label for="household-style" class="form-label">
+                            <span class="label-icon">🛍️</span>
+                            Shopping Style
+                        </label>
+                        <div class="select-wrapper">
+                            <select id="household-style" class="form-select">
+                                <option value="frugal">Frugal — mostly domestic</option>
+                                <option value="average" selected>Average consumer</option>
+                                <option value="heavy">Heavy online shopper</option>
+                                <option value="luxury">Luxury / premium buyer</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="household-input-group">
+                        <label for="household-size" class="form-label">
+                            <span class="label-icon">👨‍👩‍👧‍👦</span>
+                            Household Size
+                        </label>
+                        <div class="select-wrapper">
+                            <select id="household-size" class="form-select">
+                                <option value="1">1 person</option>
+                                <option value="2" selected>2 people</option>
+                                <option value="3">3 people</option>
+                                <option value="4">4 people</option>
+                                <option value="5">5+ people</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <button id="household-calc-btn" class="calculate-btn household-calc-btn" onclick="calculateHousehold()">
+                    <span class="btn-text">Estimate My Annual Tariff Burden</span>
+                    <span class="btn-icon">🏠</span>
+                </button>
+                <div class="household-results" id="household-results" style="display:none;">
+                    <div class="household-result-main" id="household-main-result">
+                        <span class="household-result-label">Estimated Annual Tariff Burden</span>
+                        <span class="household-result-value" id="household-total">$0</span>
+                        <span class="household-result-note" id="household-note"></span>
+                    </div>
+                    <div class="household-result-bars" id="household-bars"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="site-footer" class="site-footer">
+        <div class="footer-container">
+            <div class="footer-top">
+                <div class="footer-brand">
+                    <span class="logo-icon">🇺🇸</span>
+                    <span class="logo-text">TariffCalc</span>
+                    <span class="logo-badge">2026</span>
+                </div>
+                <p class="footer-tagline">Helping American consumers understand the real cost of tariffs.</p>
+            </div>
+            <div class="footer-bottom">
+                <p class="footer-disclaimer">
+                    This calculator provides estimates for educational purposes only. Actual tariff rates vary by specific product classification (HTS code). 
+                    Tariff rates are based on publicly available US trade policy data as of June 2026. This site is not affiliated with any government agency.
+                </p>
+                <p class="footer-copyright">© 2026 TariffCalc. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="tariff-data.js"></script>
+    <script src="app.js"></script>
+    <script src="page-builder.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            initPage({
+                schemas: [
+                    buildWebAppSchema('US Tariff Impact Calculator ' + CURRENT_YEAR, 'Free consumer tariff calculator. Find out how much new US tariffs are costing you on everyday purchases.'),
+                    buildFAQSchema([
+                        { question: 'What are tariffs and why do they affect my prices?', answer: 'Tariffs are taxes on imported goods. 90-100% of costs are passed to consumers through higher prices.' },
+                        { question: 'How much is the average family paying in extra tariffs?', answer: 'The average household pays $1,500-$3,000 more per year due to 2025-2026 tariff increases.' },
+                        { question: 'What is the de minimis rule change?', answer: 'The $800 duty-free threshold for small packages from China was eliminated May 2, 2025.' }
+                    ])
+                ]
+            });
+        });
+    </script>
+</body>
+</html>

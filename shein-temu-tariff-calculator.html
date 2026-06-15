@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shein & Temu Tariff Calculator 2026 — How Much Duty on Your Order?</title>
+    <meta name="description" content="Calculate tariffs on Shein, Temu, and AliExpress orders. De minimis exemption suspended — see how much duty you'll pay on Chinese marketplace purchases.">
+    <meta name="keywords" content="Shein tariff calculator, Temu import duty, AliExpress tariff 2026, Shein duty calculator, de minimis Shein, Temu customs fee">
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="Shein & Temu Tariff Calculator — What Will Your Order Really Cost?">
+    <meta property="og:description" content="De minimis exemption suspended. Calculate the real cost of Shein and Temu orders including new tariffs and postal fees.">
+    <meta property="og:type" content="website">
+    <link rel="canonical" href="https://tariffcalc.us/shein-temu-tariff-calculator.html">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <div class="ambient-bg"><div class="ambient-orb ambient-orb-1"></div><div class="ambient-orb ambient-orb-2"></div><div class="ambient-orb ambient-orb-3"></div></div>
+    <nav id="main-nav" class="navbar"></nav>
+    <div id="breadcrumbs"></div>
+
+    <header class="page-hero">
+        <div class="hero-container">
+            <div class="hero-badge"><span class="badge-pulse"></span><span>⚠️ De Minimis Exemption Suspended</span></div>
+            <span class="hero-emoji">🛍️</span>
+            <h1 class="hero-title">Shein & Temu Tariff Calculator <span class="dynamic-year"></span></h1>
+            <p class="hero-subtitle">The $800 duty-free exemption has been <strong>suspended for Chinese shipments</strong>. Every Shein, Temu, and AliExpress order now faces full tariffs or flat postal fees of <strong>$75-$150 per package</strong>. Calculate your real cost below.</p>
+            <div class="hero-stats">
+                <div class="stat-card"><span class="stat-value">$0</span><span class="stat-label">New De Minimis Threshold</span></div>
+                <div class="stat-card"><span class="stat-value">$75-150</span><span class="stat-label">Flat Postal Fee</span></div>
+                <div class="stat-card"><span class="stat-value">45%+</span><span class="stat-label">Clothing Tariff Rate</span></div>
+            </div>
+        </div>
+    </header>
+
+    <section id="calculator" class="calculator-section">
+        <div class="section-container">
+            <div class="section-header">
+                <h2 class="section-title">Calculate Your Shein/Temu Order Cost</h2>
+                <p class="section-desc">Enter your order details to see the total cost including tariffs and postal fees.</p>
+            </div>
+            <div class="calculator-grid">
+                <div class="calc-panel input-panel" id="input-panel">
+                    <div class="panel-header"><div class="panel-icon">🛍️</div><h3>Order Details</h3></div>
+                    <div class="form-group"><label for="product-category" class="form-label"><span class="label-icon">🏷️</span>What Are You Buying?</label><div class="select-wrapper"><select id="product-category" class="form-select"><option value="clothing" selected>👕 Clothing & Apparel</option><option value="shoes">👟 Footwear</option><option value="beauty">💄 Beauty & Personal Care</option><option value="electronics">📱 Electronics & Gadgets</option><option value="toys">🧸 Toys & Games</option><option value="furniture">🪑 Home & Decor</option><option value="tools">🔧 Tools & Gadgets</option></select></div></div>
+                    <div class="form-group"><label for="country-origin" class="form-label"><span class="label-icon">🌍</span>Ships From</label><div class="select-wrapper"><select id="country-origin" class="form-select" disabled><option value="china" selected>🇨🇳 China (Direct Ship)</option></select></div></div>
+                    <div class="form-group"><label for="purchase-price" class="form-label"><span class="label-icon">💵</span>Order Total (USD)</label><div class="price-input-wrapper"><span class="price-prefix">$</span><input type="number" id="purchase-price" class="form-input" placeholder="e.g. 50" min="1" step="0.01" value="50"></div></div>
+                    <div class="form-group"><label for="purchase-frequency" class="form-label"><span class="label-icon">🔄</span>How Often Do You Order?</label><div class="select-wrapper"><select id="purchase-frequency" class="form-select"><option value="once">One-time order</option><option value="monthly" selected>Monthly</option><option value="quarterly">Every 3 months</option><option value="yearly">Once a year</option></select></div></div>
+                    <button id="calculate-btn" class="calculate-btn" onclick="calculateTariff()"><span class="btn-text">Calculate Real Cost</span><span class="btn-icon">⚡</span></button>
+                </div>
+                <div class="calc-panel results-panel" id="results-panel">
+                    <div class="results-placeholder" id="results-placeholder"><div class="placeholder-icon">📊</div><h3>Your Order Cost Breakdown</h3><p>Enter your order details to see the full cost including tariffs.</p></div>
+                    <div class="results-content" id="results-content" style="display:none;">
+                        <div class="panel-header results-header"><div class="panel-icon">📊</div><h3>Your Real Order Cost</h3></div>
+                        <div class="tariff-rate-display" id="tariff-rate-display"><div class="rate-ring" id="rate-ring"><svg viewBox="0 0 120 120" class="rate-svg"><circle cx="60" cy="60" r="54" class="rate-bg-circle"/><circle cx="60" cy="60" r="54" class="rate-progress-circle" id="rate-circle"/></svg><div class="rate-value" id="rate-value">0%</div></div><div class="rate-info"><span class="rate-label">Effective Tariff Rate</span><span class="rate-breakdown" id="rate-breakdown">--</span></div></div>
+                        <div class="cost-cards" id="cost-cards"><div class="cost-card extra-cost" id="card-extra"><div class="cost-card-icon">💸</div><div class="cost-card-info"><span class="cost-card-label">Extra You're Paying</span><span class="cost-card-value" id="extra-cost-value">$0.00</span></div></div><div class="cost-card annual-cost" id="card-annual"><div class="cost-card-icon">📅</div><div class="cost-card-info"><span class="cost-card-label">Annual Impact</span><span class="cost-card-value" id="annual-cost-value">$0.00</span></div></div><div class="cost-card pretariff-price" id="card-pretariff"><div class="cost-card-icon">⏪</div><div class="cost-card-info"><span class="cost-card-label">Pre-Tariff Price</span><span class="cost-card-value" id="pretariff-price-value">$0.00</span></div></div></div>
+                        <div class="chart-container" id="chart-container"><h4 class="chart-title">Your Order: Before vs After Tariffs</h4><canvas id="price-chart"></canvas></div>
+                        <div class="context-card" id="context-card"><div class="context-icon">💡</div><p class="context-text" id="context-text"></p></div>
+                        <button class="share-btn" id="share-btn" onclick="shareResults()"><span>📤 Share Your Results</span></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="product-examples" class="examples-section"></section>
+
+    <section class="content-section">
+        <div class="section-container">
+            <div class="content-card">
+                <h2>Shein, Temu & AliExpress Tariffs Explained (<span class="dynamic-year"></span>)</h2>
+                <p>If you shop on Shein, Temu, AliExpress, or Wish, the tariff landscape has changed dramatically. Here's everything you need to know about the new costs.</p>
+                <h3>What Changed: The De Minimis Suspension</h3>
+                <p>Before May 2, 2025, packages worth under $800 could enter the US duty-free under the "de minimis" exemption. This was the loophole that made ultra-cheap Chinese marketplace shopping possible. <strong>This exemption has been suspended for Chinese shipments.</strong></p>
+                <p>Now, every package from China faces either:</p>
+                <ul>
+                    <li><strong>Full tariff rates</strong> (45%+ for clothing, 54%+ for electronics)</li>
+                    <li><strong>OR flat postal fees</strong> of $75 (USPS) to $150 (express carriers) per package</li>
+                </ul>
+                <h3>Is It Still Worth Shopping on Shein/Temu?</h3>
+                <p>For many shoppers, the math no longer works. A $30 Shein order that previously arrived duty-free might now face $13-$15 in tariffs (if processed via ad valorem rates) or a $75 flat postal fee — more than doubling the cost. Larger orders over $200+ may still offer some value since the tariff percentage stays the same regardless of order size.</p>
+                <div class="key-facts">
+                    <h3>📋 Key Facts for Shein/Temu Shoppers</h3>
+                    <ul>
+                        <li>$800 duty-free exemption SUSPENDED for Chinese shipments since May 2025</li>
+                        <li>ALL orders now face full tariffs OR flat postal fees ($75-$150)</li>
+                        <li>Clothing from China faces 45%+ effective tariff rate</li>
+                        <li>Small orders are hit hardest — a $20 order may cost $95+ with flat fee</li>
+                        <li>Larger orders are more economical (tariff is a percentage, not flat)</li>
+                        <li>Some items may be shipped from US warehouses and avoid the worst fees</li>
+                        <li>Shein and Temu are opening US/Mexico fulfillment centers to reduce impact</li>
+                    </ul>
+                </div>
+                <h3>Alternatives to Consider</h3>
+                <p>With tariffs making Chinese fast fashion less economical, consider domestic alternatives like <strong>Amazon Basics, Walmart's in-house brands, Target's Cat & Jack/A New Day lines</strong>, or secondhand platforms like <strong>ThredUp, Poshmark, and Depop</strong>. Check our <a href="tariff-savings-tips.html">tariff savings guide</a> for more strategies.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="faq-section">
+        <div class="section-container">
+            <div class="section-header"><h2 class="section-title">Shein & Temu Tariff FAQ</h2><p class="section-desc">Everything you need to know about tariffs on Chinese marketplace orders.</p></div>
+            <div class="faq-list">
+                <details class="faq-item"><summary class="faq-question"><span>Can I still order from Shein in 2026?</span><span class="faq-toggle">+</span></summary><div class="faq-answer"><p>Yes, you can still order from Shein, but you'll pay significantly more. With the de minimis exemption suspended, all orders face full tariffs (45%+ for clothing) or flat postal fees of $75-$150 per package. Many shoppers find that small orders ($20-$50) are no longer economical.</p></div></details>
+                <details class="faq-item"><summary class="faq-question"><span>How much will I pay in fees on a Temu order?</span><span class="faq-toggle">+</span></summary><div class="faq-answer"><p>It depends on the order size and products. Clothing orders face ~45% tariff rates (so a $50 order becomes ~$72.50). Alternatively, a flat postal fee of $75-$150 may apply per package. Temu is working to shift inventory to US warehouses to reduce these costs.</p></div></details>
+                <details class="faq-item"><summary class="faq-question"><span>What happened to the $800 duty-free rule?</span><span class="faq-toggle">+</span></summary><div class="faq-answer"><p>The de minimis exemption (allowing packages under $800 to enter duty-free) was suspended for Chinese shipments on May 2, 2025. This was the mechanism that allowed Shein and Temu to sell ultra-cheap goods without duty charges. It remains suspended with no announced reinstatement date.</p></div></details>
+                <details class="faq-item"><summary class="faq-question"><span>Do AliExpress orders also face tariffs?</span><span class="faq-toggle">+</span></summary><div class="faq-answer"><p>Yes. Any package shipped directly from China to the US faces the same tariff treatment regardless of the platform — Shein, Temu, AliExpress, Wish, DHgate, and Banggood are all equally affected by the de minimis suspension and China tariff rates.</p></div></details>
+                <details class="faq-item"><summary class="faq-question"><span>Are there ways to avoid the tariffs?</span><span class="faq-toggle">+</span></summary><div class="faq-answer"><p>You cannot legally avoid tariffs on Chinese imports. However, some Shein and Temu items ship from US warehouses — these have already had tariffs paid and won't incur additional duties. Look for "Ships from US" labels. Alternatively, consider domestic shopping alternatives.</p></div></details>
+            </div>
+        </div>
+    </section>
+
+    <section id="related-calculators" class="content-section"></section>
+    <section id="internal-links" class="content-section"></section>
+    <footer id="site-footer" class="site-footer"></footer>
+
+    <script src="tariff-data.js"></script>
+    <script src="app.js"></script>
+    <script src="page-builder.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            initPage({
+                breadcrumbs: [{ label: 'Home', url: 'index.html' }, { label: 'Shein & Temu Tariffs' }],
+                prefill: { country: 'china', lockCountry: true },
+                buildInternalLinks: true,
+                buildExamples: true, exampleCountry: 'china', exampleMax: 8,
+                relatedCalculators: ['china', 'de-minimis', 'clothing', 'online-shopping', 'how-much', 'tariff-savings'],
+                schemas: [
+                    buildWebAppSchema('Shein & Temu Tariff Calculator ' + CURRENT_YEAR, 'Calculate tariffs on Shein, Temu, and AliExpress orders.'),
+                    buildFAQSchema([
+                        { question: 'Can I still order from Shein?', answer: 'Yes, but with the de minimis suspension, all orders face full tariffs or $75-$150 postal fees.' },
+                        { question: 'What happened to the $800 duty-free rule?', answer: 'Suspended for Chinese shipments since May 2, 2025.' }
+                    ]),
+                    buildBreadcrumbSchema([{ label: 'Home', url: 'index.html' }, { label: 'Shein & Temu Tariffs' }], 'https://tariffcalc.us/')
+                ]
+            });
+        });
+    </script>
+</body>
+</html>

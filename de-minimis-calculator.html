@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>De Minimis Calculator 2026 — $800 Rule Change Impact Calculator</title>
+    <meta name="description" content="Calculate the impact of the de minimis rule change. The $800 duty-free threshold for Chinese packages has been suspended. See how this affects your orders.">
+    <meta name="keywords" content="de minimis calculator, de minimis rule change, $800 duty free rule, de minimis threshold 2026, small package tariff">
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="De Minimis Rule Calculator — $800 Duty-Free Threshold Suspended">
+    <meta property="og:description" content="The $800 duty-free exemption has been suspended for Chinese shipments. Calculate the impact on your small orders.">
+    <meta property="og:type" content="website">
+    <link rel="canonical" href="https://tariffcalc.us/de-minimis-calculator.html">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <div class="ambient-bg"><div class="ambient-orb ambient-orb-1"></div><div class="ambient-orb ambient-orb-2"></div><div class="ambient-orb ambient-orb-3"></div></div>
+    <nav id="main-nav" class="navbar"></nav>
+    <div id="breadcrumbs"></div>
+
+    <header class="page-hero">
+        <div class="hero-container">
+            <div class="hero-badge"><span class="badge-pulse"></span><span>⚠️ De Minimis Suspended Since May 2025</span></div>
+            <span class="hero-emoji">📦</span>
+            <h1 class="hero-title">De Minimis Rule Change Calculator <span class="dynamic-year"></span></h1>
+            <p class="hero-subtitle">The <strong>$800 duty-free threshold</strong> for small packages from China has been suspended. Previously, small orders from Shein, Temu, and AliExpress entered duty-free. Now they face <strong>full tariffs or $75-$150 flat fees</strong>.</p>
+            <div class="hero-stats">
+                <div class="stat-card"><span class="stat-value">$800</span><span class="stat-label">Old Threshold</span></div>
+                <div class="stat-card"><span class="stat-value">$0</span><span class="stat-label">New Threshold (China)</span></div>
+                <div class="stat-card"><span class="stat-value">$75-150</span><span class="stat-label">Flat Postal Fee</span></div>
+            </div>
+        </div>
+    </header>
+
+    <section id="calculator" class="calculator-section">
+        <div class="section-container">
+            <div class="section-header"><h2 class="section-title">Calculate De Minimis Impact</h2><p class="section-desc">See the before vs. after cost of your small package orders from China.</p></div>
+            <div class="calculator-grid">
+                <div class="calc-panel input-panel" id="input-panel">
+                    <div class="panel-header"><div class="panel-icon">📦</div><h3>Package Details</h3></div>
+                    <div class="form-group"><label for="product-category" class="form-label"><span class="label-icon">🏷️</span>Product Type</label><div class="select-wrapper"><select id="product-category" class="form-select"><option value="clothing" selected>👕 Clothing & Apparel</option><option value="electronics">📱 Electronics</option><option value="beauty">💄 Beauty Products</option><option value="toys">🧸 Toys & Games</option><option value="shoes">👟 Footwear</option><option value="tools">🔧 Tools & Gadgets</option><option value="furniture">🪑 Home Decor</option></select></div></div>
+                    <div class="form-group"><label for="country-origin" class="form-label"><span class="label-icon">🌍</span>Ships From</label><div class="select-wrapper"><select id="country-origin" class="form-select" disabled><option value="china" selected>🇨🇳 China (De Minimis Suspended)</option></select></div></div>
+                    <div class="form-group"><label for="purchase-price" class="form-label"><span class="label-icon">💵</span>Package Value (USD)</label><div class="price-input-wrapper"><span class="price-prefix">$</span><input type="number" id="purchase-price" class="form-input" placeholder="e.g. 30" min="1" step="0.01" value="30"></div></div>
+                    <div class="form-group"><label for="purchase-frequency" class="form-label"><span class="label-icon">🔄</span>How Often?</label><div class="select-wrapper"><select id="purchase-frequency" class="form-select"><option value="once">One-time</option><option value="monthly" selected>Monthly</option><option value="quarterly">Quarterly</option><option value="yearly">Yearly</option></select></div></div>
+                    <button id="calculate-btn" class="calculate-btn" onclick="calculateTariff()"><span class="btn-text">Calculate Impact</span><span class="btn-icon">⚡</span></button>
+                </div>
+                <div class="calc-panel results-panel" id="results-panel">
+                    <div class="results-placeholder" id="results-placeholder"><div class="placeholder-icon">📊</div><h3>De Minimis Impact</h3><p>Enter package details to compare old vs new costs.</p></div>
+                    <div class="results-content" id="results-content" style="display:none;">
+                        <div class="panel-header results-header"><div class="panel-icon">📊</div><h3>De Minimis Impact</h3></div>
+                        <div class="tariff-rate-display" id="tariff-rate-display"><div class="rate-ring" id="rate-ring"><svg viewBox="0 0 120 120" class="rate-svg"><circle cx="60" cy="60" r="54" class="rate-bg-circle"/><circle cx="60" cy="60" r="54" class="rate-progress-circle" id="rate-circle"/></svg><div class="rate-value" id="rate-value">0%</div></div><div class="rate-info"><span class="rate-label">Tariff Rate (was 0%)</span><span class="rate-breakdown" id="rate-breakdown">--</span></div></div>
+                        <div class="cost-cards" id="cost-cards"><div class="cost-card extra-cost" id="card-extra"><div class="cost-card-icon">💸</div><div class="cost-card-info"><span class="cost-card-label">Extra Per Package</span><span class="cost-card-value" id="extra-cost-value">$0.00</span></div></div><div class="cost-card annual-cost" id="card-annual"><div class="cost-card-icon">📅</div><div class="cost-card-info"><span class="cost-card-label">Annual Impact</span><span class="cost-card-value" id="annual-cost-value">$0.00</span></div></div><div class="cost-card pretariff-price" id="card-pretariff"><div class="cost-card-icon">⏪</div><div class="cost-card-info"><span class="cost-card-label">Was (Duty-Free)</span><span class="cost-card-value" id="pretariff-price-value">$0.00</span></div></div></div>
+                        <div class="chart-container" id="chart-container"><h4 class="chart-title">Before vs After De Minimis Change</h4><canvas id="price-chart"></canvas></div>
+                        <div class="context-card" id="context-card"><div class="context-icon">💡</div><p class="context-text" id="context-text"></p></div>
+                        <button class="share-btn" id="share-btn" onclick="shareResults()"><span>📤 Share Your Results</span></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="content-section">
+        <div class="section-container">
+            <div class="content-card">
+                <h2>What Is the De Minimis Rule?</h2>
+                <p>The de minimis exemption (under 19 USC §1321) allowed packages valued under $800 to enter the US duty-free. This provision was originally designed to reduce customs processing costs for low-value shipments. However, it became the backbone of China-direct shopping platforms.</p>
+                <h3>Timeline of Changes</h3>
+                <ul>
+                    <li><strong>Before May 2025:</strong> All packages under $800 entered duty-free regardless of origin</li>
+                    <li><strong>May 2, 2025:</strong> De minimis exemption suspended for Chinese shipments</li>
+                    <li><strong>Current:</strong> Chinese packages face full tariffs OR flat postal fees of $75-$150</li>
+                    <li><strong>Other countries:</strong> $800 de minimis threshold still applies for non-China shipments</li>
+                </ul>
+                <h3>Affected Platforms</h3>
+                <ul>
+                    <li><strong>Shein:</strong> Average order ~$50. Previously duty-free, now +$22-75+ in fees.</li>
+                    <li><strong>Temu:</strong> Average order ~$30. Previously duty-free, now +$13-75+ in fees.</li>
+                    <li><strong>AliExpress:</strong> Average order ~$25. Previously duty-free, now +$11-75+ in fees.</li>
+                    <li><strong>Wish:</strong> Average order ~$15. Previously duty-free, now +$6-75+ in fees.</li>
+                </ul>
+                <p>For detailed Shein/Temu impact calculations, see our <a href="shein-temu-tariff-calculator.html">Shein & Temu tariff calculator</a>.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="faq-section">
+        <div class="section-container">
+            <div class="section-header"><h2 class="section-title">De Minimis FAQ</h2></div>
+            <div class="faq-list">
+                <details class="faq-item"><summary class="faq-question"><span>Is the $800 duty-free rule still in effect?</span><span class="faq-toggle">+</span></summary><div class="faq-answer"><p>For most countries, yes — the $800 de minimis threshold still applies. However, for China, it has been suspended since May 2, 2025. All Chinese shipments, regardless of value, now face tariffs or flat postal fees.</p></div></details>
+                <details class="faq-item"><summary class="faq-question"><span>Will the de minimis exemption come back?</span><span class="faq-toggle">+</span></summary><div class="faq-answer"><p>There is no announced date for reinstating the de minimis exemption for China. Given the ongoing trade tensions, it may remain suspended indefinitely. Some policymakers have proposed eliminating it for all countries.</p></div></details>
+                <details class="faq-item"><summary class="faq-question"><span>What's the $75 postal fee?</span><span class="faq-toggle">+</span></summary><div class="faq-answer"><p>Instead of calculating ad valorem (percentage-based) tariffs on small packages, customs may apply a flat postal processing fee of $75 (via USPS) or $150 (via express carriers like FedEx/UPS). Whichever method results in a higher fee is typically applied.</p></div></details>
+            </div>
+        </div>
+    </section>
+
+    <section id="related-calculators" class="content-section"></section>
+    <section id="internal-links" class="content-section"></section>
+    <footer id="site-footer" class="site-footer"></footer>
+
+    <script src="tariff-data.js"></script>
+    <script src="app.js"></script>
+    <script src="page-builder.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            initPage({
+                breadcrumbs: [{ label: 'Home', url: 'index.html' }, { label: 'De Minimis Calculator' }],
+                prefill: { country: 'china', lockCountry: true },
+                buildInternalLinks: true,
+                relatedCalculators: ['shein-temu', 'china', 'online-shopping', 'clothing', 'how-much', 'tariff-savings'],
+                schemas: [
+                    buildWebAppSchema('De Minimis Rule Calculator ' + CURRENT_YEAR, 'Calculate the impact of the de minimis rule suspension on small packages from China.'),
+                    buildBreadcrumbSchema([{ label: 'Home', url: 'index.html' }, { label: 'De Minimis Calculator' }], 'https://tariffcalc.us/')
+                ]
+            });
+        });
+    </script>
+</body>
+</html>

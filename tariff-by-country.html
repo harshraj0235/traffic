@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tariff Rates by Country 2026 — US Tariff Rates for Every Country</title>
+    <meta name="description" content="Complete list of US tariff rates by country. Compare tariff rates for China, EU, Japan, Mexico, Canada and 10+ more countries. Interactive tariff rate comparison table.">
+    <meta name="keywords" content="tariff rates by country, US tariff rate list, reciprocal tariff rates, tariff rate comparison, country tariff rates 2026">
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="US Tariff Rates by Country — Complete 2026 Guide">
+    <meta property="og:description" content="Compare tariff rates across all major US trading partners. From China's 54%+ to UK's 10% — see every rate.">
+    <meta property="og:type" content="website">
+    <link rel="canonical" href="https://tariffcalc.us/tariff-by-country.html">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <div class="ambient-bg"><div class="ambient-orb ambient-orb-1"></div><div class="ambient-orb ambient-orb-2"></div><div class="ambient-orb ambient-orb-3"></div></div>
+    <nav id="main-nav" class="navbar"></nav>
+    <div id="breadcrumbs"></div>
+
+    <header class="page-hero">
+        <div class="hero-container">
+            <div class="hero-badge"><span class="badge-pulse"></span><span>Updated <span class="dynamic-year"></span> Country Rates</span></div>
+            <span class="hero-emoji">🌍</span>
+            <h1 class="hero-title">US Tariff Rates by Country <span class="dynamic-year"></span></h1>
+            <p class="hero-subtitle">Compare tariff rates across all major US trading partners. From China's <strong>30-54%+</strong> rates to the UK's <strong>10% baseline</strong> — see the full picture of US trade policy.</p>
+            <div class="hero-stats">
+                <div class="stat-card"><span class="stat-value">10%</span><span class="stat-label">Global Baseline</span></div>
+                <div class="stat-card"><span class="stat-value">54%+</span><span class="stat-label">Highest (China)</span></div>
+                <div class="stat-card"><span class="stat-value">15+</span><span class="stat-label">Countries Tracked</span></div>
+            </div>
+        </div>
+    </header>
+
+    <section class="calculator-section">
+        <div class="section-container">
+            <div class="section-header"><h2 class="section-title">Country Tariff Rate Comparison Table</h2><p class="section-desc">All current US tariff rates sorted by rate (highest to lowest). Click any country to explore further.</p></div>
+            <div id="country-rates-table"></div>
+        </div>
+    </section>
+
+    <section id="calculator" class="calculator-section">
+        <div class="section-container">
+            <div class="section-header"><h2 class="section-title">Calculate Tariff by Country</h2><p class="section-desc">Select a country and product to calculate the exact tariff rate.</p></div>
+            <div class="calculator-grid">
+                <div class="calc-panel input-panel" id="input-panel">
+                    <div class="panel-header"><div class="panel-icon">🌍</div><h3>Select Country & Product</h3></div>
+                    <div class="form-group"><label for="product-category" class="form-label"><span class="label-icon">🏷️</span>Product Category</label><div class="select-wrapper"><select id="product-category" class="form-select"><option value="">Select a category...</option><option value="electronics">📱 Electronics & Tech</option><option value="clothing">👕 Clothing & Apparel</option><option value="automotive">🚗 Auto Parts & Vehicles</option><option value="food">🍎 Food & Groceries</option><option value="furniture">🪑 Furniture & Home</option><option value="toys">🧸 Toys & Games</option><option value="appliances">🏠 Home Appliances</option><option value="sports">⚽ Sports & Outdoor</option><option value="beauty">💄 Beauty & Personal Care</option><option value="tools">🔧 Tools & Hardware</option><option value="medical">💊 Medical & Health</option><option value="shoes">👟 Footwear</option></select></div></div>
+                    <div class="form-group"><label for="country-origin" class="form-label"><span class="label-icon">🌍</span>Country of Origin</label><div class="select-wrapper"><select id="country-origin" class="form-select"><option value="">Select country...</option><option value="china">🇨🇳 China</option><option value="vietnam">🇻🇳 Vietnam</option><option value="india">🇮🇳 India</option><option value="mexico">🇲🇽 Mexico</option><option value="canada">🇨🇦 Canada</option><option value="eu">🇪🇺 European Union</option><option value="japan">🇯🇵 Japan</option><option value="south_korea">🇰🇷 South Korea</option><option value="taiwan">🇹🇼 Taiwan</option><option value="thailand">🇹🇭 Thailand</option><option value="bangladesh">🇧🇩 Bangladesh</option><option value="indonesia">🇮🇩 Indonesia</option><option value="uk">🇬🇧 United Kingdom</option><option value="brazil">🇧🇷 Brazil</option><option value="other">🌐 Other Country</option></select></div></div>
+                    <div class="form-group"><label for="purchase-price" class="form-label"><span class="label-icon">💵</span>Price (USD)</label><div class="price-input-wrapper"><span class="price-prefix">$</span><input type="number" id="purchase-price" class="form-input" placeholder="e.g. 100" min="1" step="0.01"></div></div>
+                    <div class="form-group"><label for="purchase-frequency" class="form-label"><span class="label-icon">🔄</span>Frequency</label><div class="select-wrapper"><select id="purchase-frequency" class="form-select"><option value="once">One-time</option><option value="monthly">Monthly</option><option value="yearly">Yearly</option></select></div></div>
+                    <button id="calculate-btn" class="calculate-btn" onclick="calculateTariff()"><span class="btn-text">Calculate Tariff</span><span class="btn-icon">⚡</span></button>
+                </div>
+                <div class="calc-panel results-panel" id="results-panel">
+                    <div class="results-placeholder" id="results-placeholder"><div class="placeholder-icon">📊</div><h3>Your Results</h3><p>Select a country and product to calculate.</p></div>
+                    <div class="results-content" id="results-content" style="display:none;">
+                        <div class="panel-header results-header"><div class="panel-icon">📊</div><h3>Tariff Impact</h3></div>
+                        <div class="tariff-rate-display" id="tariff-rate-display"><div class="rate-ring" id="rate-ring"><svg viewBox="0 0 120 120" class="rate-svg"><circle cx="60" cy="60" r="54" class="rate-bg-circle"/><circle cx="60" cy="60" r="54" class="rate-progress-circle" id="rate-circle"/></svg><div class="rate-value" id="rate-value">0%</div></div><div class="rate-info"><span class="rate-label">Estimated Tariff Rate</span><span class="rate-breakdown" id="rate-breakdown">--</span></div></div>
+                        <div class="cost-cards" id="cost-cards"><div class="cost-card extra-cost" id="card-extra"><div class="cost-card-icon">💸</div><div class="cost-card-info"><span class="cost-card-label">Extra You're Paying</span><span class="cost-card-value" id="extra-cost-value">$0.00</span></div></div><div class="cost-card annual-cost" id="card-annual"><div class="cost-card-icon">📅</div><div class="cost-card-info"><span class="cost-card-label">Annual Impact</span><span class="cost-card-value" id="annual-cost-value">$0.00</span></div></div><div class="cost-card pretariff-price" id="card-pretariff"><div class="cost-card-icon">⏪</div><div class="cost-card-info"><span class="cost-card-label">Pre-Tariff Price</span><span class="cost-card-value" id="pretariff-price-value">$0.00</span></div></div></div>
+                        <div class="chart-container" id="chart-container"><h4 class="chart-title">Price: Before vs After Tariffs</h4><canvas id="price-chart"></canvas></div>
+                        <div class="context-card" id="context-card"><div class="context-icon">💡</div><p class="context-text" id="context-text"></p></div>
+                        <button class="share-btn" id="share-btn" onclick="shareResults()"><span>📤 Share Your Results</span></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="content-section">
+        <div class="section-container">
+            <div class="content-card">
+                <h2>Understanding US Tariff Rates by Country (<span class="dynamic-year"></span>)</h2>
+                <p>US tariff rates are determined by a combination of trade policies: the 10% global baseline tariff (Section 122), country-specific reciprocal tariffs, IEEPA tariffs, and product-specific duties (Section 301 for China). Here's a breakdown by region:</p>
+                <h3>Highest Tariff Countries</h3>
+                <ul>
+                    <li><strong>China (30% base + Section 301):</strong> The highest rates at 37-54%+ effective, depending on product. See <a href="china-tariff-calculator.html">China tariff calculator</a>.</li>
+                    <li><strong>Vietnam (46%):</strong> High reciprocal tariff despite being a manufacturing hub for Nike, Samsung and many US brands.</li>
+                    <li><strong>Bangladesh (37%):</strong> Major garment exporter — clothing prices from Bangladesh up 25-40%.</li>
+                    <li><strong>Thailand (36%):</strong> Electronics and auto parts significantly impacted.</li>
+                </ul>
+                <h3>USMCA Partners</h3>
+                <ul>
+                    <li><strong>Mexico (25%):</strong> IEEPA tariff, not reciprocal. USMCA-compliant goods may qualify for reduced rates. See <a href="canada-tariff-calculator.html">Mexico/Canada details</a>.</li>
+                    <li><strong>Canada (25%):</strong> Same IEEPA basis as Mexico. Lumber, oil, and auto industries most affected.</li>
+                </ul>
+                <h3>Allied Nations</h3>
+                <ul>
+                    <li><strong>EU (20%), Japan (24%), South Korea (25%):</strong> Close allies facing significant reciprocal tariffs, especially on vehicles.</li>
+                    <li><strong>UK (10%):</strong> Minimum baseline rate. US-UK trade deal could reduce this further.</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section class="faq-section">
+        <div class="section-container">
+            <div class="section-header"><h2 class="section-title">Country Tariff FAQ</h2></div>
+            <div class="faq-list">
+                <details class="faq-item"><summary class="faq-question"><span>What is the minimum US tariff rate?</span><span class="faq-toggle">+</span></summary><div class="faq-answer"><p>The minimum tariff rate is 10% — the global baseline imposed under Section 122 on April 2, 2025. This applies to all imports from all countries, with many countries facing additional reciprocal tariffs on top.</p></div></details>
+                <details class="faq-item"><summary class="faq-question"><span>Which country has the lowest tariff?</span><span class="faq-toggle">+</span></summary><div class="faq-answer"><p>The UK and Brazil face the lowest rates at the 10% global baseline. A US-UK trade deal could potentially reduce this further.</p></div></details>
+                <details class="faq-item"><summary class="faq-question"><span>Why does China have the highest tariffs?</span><span class="faq-toggle">+</span></summary><div class="faq-answer"><p>China's high rates are the result of multiple overlapping tariff actions: pre-existing Section 301 tariffs from the 2018-2019 trade war, IEEPA tariffs citing fentanyl, and reciprocal tariffs. These compound to create effective rates of 37-54%+.</p></div></details>
+                <details class="faq-item"><summary class="faq-question"><span>Do USMCA goods from Mexico/Canada avoid tariffs?</span><span class="faq-toggle">+</span></summary><div class="faq-answer"><p>USMCA-compliant goods may qualify for reduced or zero duty rates. However, the IEEPA tariffs (25%) override USMCA benefits in many cases. The situation depends on the specific product and its USMCA compliance status.</p></div></details>
+            </div>
+        </div>
+    </section>
+
+    <section id="related-calculators" class="content-section"></section>
+    <section id="internal-links" class="content-section"></section>
+    <footer id="site-footer" class="site-footer"></footer>
+
+    <script src="tariff-data.js"></script>
+    <script src="app.js"></script>
+    <script src="page-builder.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            initPage({
+                breadcrumbs: [{ label: 'Home', url: 'index.html' }, { label: 'Tariff Rates by Country' }],
+                buildInternalLinks: true,
+                buildCountryTable: true,
+                relatedCalculators: ['china', 'canada', 'uk-import-duty', 'tariff-comparison', 'how-much', 'import-duty'],
+                schemas: [
+                    buildWebAppSchema('US Tariff Rates by Country ' + CURRENT_YEAR, 'Compare tariff rates across all major US trading partners.'),
+                    buildBreadcrumbSchema([{ label: 'Home', url: 'index.html' }, { label: 'Tariff Rates by Country' }], 'https://tariffcalc.us/')
+                ]
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grocery Tariff Calculator 2026 — How Tariffs Affect Food Prices</title>
+    <meta name="description" content="Calculate how tariffs affect grocery prices. See tariff impact on avocados, coffee, olive oil, wine, cheese and more. Weekly grocery tariff cost estimator.">
+    <meta name="keywords" content="grocery tariff calculator, tariff on food, how tariffs affect grocery prices, food import duty, tariff on avocados, tariff on produce">
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="Grocery Tariff Calculator — How Much More Are You Paying for Food?">
+    <meta property="og:description" content="Tariffs are raising grocery prices across the board. Calculate the tariff impact on your weekly grocery bill.">
+    <meta property="og:type" content="website">
+    <link rel="canonical" href="https://tariffcalc.us/grocery-tariff-calculator.html">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <div class="ambient-bg"><div class="ambient-orb ambient-orb-1"></div><div class="ambient-orb ambient-orb-2"></div><div class="ambient-orb ambient-orb-3"></div></div>
+    <nav id="main-nav" class="navbar"></nav>
+    <div id="breadcrumbs"></div>
+
+    <header class="page-hero">
+        <div class="hero-container">
+            <div class="hero-badge"><span class="badge-pulse"></span><span>Updated <span class="dynamic-year"></span> Food Tariff Rates</span></div>
+            <span class="hero-emoji">🥑</span>
+            <h1 class="hero-title">Grocery Tariff Calculator <span class="dynamic-year"></span></h1>
+            <p class="hero-subtitle">About <strong>15% of the US food supply is imported</strong>. From Mexican avocados to European olive oil to Brazilian coffee — tariffs are increasing your grocery bill. Calculate the impact on your food purchases.</p>
+            <div class="product-hero-cards" id="grocery-hero-cards"></div>
+        </div>
+    </header>
+
+    <section id="calculator" class="calculator-section">
+        <div class="section-container">
+            <div class="section-header"><h2 class="section-title">Calculate Food & Grocery Tariffs</h2><p class="section-desc">Select food items and see how tariffs affect the price you pay at the store.</p></div>
+            <div class="calculator-grid">
+                <div class="calc-panel input-panel" id="input-panel">
+                    <div class="panel-header"><div class="panel-icon">🥑</div><h3>Grocery Purchase Details</h3></div>
+                    <div class="form-group"><label for="product-category" class="form-label"><span class="label-icon">🏷️</span>Product Category</label><div class="select-wrapper"><select id="product-category" class="form-select" disabled><option value="food" selected>🍎 Food & Groceries</option></select></div></div>
+                    <div class="form-group"><label for="country-origin" class="form-label"><span class="label-icon">🌍</span>Country of Origin</label><div class="select-wrapper"><select id="country-origin" class="form-select"><option value="">Select country...</option><option value="mexico" selected>🇲🇽 Mexico</option><option value="canada">🇨🇦 Canada</option><option value="eu">🇪🇺 European Union</option><option value="brazil">🇧🇷 Brazil</option><option value="china">🇨🇳 China</option><option value="india">🇮🇳 India</option><option value="thailand">🇹🇭 Thailand</option><option value="other">🌐 Other Country</option></select></div></div>
+                    <div class="form-group"><label for="purchase-price" class="form-label"><span class="label-icon">💵</span>Purchase Amount (USD)</label><div class="price-input-wrapper"><span class="price-prefix">$</span><input type="number" id="purchase-price" class="form-input" placeholder="e.g. 150" min="1" step="0.01" value="150"></div></div>
+                    <div class="form-group"><label for="purchase-frequency" class="form-label"><span class="label-icon">🔄</span>How Often?</label><div class="select-wrapper"><select id="purchase-frequency" class="form-select"><option value="weekly" selected>Weekly grocery run</option><option value="monthly">Monthly stock-up</option><option value="once">One-time purchase</option></select></div></div>
+                    <button id="calculate-btn" class="calculate-btn" onclick="calculateTariff()"><span class="btn-text">Calculate Grocery Tariff</span><span class="btn-icon">⚡</span></button>
+                </div>
+                <div class="calc-panel results-panel" id="results-panel">
+                    <div class="results-placeholder" id="results-placeholder"><div class="placeholder-icon">📊</div><h3>Your Grocery Tariff Results</h3><p>Enter your grocery details to see the tariff impact.</p></div>
+                    <div class="results-content" id="results-content" style="display:none;">
+                        <div class="panel-header results-header"><div class="panel-icon">📊</div><h3>Your Grocery Tariff Impact</h3></div>
+                        <div class="tariff-rate-display" id="tariff-rate-display"><div class="rate-ring" id="rate-ring"><svg viewBox="0 0 120 120" class="rate-svg"><circle cx="60" cy="60" r="54" class="rate-bg-circle"/><circle cx="60" cy="60" r="54" class="rate-progress-circle" id="rate-circle"/></svg><div class="rate-value" id="rate-value">0%</div></div><div class="rate-info"><span class="rate-label">Estimated Tariff Rate</span><span class="rate-breakdown" id="rate-breakdown">--</span></div></div>
+                        <div class="cost-cards" id="cost-cards"><div class="cost-card extra-cost" id="card-extra"><div class="cost-card-icon">💸</div><div class="cost-card-info"><span class="cost-card-label">Extra Per Trip</span><span class="cost-card-value" id="extra-cost-value">$0.00</span></div></div><div class="cost-card annual-cost" id="card-annual"><div class="cost-card-icon">📅</div><div class="cost-card-info"><span class="cost-card-label">Annual Food Tariff</span><span class="cost-card-value" id="annual-cost-value">$0.00</span></div></div><div class="cost-card pretariff-price" id="card-pretariff"><div class="cost-card-icon">⏪</div><div class="cost-card-info"><span class="cost-card-label">Pre-Tariff Cost</span><span class="cost-card-value" id="pretariff-price-value">$0.00</span></div></div></div>
+                        <div class="chart-container" id="chart-container"><h4 class="chart-title">Grocery Costs: Before vs After Tariffs</h4><canvas id="price-chart"></canvas></div>
+                        <div class="context-card" id="context-card"><div class="context-icon">💡</div><p class="context-text" id="context-text"></p></div>
+                        <button class="share-btn" id="share-btn" onclick="shareResults()"><span>📤 Share Your Results</span></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="product-examples" class="examples-section"></section>
+
+    <section class="content-section">
+        <div class="section-container">
+            <div class="content-card">
+                <h2>How Tariffs Are Raising Your Grocery Bill in <span class="dynamic-year"></span></h2>
+                <p>The US imports about 15% of its food supply, including much of its fresh produce, seafood, specialty items, coffee, and beverages. Every one of these imports now faces higher tariffs.</p>
+                <h3>Most Affected Grocery Items</h3>
+                <ul>
+                    <li><strong>Avocados (Mexico, 25% tariff):</strong> The US gets 80% of avocados from Mexico. The 25% IEEPA tariff has increased prices by $0.40-$0.75 per avocado.</li>
+                    <li><strong>Olive Oil (EU, 20% tariff):</strong> European olive oil faces a 20% tariff, adding $2-$4 per bottle.</li>
+                    <li><strong>Coffee (Brazil, 10% tariff):</strong> Brazilian and Colombian coffee faces the 10% baseline tariff, adding $1-$2 per pound.</li>
+                    <li><strong>Wine (EU, 20% tariff):</strong> European wines face a 20% tariff, adding $3-$5 per bottle.</li>
+                    <li><strong>Cheese (EU/Canada, 20-25%):</strong> Imported cheeses from France, Italy, and Switzerland face significant tariff increases.</li>
+                    <li><strong>Seafood (Various, 10-36%):</strong> Shrimp from Thailand (36%), salmon from Canada (25%), and various fish face increased tariffs.</li>
+                </ul>
+                <div class="key-facts">
+                    <h3>📋 Key Grocery Tariff Facts</h3>
+                    <ul>
+                        <li>Mexico is the #1 source of US fresh produce imports</li>
+                        <li>The average family pays $300-$600/year more in food tariffs</li>
+                        <li>Domestic produce (US-grown) is tariff-free</li>
+                        <li>Organic imports face the same tariff rates as conventional</li>
+                        <li>Seasonal produce may see higher tariff impact during off-season</li>
+                        <li>Farmers markets and local producers offer tariff-free alternatives</li>
+                    </ul>
+                </div>
+                <p>Want to reduce your grocery tariff burden? Visit our <a href="tariff-savings-tips.html">tariff savings tips</a> for strategies like buying seasonal, local, and domestic alternatives.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="faq-section">
+        <div class="section-container">
+            <div class="section-header"><h2 class="section-title">Grocery Tariff FAQ</h2><p class="section-desc">Common questions about tariffs on food and groceries.</p></div>
+            <div class="faq-list">
+                <details class="faq-item"><summary class="faq-question"><span>Are tariffs raising grocery prices?</span><span class="faq-toggle">+</span></summary><div class="faq-answer"><p>Yes. About 15% of US food is imported, and all imported food now faces tariffs of 10-25%+. Fresh produce from Mexico (avocados, tomatoes, berries), European specialty items (olive oil, cheese, wine), and coffee/tea are most affected.</p></div></details>
+                <details class="faq-item"><summary class="faq-question"><span>How much more am I paying for groceries?</span><span class="faq-toggle">+</span></summary><div class="faq-answer"><p>The average American family is estimated to pay $300-$600 more per year in food-related tariff costs. This varies based on diet — families that consume more imported produce, European foods, or seafood are paying more.</p></div></details>
+                <details class="faq-item"><summary class="faq-question"><span>How can I avoid tariffs on food?</span><span class="faq-toggle">+</span></summary><div class="faq-answer"><p>Buy domestically-produced food whenever possible. Shop at farmers markets, buy seasonal produce, choose US-grown alternatives, and look for "Product of USA" labels. Domestic production is completely tariff-free.</p></div></details>
+                <details class="faq-item"><summary class="faq-question"><span>Are organic food imports affected?</span><span class="faq-toggle">+</span></summary><div class="faq-answer"><p>Yes. Organic imports face the same tariff rates as conventional products. There is no exemption for organic certification. If it's imported, it faces the applicable tariff rate based on country of origin and product type.</p></div></details>
+            </div>
+        </div>
+    </section>
+
+    <section id="related-calculators" class="content-section"></section>
+    <section id="internal-links" class="content-section"></section>
+    <footer id="site-footer" class="site-footer"></footer>
+
+    <script src="tariff-data.js"></script>
+    <script src="app.js"></script>
+    <script src="page-builder.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const heroCards = document.getElementById('grocery-hero-cards');
+            const items = [
+                { name: 'Avocados', country: 'mexico', price: 5, emoji: '🥑' },
+                { name: 'Olive Oil', country: 'eu', price: 15, emoji: '🫒' },
+                { name: 'Coffee', country: 'brazil', price: 14, emoji: '☕' },
+                { name: 'Wine', country: 'eu', price: 20, emoji: '🍷' },
+                { name: 'Cheese', country: 'eu', price: 12, emoji: '🧀' },
+                { name: 'Seafood', country: 'thailand', price: 15, emoji: '🦐' }
+            ];
+            heroCards.innerHTML = items.map(m => {
+                const r = calcTariff('food', m.country, m.price);
+                return `<div class="product-hero-card"><span class="phc-emoji">${m.emoji}</span><span class="phc-name">${m.name}</span><span class="phc-rate">${r.effectiveRate}%</span><span class="phc-extra">${COUNTRIES[m.country].flag} ${COUNTRIES[m.country].name}</span></div>`;
+            }).join('');
+
+            initPage({
+                breadcrumbs: [{ label: 'Home', url: 'index.html' }, { label: 'Grocery Tariff Calculator' }],
+                prefill: { category: 'food', lockCategory: true },
+                buildInternalLinks: true,
+                buildExamples: true, exampleCategory: 'food', exampleMax: 8,
+                relatedCalculators: ['how-much', 'tariff-by-country', 'tariff-savings', 'china', 'canada', 'de-minimis'],
+                schemas: [
+                    buildWebAppSchema('Grocery Tariff Calculator ' + CURRENT_YEAR, 'Calculate how tariffs affect grocery and food prices.'),
+                    buildBreadcrumbSchema([{ label: 'Home', url: 'index.html' }, { label: 'Grocery Tariff Calculator' }], 'https://tariffcalc.us/')
+                ]
+            });
+        });
+    </script>
+</body>
+</html>

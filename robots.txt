@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://tariffcalc.us/sitemap.xml

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Shopping Tariff Calculator 2026 — Tariffs on Amazon, eBay & More</title>
+    <meta name="description" content="Calculate tariff costs on online shopping purchases from Amazon, eBay, Walmart, and international sites. See how much tariffs add to your online orders.">
+    <meta name="keywords" content="online shopping tariff calculator, tariff on Amazon purchases, online shopping duty, tariff calculator for online shopping, import duty online orders">
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="Online Shopping Tariff Calculator — What Are You Really Paying?">
+    <meta property="og:description" content="Tariffs affect every online purchase with imported goods. Calculate the hidden tariff cost on your Amazon, eBay, and international orders.">
+    <meta property="og:type" content="website">
+    <link rel="canonical" href="https://tariffcalc.us/online-shopping-tariff-calculator.html">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <div class="ambient-bg"><div class="ambient-orb ambient-orb-1"></div><div class="ambient-orb ambient-orb-2"></div><div class="ambient-orb ambient-orb-3"></div></div>
+    <nav id="main-nav" class="navbar"></nav>
+    <div id="breadcrumbs"></div>
+
+    <header class="page-hero">
+        <div class="hero-container">
+            <div class="hero-badge"><span class="badge-pulse"></span><span>Updated <span class="dynamic-year"></span> Tariff Rates</span></div>
+            <span class="hero-emoji">🛒</span>
+            <h1 class="hero-title">Online Shopping Tariff Calculator <span class="dynamic-year"></span></h1>
+            <p class="hero-subtitle">Whether you shop on Amazon, eBay, Walmart, or international sites — <strong>tariffs are built into every product with imported components</strong>. Calculate the hidden tariff cost on your online purchases.</p>
+            <div class="hero-stats">
+                <div class="stat-card"><span class="stat-value">85%+</span><span class="stat-label">Of Consumer Goods Imported</span></div>
+                <div class="stat-card"><span class="stat-value">10-54%</span><span class="stat-label">Tariff Range</span></div>
+                <div class="stat-card"><span class="stat-value">$0</span><span class="stat-label">China De Minimis</span></div>
+            </div>
+        </div>
+    </header>
+
+    <section id="calculator" class="calculator-section">
+        <div class="section-container">
+            <div class="section-header">
+                <h2 class="section-title">Calculate Tariff on Your Online Purchase</h2>
+                <p class="section-desc">Select the product type, country of manufacture, and price to see the tariff impact.</p>
+            </div>
+            <div class="calculator-grid">
+                <div class="calc-panel input-panel" id="input-panel">
+                    <div class="panel-header"><div class="panel-icon">🛒</div><h3>Your Online Purchase</h3></div>
+                    <div class="form-group"><label for="product-category" class="form-label"><span class="label-icon">🏷️</span>Product Category</label><div class="select-wrapper"><select id="product-category" class="form-select"><option value="">Select a category...</option><option value="electronics">📱 Electronics & Tech</option><option value="clothing">👕 Clothing & Apparel</option><option value="shoes">👟 Footwear</option><option value="beauty">💄 Beauty & Personal Care</option><option value="toys">🧸 Toys & Games</option><option value="furniture">🪑 Home & Furniture</option><option value="appliances">🏠 Home Appliances</option><option value="sports">⚽ Sports & Outdoor</option><option value="tools">🔧 Tools & Hardware</option><option value="food">🍎 Food & Groceries</option><option value="medical">💊 Medical & Health</option></select></div></div>
+                    <div class="form-group"><label for="country-origin" class="form-label"><span class="label-icon">🌍</span>Country of Manufacture</label><div class="select-wrapper"><select id="country-origin" class="form-select"><option value="">Select country...</option><option value="china">🇨🇳 China</option><option value="vietnam">🇻🇳 Vietnam</option><option value="india">🇮🇳 India</option><option value="mexico">🇲🇽 Mexico</option><option value="canada">🇨🇦 Canada</option><option value="eu">🇪🇺 European Union</option><option value="japan">🇯🇵 Japan</option><option value="south_korea">🇰🇷 South Korea</option><option value="taiwan">🇹🇼 Taiwan</option><option value="thailand">🇹🇭 Thailand</option><option value="bangladesh">🇧🇩 Bangladesh</option><option value="indonesia">🇮🇩 Indonesia</option><option value="uk">🇬🇧 United Kingdom</option><option value="brazil">🇧🇷 Brazil</option><option value="other">🌐 Other Country</option></select></div></div>
+                    <div class="form-group"><label for="purchase-price" class="form-label"><span class="label-icon">💵</span>Purchase Price (USD)</label><div class="price-input-wrapper"><span class="price-prefix">$</span><input type="number" id="purchase-price" class="form-input" placeholder="e.g. 49.99" min="1" step="0.01"></div></div>
+                    <div class="form-group"><label for="purchase-frequency" class="form-label"><span class="label-icon">🔄</span>How Often?</label><div class="select-wrapper"><select id="purchase-frequency" class="form-select"><option value="once">One-time purchase</option><option value="monthly" selected>Monthly</option><option value="quarterly">Every 3 months</option><option value="yearly">Once a year</option></select></div></div>
+                    <button id="calculate-btn" class="calculate-btn" onclick="calculateTariff()"><span class="btn-text">Calculate Tariff Cost</span><span class="btn-icon">⚡</span></button>
+                </div>
+                <div class="calc-panel results-panel" id="results-panel">
+                    <div class="results-placeholder" id="results-placeholder"><div class="placeholder-icon">📊</div><h3>Your Results</h3><p>Select a product and enter the price to see the tariff impact.</p></div>
+                    <div class="results-content" id="results-content" style="display:none;">
+                        <div class="panel-header results-header"><div class="panel-icon">📊</div><h3>Your Online Shopping Tariff Impact</h3></div>
+                        <div class="tariff-rate-display" id="tariff-rate-display"><div class="rate-ring" id="rate-ring"><svg viewBox="0 0 120 120" class="rate-svg"><circle cx="60" cy="60" r="54" class="rate-bg-circle"/><circle cx="60" cy="60" r="54" class="rate-progress-circle" id="rate-circle"/></svg><div class="rate-value" id="rate-value">0%</div></div><div class="rate-info"><span class="rate-label">Estimated Tariff Rate</span><span class="rate-breakdown" id="rate-breakdown">--</span></div></div>
+                        <div class="cost-cards" id="cost-cards"><div class="cost-card extra-cost" id="card-extra"><div class="cost-card-icon">💸</div><div class="cost-card-info"><span class="cost-card-label">Extra You're Paying</span><span class="cost-card-value" id="extra-cost-value">$0.00</span></div></div><div class="cost-card annual-cost" id="card-annual"><div class="cost-card-icon">📅</div><div class="cost-card-info"><span class="cost-card-label">Annual Impact</span><span class="cost-card-value" id="annual-cost-value">$0.00</span></div></div><div class="cost-card pretariff-price" id="card-pretariff"><div class="cost-card-icon">⏪</div><div class="cost-card-info"><span class="cost-card-label">Pre-Tariff Price</span><span class="cost-card-value" id="pretariff-price-value">$0.00</span></div></div></div>
+                        <div class="chart-container" id="chart-container"><h4 class="chart-title">Price: Before vs After Tariffs</h4><canvas id="price-chart"></canvas></div>
+                        <div class="context-card" id="context-card"><div class="context-icon">💡</div><p class="context-text" id="context-text"></p></div>
+                        <button class="share-btn" id="share-btn" onclick="shareResults()"><span>📤 Share Your Results</span></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="product-examples" class="examples-section"></section>
+
+    <section class="content-section">
+        <div class="section-container">
+            <div class="content-card">
+                <h2>How Tariffs Affect Online Shopping in <span class="dynamic-year"></span></h2>
+                <p>Online shopping has been fundamentally impacted by the 2025-2026 tariff increases. Whether you shop on Amazon, eBay, Walmart.com, or international platforms, tariffs are built into the prices of most products you buy.</p>
+                <h3>Do I Pay Tariffs on Amazon?</h3>
+                <p>Yes — indirectly. Products sold on Amazon that are imported (which includes most electronics, clothing, toys, and home goods) have tariff costs built into their retail price. You don't see a separate "tariff" line item at checkout, but the price you pay includes the tariff cost that the importer/seller has absorbed and passed on.</p>
+                <h3>Platform-by-Platform Guide</h3>
+                <ul>
+                    <li><strong>Amazon:</strong> Most products already have tariffs priced in. Look for "Made in USA" labels to find tariff-free options.</li>
+                    <li><strong>eBay:</strong> Domestic sellers have tariffs already built in. International sellers may ship directly, triggering customs duties.</li>
+                    <li><strong>Walmart:</strong> Similar to Amazon — tariffs are built into retail prices on imported goods.</li>
+                    <li><strong>Shein/Temu:</strong> Direct-from-China shipping faces full tariffs and postal fees. See our <a href="shein-temu-tariff-calculator.html">dedicated Shein/Temu calculator</a>.</li>
+                    <li><strong>AliExpress:</strong> Chinese sellers ship direct — expect tariffs/postal fees on every order.</li>
+                </ul>
+                <p>Looking to save money? Check our <a href="tariff-savings-tips.html">15+ tariff savings tips</a> for online shoppers.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="faq-section">
+        <div class="section-container">
+            <div class="section-header"><h2 class="section-title">Online Shopping Tariff FAQ</h2><p class="section-desc">Common questions about tariffs on online purchases.</p></div>
+            <div class="faq-list">
+                <details class="faq-item"><summary class="faq-question"><span>Do I pay tariffs on Amazon purchases?</span><span class="faq-toggle">+</span></summary><div class="faq-answer"><p>Yes, indirectly. Tariffs are paid by importers and built into the retail price. You won't see a separate tariff charge, but products with imported components cost more than they would without tariffs.</p></div></details>
+                <details class="faq-item"><summary class="faq-question"><span>Why don't I see tariffs at checkout?</span><span class="faq-toggle">+</span></summary><div class="faq-answer"><p>For domestic purchases, tariffs are already factored into the retail price. You only see explicit customs/duty charges when ordering directly from international sellers who ship across borders.</p></div></details>
+                <details class="faq-item"><summary class="faq-question"><span>Is it cheaper to buy from domestic sellers?</span><span class="faq-toggle">+</span></summary><div class="faq-answer"><p>Generally yes, because domestic sellers have already imported goods in bulk (paying tariffs at scale) and can often negotiate better rates. Direct-from-China purchases face full tariffs plus postal fees on each package.</p></div></details>
+                <details class="faq-item"><summary class="faq-question"><span>How do I find tariff-free products online?</span><span class="faq-toggle">+</span></summary><div class="faq-answer"><p>Products manufactured in the USA don't carry import tariffs. Look for "Made in USA" labels. On Amazon, you can filter by "Domestic" sellers. Some product categories also have temporary tariff exemptions.</p></div></details>
+            </div>
+        </div>
+    </section>
+
+    <section id="related-calculators" class="content-section"></section>
+    <section id="internal-links" class="content-section"></section>
+    <footer id="site-footer" class="site-footer"></footer>
+
+    <script src="tariff-data.js"></script>
+    <script src="app.js"></script>
+    <script src="page-builder.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            initPage({
+                breadcrumbs: [{ label: 'Home', url: 'index.html' }, { label: 'Online Shopping Tariffs' }],
+                buildInternalLinks: true,
+                buildExamples: true, exampleMax: 12,
+                relatedCalculators: ['shein-temu', 'china', 'de-minimis', 'electronics', 'clothing', 'how-much'],
+                schemas: [
+                    buildWebAppSchema('Online Shopping Tariff Calculator ' + CURRENT_YEAR, 'Calculate tariffs on online purchases from Amazon, eBay, and international sites.'),
+                    buildFAQSchema([
+                        { question: 'Do I pay tariffs on Amazon purchases?', answer: 'Yes, indirectly. Tariffs are built into retail prices of imported goods.' },
+                        { question: 'How do I find tariff-free products?', answer: 'Look for Made in USA labels. Some categories have temporary exemptions.' }
+                    ]),
+                    buildBreadcrumbSchema([{ label: 'Home', url: 'index.html' }, { label: 'Online Shopping Tariffs' }], 'https://tariffcalc.us/')
+                ]
+            });
+        });
+    </script>
+</body>
+</html>

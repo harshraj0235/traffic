@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UK Import Duty Calculator 2026 — US-UK Tariff Calculator</title>
+    <meta name="description" content="Calculate US import duties on goods from the United Kingdom. The UK faces the lowest US tariff rate at 10%. See tariff impact on UK imports.">
+    <meta name="keywords" content="UK import duty calculator, US UK tariff, tariff on UK goods, British import duty, US import tax from UK">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://tariffcalc.us/uk-import-duty-calculator.html">
+    <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <div class="ambient-bg"><div class="ambient-orb ambient-orb-1"></div><div class="ambient-orb ambient-orb-2"></div><div class="ambient-orb ambient-orb-3"></div></div>
+    <nav id="main-nav" class="navbar"></nav><div id="breadcrumbs"></div>
+    <header class="page-hero"><div class="hero-container"><div class="hero-badge"><span class="badge-pulse"></span><span>10% UK Tariff Active</span></div><span class="hero-emoji">🇬🇧</span><h1 class="hero-title">UK Import Duty Calculator <span class="dynamic-year"></span></h1><p class="hero-subtitle">The United Kingdom currently faces the lowest US import tariff rate at the <strong>10% global baseline</strong>. Calculate the duty on British goods imported to the US.</p></div></header>
+
+    <section id="calculator" class="calculator-section">
+        <div class="section-container">
+            <div class="section-header"><h2 class="section-title">Calculate UK Import Duty</h2><p class="section-desc">Select a product to see the 10% baseline tariff impact.</p></div>
+            <div class="calculator-grid">
+                <div class="calc-panel input-panel" id="input-panel">
+                    <div class="panel-header"><div class="panel-icon">🇬🇧</div><h3>UK Import Details</h3></div>
+                    <div class="form-group"><label for="product-category" class="form-label"><span class="label-icon">🏷️</span>Category</label><div class="select-wrapper"><select id="product-category" class="form-select"><option value="clothing" selected>👕 Clothing</option><option value="food">🍎 Food/Beverage</option><option value="automotive">🚗 Vehicles</option><option value="beauty">💄 Cosmetics</option></select></div></div>
+                    <div class="form-group"><label for="country-origin" class="form-label"><span class="label-icon">🌍</span>Country of Origin</label><div class="select-wrapper"><select id="country-origin" class="form-select" disabled><option value="uk" selected>🇬🇧 United Kingdom</option></select></div></div>
+                    <div class="form-group"><label for="purchase-price" class="form-label"><span class="label-icon">💵</span>Price (USD)</label><div class="price-input-wrapper"><span class="price-prefix">$</span><input type="number" id="purchase-price" class="form-input" placeholder="e.g. 200" min="1" step="0.01" value="200"></div></div>
+                    <div class="form-group"><label for="purchase-frequency" class="form-label"><span class="label-icon">🔄</span>Frequency</label><div class="select-wrapper"><select id="purchase-frequency" class="form-select"><option value="once" selected>One-time</option><option value="monthly">Monthly</option></select></div></div>
+                    <button id="calculate-btn" class="calculate-btn" onclick="calculateTariff()"><span class="btn-text">Calculate UK Duty</span><span class="btn-icon">⚡</span></button>
+                </div>
+                <div class="calc-panel results-panel" id="results-panel">
+                    <div class="results-placeholder" id="results-placeholder"><div class="placeholder-icon">📊</div><h3>UK Duty Results</h3><p>Enter details to calculate.</p></div>
+                    <div class="results-content" id="results-content" style="display:none;">
+                        <div class="panel-header results-header"><div class="panel-icon">📊</div><h3>UK Duty Impact</h3></div>
+                        <div class="tariff-rate-display" id="tariff-rate-display"><div class="rate-ring" id="rate-ring"><svg viewBox="0 0 120 120" class="rate-svg"><circle cx="60" cy="60" r="54" class="rate-bg-circle"/><circle cx="60" cy="60" r="54" class="rate-progress-circle" id="rate-circle"/></svg><div class="rate-value" id="rate-value">0%</div></div><div class="rate-info"><span class="rate-label">Tariff Rate</span><span class="rate-breakdown" id="rate-breakdown">--</span></div></div>
+                        <div class="cost-cards" id="cost-cards"><div class="cost-card extra-cost" id="card-extra"><div class="cost-card-icon">💸</div><div class="cost-card-info"><span class="cost-card-label">Duty Cost</span><span class="cost-card-value" id="extra-cost-value">$0.00</span></div></div><div class="cost-card annual-cost" id="card-annual"><div class="cost-card-icon">📅</div><div class="cost-card-info"><span class="cost-card-label">Frequency</span><span class="cost-card-value" id="annual-cost-value">$0.00</span></div></div><div class="cost-card pretariff-price" id="card-pretariff"><div class="cost-card-icon">⏪</div><div class="cost-card-info"><span class="cost-card-label">Pre-Tariff</span><span class="cost-card-value" id="pretariff-price-value">$0.00</span></div></div></div>
+                        <div class="chart-container" id="chart-container"><h4 class="chart-title">Price: Before vs After</h4><canvas id="price-chart"></canvas></div>
+                        <div class="context-card" id="context-card"><div class="context-icon">💡</div><p class="context-text" id="context-text"></p></div>
+                        <button class="share-btn" id="share-btn" onclick="shareResults()"><span>📤 Share</span></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="content-section"><div class="section-container"><div class="content-card">
+        <h2>US-UK Tariffs Explained</h2>
+        <p>The United Kingdom currently enjoys the most favorable tariff status among major US trading partners. Unlike the EU (20%), China (54%+), or Canada/Mexico (25%), the UK only faces the <strong>10% global baseline tariff</strong> implemented under Section 122.</p>
+        <p>This makes importing British goods significantly cheaper than importing the same goods from the EU or Asia. A potential US-UK free trade agreement could eliminate this 10% tariff entirely.</p>
+        <div class="key-facts"><h3>📋 UK Import Facts</h3><ul>
+            <li>10% tariff rate applies to almost all UK imports</li>
+            <li>No additional reciprocal tariffs are currently applied to the UK</li>
+            <li>Cheaper to source goods from the UK than the EU (20%)</li>
+            <li>Scotch whisky and British fashion remain popular, lower-tariff imports</li>
+        </ul></div>
+    </div></div></section>
+
+    <section id="related-calculators" class="content-section"></section>
+    <section id="internal-links" class="content-section"></section>
+    <footer id="site-footer" class="site-footer"></footer>
+    <script src="tariff-data.js"></script><script src="app.js"></script><script src="page-builder.js"></script>
+    <script>document.addEventListener('DOMContentLoaded', () => { initPage({ breadcrumbs: [{ label: 'Home', url: 'index.html' }, { label: 'UK Import Duty Calculator' }], prefill: { country: 'uk', lockCountry: true }, buildInternalLinks: true, relatedCalculators: ['tariff-by-country', 'tariff-comparison', 'import-duty', 'how-much'], schemas: [buildWebAppSchema('UK Import Duty Calculator ' + CURRENT_YEAR, 'Calculate the 10% tariff on UK imports to the US.'), buildBreadcrumbSchema([{ label: 'Home', url: 'index.html' }, { label: 'UK Import Duty Calculator' }], 'https://tariffcalc.us/')] }); });</script>
+</body>
+</html>

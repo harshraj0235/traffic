@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Import Duty Calculator 2026 — US Customs Duty for Personal Imports</title>
+    <meta name="description" content="Free US import duty calculator for personal use. Calculate customs duty on items you bring into the US or order from abroad. HTS code guide included.">
+    <meta name="keywords" content="import duty calculator, customs duty calculator USA, import tax calculator, personal import duty, US customs duty rates">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://tariffcalc.us/import-duty-calculator.html">
+    <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <div class="ambient-bg"><div class="ambient-orb ambient-orb-1"></div><div class="ambient-orb ambient-orb-2"></div><div class="ambient-orb ambient-orb-3"></div></div>
+    <nav id="main-nav" class="navbar"></nav><div id="breadcrumbs"></div>
+    <header class="page-hero"><div class="hero-container"><div class="hero-badge"><span class="badge-pulse"></span><span>Updated <span class="dynamic-year"></span></span></div><span class="hero-emoji">🛃</span><h1 class="hero-title">US Import Duty Calculator <span class="dynamic-year"></span></h1><p class="hero-subtitle">Bringing goods into the US from abroad? Whether you're <strong>returning from travel, ordering internationally, or importing for personal use</strong> — calculate the customs duty you'll owe.</p></div></header>
+
+    <section id="calculator" class="calculator-section">
+        <div class="section-container">
+            <div class="section-header"><h2 class="section-title">Calculate Import Duty</h2><p class="section-desc">Enter product details to estimate US customs duty.</p></div>
+            <div class="calculator-grid">
+                <div class="calc-panel input-panel" id="input-panel">
+                    <div class="panel-header"><div class="panel-icon">🛃</div><h3>Import Details</h3></div>
+                    <div class="form-group"><label for="product-category" class="form-label"><span class="label-icon">🏷️</span>Product Category</label><div class="select-wrapper"><select id="product-category" class="form-select"><option value="">Select a category...</option><option value="electronics">📱 Electronics</option><option value="clothing">👕 Clothing</option><option value="shoes">👟 Footwear</option><option value="food">🍎 Food</option><option value="furniture">🪑 Furniture</option><option value="toys">🧸 Toys</option><option value="appliances">🏠 Appliances</option><option value="beauty">💄 Beauty</option><option value="tools">🔧 Tools</option><option value="sports">⚽ Sports</option><option value="medical">💊 Medical</option><option value="automotive">🚗 Auto Parts</option></select></div></div>
+                    <div class="form-group"><label for="country-origin" class="form-label"><span class="label-icon">🌍</span>Country of Origin</label><div class="select-wrapper"><select id="country-origin" class="form-select"><option value="">Select country...</option><option value="china">🇨🇳 China</option><option value="vietnam">🇻🇳 Vietnam</option><option value="india">🇮🇳 India</option><option value="mexico">🇲🇽 Mexico</option><option value="canada">🇨🇦 Canada</option><option value="eu">🇪🇺 European Union</option><option value="japan">🇯🇵 Japan</option><option value="south_korea">🇰🇷 South Korea</option><option value="taiwan">🇹🇼 Taiwan</option><option value="uk">🇬🇧 United Kingdom</option><option value="other">🌐 Other</option></select></div></div>
+                    <div class="form-group"><label for="purchase-price" class="form-label"><span class="label-icon">💵</span>Item Value (USD)</label><div class="price-input-wrapper"><span class="price-prefix">$</span><input type="number" id="purchase-price" class="form-input" placeholder="e.g. 500" min="1" step="0.01"></div></div>
+                    <div class="form-group"><label for="purchase-frequency" class="form-label"><span class="label-icon">🔄</span>Type</label><div class="select-wrapper"><select id="purchase-frequency" class="form-select"><option value="once" selected>One-time import</option></select></div></div>
+                    <button id="calculate-btn" class="calculate-btn" onclick="calculateTariff()"><span class="btn-text">Calculate Duty</span><span class="btn-icon">⚡</span></button>
+                </div>
+                <div class="calc-panel results-panel" id="results-panel">
+                    <div class="results-placeholder" id="results-placeholder"><div class="placeholder-icon">📊</div><h3>Duty Estimate</h3><p>Enter details to calculate.</p></div>
+                    <div class="results-content" id="results-content" style="display:none;">
+                        <div class="panel-header results-header"><div class="panel-icon">📊</div><h3>Import Duty Estimate</h3></div>
+                        <div class="tariff-rate-display" id="tariff-rate-display"><div class="rate-ring" id="rate-ring"><svg viewBox="0 0 120 120" class="rate-svg"><circle cx="60" cy="60" r="54" class="rate-bg-circle"/><circle cx="60" cy="60" r="54" class="rate-progress-circle" id="rate-circle"/></svg><div class="rate-value" id="rate-value">0%</div></div><div class="rate-info"><span class="rate-label">Duty Rate</span><span class="rate-breakdown" id="rate-breakdown">--</span></div></div>
+                        <div class="cost-cards" id="cost-cards"><div class="cost-card extra-cost" id="card-extra"><div class="cost-card-icon">💸</div><div class="cost-card-info"><span class="cost-card-label">Estimated Duty</span><span class="cost-card-value" id="extra-cost-value">$0.00</span></div></div><div class="cost-card annual-cost" id="card-annual"><div class="cost-card-icon">📅</div><div class="cost-card-info"><span class="cost-card-label">Type</span><span class="cost-card-value" id="annual-cost-value">One-time</span></div></div><div class="cost-card pretariff-price" id="card-pretariff"><div class="cost-card-icon">⏪</div><div class="cost-card-info"><span class="cost-card-label">Duty-Free Value</span><span class="cost-card-value" id="pretariff-price-value">$0.00</span></div></div></div>
+                        <div class="chart-container" id="chart-container"><h4 class="chart-title">Cost Breakdown</h4><canvas id="price-chart"></canvas></div>
+                        <div class="context-card" id="context-card"><div class="context-icon">💡</div><p class="context-text" id="context-text"></p></div>
+                        <button class="share-btn" id="share-btn" onclick="shareResults()"><span>📤 Share</span></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="content-section"><div class="section-container"><div class="content-card">
+        <h2>US Import Duty Guide for Personal Imports</h2>
+        <h3>Returning Traveler Exemptions</h3>
+        <p>US residents returning from abroad can bring back up to <strong>$800 worth of goods duty-free</strong> (as long as you haven't used this exemption in the past 30 days). The next $1,000 above that is taxed at a flat 3% rate. Values above $1,800 face the standard tariff rates for each product category.</p>
+        <h3>Ordering From Abroad</h3>
+        <p>If you order products from international sellers that ship directly to the US, customs duties apply based on the product type and country of origin. For Chinese shipments, the de minimis exemption ($800 duty-free) has been suspended — see our <a href="de-minimis-calculator.html">de minimis calculator</a> for details.</p>
+        <div class="key-facts"><h3>📋 Key Import Duty Facts</h3><ul>
+            <li>$800 duty-free exemption for returning travelers (every 30 days)</li>
+            <li>De minimis ($800 duty-free for mailed goods) suspended for China</li>
+            <li>Duty rates vary by product and country of origin</li>
+            <li>CBP Form 6059B required for declaring items at the border</li>
+            <li>Undeclared items risk seizure and penalties</li>
+            <li>Some items (certain foods, plants, animals) are restricted</li>
+        </ul></div>
+    </div></div></section>
+
+    <section class="faq-section"><div class="section-container"><div class="section-header"><h2 class="section-title">Import Duty FAQ</h2></div><div class="faq-list">
+        <details class="faq-item"><summary class="faq-question"><span>How much can I bring back duty-free?</span><span class="faq-toggle">+</span></summary><div class="faq-answer"><p>US residents can bring back up to $800 worth of goods duty-free every 30 days. Family members can combine their exemptions. The next $1,000 is taxed at a flat 3%.</p></div></details>
+        <details class="faq-item"><summary class="faq-question"><span>Do I have to declare everything at customs?</span><span class="faq-toggle">+</span></summary><div class="faq-answer"><p>Yes, you must declare all items acquired abroad, even if they're under the $800 exemption. Failure to declare can result in seizure and penalties.</p></div></details>
+        <details class="faq-item"><summary class="faq-question"><span>What is an HTS code?</span><span class="faq-toggle">+</span></summary><div class="faq-answer"><p>HTS (Harmonized Tariff Schedule) codes classify products for customs purposes. Each product type has a specific code that determines the exact duty rate. Our calculator uses category-level estimates; for precise rates, look up your specific HTS code.</p></div></details>
+    </div></div></section>
+
+    <section id="related-calculators" class="content-section"></section>
+    <section id="internal-links" class="content-section"></section>
+    <footer id="site-footer" class="site-footer"></footer>
+    <script src="tariff-data.js"></script><script src="app.js"></script><script src="page-builder.js"></script>
+    <script>document.addEventListener('DOMContentLoaded', () => { initPage({ breadcrumbs: [{ label: 'Home', url: 'index.html' }, { label: 'Import Duty Calculator' }], buildInternalLinks: true, relatedCalculators: ['tariff-by-country', 'de-minimis', 'china', 'how-much', 'online-shopping', 'tariff-savings'], schemas: [buildWebAppSchema('US Import Duty Calculator ' + CURRENT_YEAR, 'Calculate customs duty on personal imports to the USA.'), buildBreadcrumbSchema([{ label: 'Home', url: 'index.html' }, { label: 'Import Duty Calculator' }], 'https://tariffcalc.us/')] }); });</script>
+</body>
+</html>

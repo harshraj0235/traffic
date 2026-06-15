@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How Much Do Tariffs Cost Me? — Personal Tariff Burden Calculator 2026</title>
+    <meta name="description" content="Find out exactly how much you're paying in hidden tariff costs. Our personal tariff burden calculator estimates your household's annual tariff impact based on income, spending habits, and family size.">
+    <meta name="keywords" content="how much tariffs cost me, personal tariff calculator, household tariff burden, tariff impact on family, how much am I paying in tariffs">
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="How Much Do Tariffs Cost Me? — Find Your Personal Tariff Burden">
+    <meta property="og:description" content="The average American household pays $1,500-$3,000 more per year in tariffs. Calculate your personal impact.">
+    <meta property="og:type" content="website">
+    <link rel="canonical" href="https://tariffcalc.us/how-much-tariffs-cost-me.html">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <div class="ambient-bg"><div class="ambient-orb ambient-orb-1"></div><div class="ambient-orb ambient-orb-2"></div><div class="ambient-orb ambient-orb-3"></div></div>
+    <nav id="main-nav" class="navbar"></nav>
+    <div id="breadcrumbs"></div>
+
+    <header class="page-hero">
+        <div class="hero-container">
+            <div class="hero-badge"><span class="badge-pulse"></span><span>Updated <span class="dynamic-year"></span> Tariff Data</span></div>
+            <span class="hero-emoji">💸</span>
+            <h1 class="hero-title">How Much Are Tariffs Costing <em>You</em>?</h1>
+            <p class="hero-subtitle">The average American household is paying <strong>$1,500 – $3,000 more per year</strong> due to 2025-2026 tariff increases. Use our calculator to find your personal tariff burden based on your income, spending habits, and family size.</p>
+            <div class="hero-stats">
+                <div class="stat-card"><span class="stat-value">$2,400</span><span class="stat-label">Average Household Burden</span></div>
+                <div class="stat-card"><span class="stat-value">$6.50</span><span class="stat-label">Cost Per Day</span></div>
+                <div class="stat-card"><span class="stat-value">3.2%</span><span class="stat-label">Of Median Income</span></div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Household Calculator -->
+    <section id="calculator" class="household-section">
+        <div class="section-container">
+            <div class="section-header">
+                <h2 class="section-title">Calculate Your Household Tariff Burden</h2>
+                <p class="section-desc">Answer three simple questions to estimate how much your household is paying in tariffs annually.</p>
+            </div>
+            <div class="household-card" id="household-card">
+                <div class="household-grid">
+                    <div class="household-input-group">
+                        <label for="household-income" class="form-label"><span class="label-icon">💰</span>Annual Household Income</label>
+                        <div class="select-wrapper"><select id="household-income" class="form-select">
+                            <option value="30000">Under $30,000</option>
+                            <option value="50000">$30,000 – $50,000</option>
+                            <option value="75000" selected>$50,000 – $100,000</option>
+                            <option value="125000">$100,000 – $150,000</option>
+                            <option value="200000">$150,000 – $250,000</option>
+                            <option value="300000">$250,000+</option>
+                        </select></div>
+                    </div>
+                    <div class="household-input-group">
+                        <label for="household-style" class="form-label"><span class="label-icon">🛍️</span>Shopping Style</label>
+                        <div class="select-wrapper"><select id="household-style" class="form-select">
+                            <option value="frugal">Frugal — mostly domestic</option>
+                            <option value="average" selected>Average consumer</option>
+                            <option value="heavy">Heavy online shopper</option>
+                            <option value="luxury">Luxury / premium buyer</option>
+                        </select></div>
+                    </div>
+                    <div class="household-input-group">
+                        <label for="household-size" class="form-label"><span class="label-icon">👨‍👩‍👧‍👦</span>Household Size</label>
+                        <div class="select-wrapper"><select id="household-size" class="form-select">
+                            <option value="1">1 person</option>
+                            <option value="2" selected>2 people</option>
+                            <option value="3">3 people</option>
+                            <option value="4">4 people</option>
+                            <option value="5">5+ people</option>
+                        </select></div>
+                    </div>
+                </div>
+                <button id="household-calc-btn" class="calculate-btn household-calc-btn" onclick="calculateHousehold()">
+                    <span class="btn-text">Calculate My Tariff Burden</span><span class="btn-icon">💸</span>
+                </button>
+                <div class="household-results" id="household-results" style="display:none;">
+                    <div class="household-result-main" id="household-main-result">
+                        <span class="household-result-label">Estimated Annual Tariff Burden</span>
+                        <span class="household-result-value" id="household-total">$0</span>
+                        <span class="household-result-note" id="household-note"></span>
+                    </div>
+                    <div class="household-result-bars" id="household-bars"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Single Item Calculator -->
+    <section class="calculator-section">
+        <div class="section-container">
+            <div class="section-header">
+                <h2 class="section-title">Calculate Tariff on a Specific Purchase</h2>
+                <p class="section-desc">Want to see the tariff impact on a specific product? Use our item-level calculator.</p>
+            </div>
+            <div class="calculator-grid">
+                <div class="calc-panel input-panel" id="input-panel">
+                    <div class="panel-header"><div class="panel-icon">📦</div><h3>Your Purchase Details</h3></div>
+                    <div class="form-group"><label for="product-category" class="form-label"><span class="label-icon">🏷️</span>Product Category</label><div class="select-wrapper"><select id="product-category" class="form-select"><option value="">Select a category...</option><option value="electronics">📱 Electronics & Tech</option><option value="clothing">👕 Clothing & Apparel</option><option value="automotive">🚗 Auto Parts & Vehicles</option><option value="food">🍎 Food & Groceries</option><option value="furniture">🪑 Furniture & Home</option><option value="toys">🧸 Toys & Games</option><option value="appliances">🏠 Home Appliances</option><option value="sports">⚽ Sports & Outdoor</option><option value="beauty">💄 Beauty & Personal Care</option><option value="tools">🔧 Tools & Hardware</option><option value="medical">💊 Medical & Health</option><option value="shoes">👟 Footwear</option></select></div></div>
+                    <div class="form-group"><label for="country-origin" class="form-label"><span class="label-icon">🌍</span>Country of Manufacture</label><div class="select-wrapper"><select id="country-origin" class="form-select"><option value="">Select country...</option><option value="china">🇨🇳 China</option><option value="vietnam">🇻🇳 Vietnam</option><option value="india">🇮🇳 India</option><option value="mexico">🇲🇽 Mexico</option><option value="canada">🇨🇦 Canada</option><option value="eu">🇪🇺 European Union</option><option value="japan">🇯🇵 Japan</option><option value="south_korea">🇰🇷 South Korea</option><option value="taiwan">🇹🇼 Taiwan</option><option value="thailand">🇹🇭 Thailand</option><option value="bangladesh">🇧🇩 Bangladesh</option><option value="indonesia">🇮🇩 Indonesia</option><option value="uk">🇬🇧 United Kingdom</option><option value="brazil">🇧🇷 Brazil</option><option value="other">🌐 Other Country</option></select></div></div>
+                    <div class="form-group"><label for="purchase-price" class="form-label"><span class="label-icon">💵</span>Purchase Price (USD)</label><div class="price-input-wrapper"><span class="price-prefix">$</span><input type="number" id="purchase-price" class="form-input" placeholder="e.g. 999" min="1" step="0.01"></div></div>
+                    <div class="form-group"><label for="purchase-frequency" class="form-label"><span class="label-icon">🔄</span>How Often Do You Buy This?</label><div class="select-wrapper"><select id="purchase-frequency" class="form-select"><option value="once">One-time purchase</option><option value="weekly">Weekly</option><option value="monthly">Monthly</option><option value="quarterly">Every 3 months</option><option value="yearly">Once a year</option></select></div></div>
+                    <button id="calculate-btn" class="calculate-btn" onclick="calculateTariff()"><span class="btn-text">Calculate Tariff Impact</span><span class="btn-icon">⚡</span></button>
+                </div>
+                <div class="calc-panel results-panel" id="results-panel">
+                    <div class="results-placeholder" id="results-placeholder"><div class="placeholder-icon">📊</div><h3>Your Results Will Appear Here</h3><p>Fill in the details and click calculate to see your tariff impact.</p></div>
+                    <div class="results-content" id="results-content" style="display:none;">
+                        <div class="panel-header results-header"><div class="panel-icon">📊</div><h3>Your Tariff Impact</h3></div>
+                        <div class="tariff-rate-display" id="tariff-rate-display"><div class="rate-ring" id="rate-ring"><svg viewBox="0 0 120 120" class="rate-svg"><circle cx="60" cy="60" r="54" class="rate-bg-circle"/><circle cx="60" cy="60" r="54" class="rate-progress-circle" id="rate-circle"/></svg><div class="rate-value" id="rate-value">0%</div></div><div class="rate-info"><span class="rate-label">Estimated Tariff Rate</span><span class="rate-breakdown" id="rate-breakdown">--</span></div></div>
+                        <div class="cost-cards" id="cost-cards"><div class="cost-card extra-cost" id="card-extra"><div class="cost-card-icon">💸</div><div class="cost-card-info"><span class="cost-card-label">Extra You're Paying</span><span class="cost-card-value" id="extra-cost-value">$0.00</span></div></div><div class="cost-card annual-cost" id="card-annual"><div class="cost-card-icon">📅</div><div class="cost-card-info"><span class="cost-card-label">Annual Impact</span><span class="cost-card-value" id="annual-cost-value">$0.00</span></div></div><div class="cost-card pretariff-price" id="card-pretariff"><div class="cost-card-icon">⏪</div><div class="cost-card-info"><span class="cost-card-label">Pre-Tariff Price</span><span class="cost-card-value" id="pretariff-price-value">$0.00</span></div></div></div>
+                        <div class="chart-container" id="chart-container"><h4 class="chart-title">Price Comparison: Before vs After Tariffs</h4><canvas id="price-chart"></canvas></div>
+                        <div class="context-card" id="context-card"><div class="context-icon">💡</div><p class="context-text" id="context-text"></p></div>
+                        <button class="share-btn" id="share-btn" onclick="shareResults()"><span>📤 Share Your Results</span></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="content-section">
+        <div class="section-container">
+            <div class="content-card">
+                <h2>How Tariffs Affect Your Wallet in <span class="dynamic-year"></span></h2>
+                <p>Since early 2025, the US has imposed sweeping tariff increases that affect virtually every imported product Americans buy. From your morning coffee to your smartphone, tariffs are built into the price of goods — and most consumers don't realize how much they're paying.</p>
+                <h3>Who Pays the Most?</h3>
+                <p>Studies consistently show that <strong>lower-income households are disproportionately affected</strong> by tariffs. This is because lower-income families spend a higher percentage of their income on consumer goods (clothing, food, electronics) that carry significant tariff costs. A family earning $30,000/year may pay 4-5% of their income in tariff costs, while a family earning $200,000 may pay only 1-2%.</p>
+                <h3>The Hidden Tax on Everyday Life</h3>
+                <p>Tariffs are often called a "hidden tax" because they're built into retail prices rather than listed separately at checkout. When you buy a $999 iPhone, approximately $150-$200 of that price goes to tariffs. When you buy $150 worth of groceries, $10-$20 may be tariff-related. These costs add up quickly across all household spending categories.</p>
+                <div class="key-facts">
+                    <h3>📋 Key Facts About Your Tariff Burden</h3>
+                    <ul>
+                        <li>The average American household pays $1,500-$3,000 more per year in tariffs</li>
+                        <li>That's roughly $4-$8 per day in hidden tariff costs</li>
+                        <li>Electronics and vehicles carry the highest per-item tariff costs</li>
+                        <li>Clothing and shoes have some of the highest tariff rates (27-145%)</li>
+                        <li>Lower-income households pay a higher percentage of income in tariffs</li>
+                        <li>Heavy online shoppers from Chinese platforms are most affected</li>
+                    </ul>
+                </div>
+                <h3>How Our Calculator Works</h3>
+                <p>Our household tariff burden calculator estimates your annual tariff cost based on three factors: your household income (which correlates with total spending), your shopping style (how much you buy imported goods), and your household size. We model spending across 8 major product categories and apply current effective tariff rates to estimate total burden.</p>
+                <p>For a more detailed breakdown by product, try our <a href="index.html">main tariff calculator</a>. To see how specific product categories are affected, explore our <a href="electronics-tariff-calculator.html">electronics</a>, <a href="clothing-tariff-calculator.html">clothing</a>, and <a href="grocery-tariff-calculator.html">grocery</a> tariff calculators.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="faq-section">
+        <div class="section-container">
+            <div class="section-header"><h2 class="section-title">Tariff Cost FAQ</h2><p class="section-desc">Common questions about personal tariff costs.</p></div>
+            <div class="faq-list">
+                <details class="faq-item"><summary class="faq-question"><span>How much is the average American paying in tariffs?</span><span class="faq-toggle">+</span></summary><div class="faq-answer"><p>According to multiple economic analyses, the average American household pays approximately $1,500-$3,000 more per year due to the 2025-2026 tariff increases. This varies significantly based on income, spending habits, and household size. Heavy online shoppers and those buying electronics or vehicles see the largest increases.</p></div></details>
+                <details class="faq-item"><summary class="faq-question"><span>Do I pay tariffs directly?</span><span class="faq-toggle">+</span></summary><div class="faq-answer"><p>Not directly — tariffs are paid by importers when goods enter the US. However, studies show that 90-100% of tariff costs are passed on to consumers through higher retail prices. So while you don't see "tariff" on your receipt, you're paying it in the form of higher prices.</p></div></details>
+                <details class="faq-item"><summary class="faq-question"><span>Are lower-income families affected more?</span><span class="faq-toggle">+</span></summary><div class="faq-answer"><p>Yes, significantly. Lower-income families spend a higher percentage of their income on consumer goods that carry tariffs. A family earning $30,000/year might pay 4-5% of income in tariff costs, while a $200,000 household might pay 1-2%. This makes tariffs a regressive form of taxation.</p></div></details>
+                <details class="faq-item"><summary class="faq-question"><span>Which spending categories have the highest tariffs?</span><span class="faq-toggle">+</span></summary><div class="faq-answer"><p>Electronics from China (54%+), toys from China (54%+), and clothing (27-145% depending on origin) have the highest tariff rates. Vehicles face a flat 25% tariff regardless of origin. Food items generally have lower rates (10-25%) but affect weekly spending.</p></div></details>
+                <details class="faq-item"><summary class="faq-question"><span>How can I reduce my tariff burden?</span><span class="faq-toggle">+</span></summary><div class="faq-answer"><p>Key strategies include buying American-made products, choosing products from lower-tariff countries, buying refurbished electronics, shopping during sales when retailers absorb costs, and buying store brands. See our <a href="tariff-savings-tips.html">complete tariff savings guide</a> for 15+ tips.</p></div></details>
+            </div>
+        </div>
+    </section>
+
+    <section id="related-calculators" class="content-section"></section>
+    <section id="internal-links" class="content-section"></section>
+    <footer id="site-footer" class="site-footer"></footer>
+
+    <script src="tariff-data.js"></script>
+    <script src="app.js"></script>
+    <script src="page-builder.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            initPage({
+                breadcrumbs: [{ label: 'Home', url: 'index.html' }, { label: 'How Much Tariffs Cost Me' }],
+                buildInternalLinks: true,
+                relatedCalculators: ['china', 'shein-temu', 'grocery', 'clothing', 'electronics', 'tariff-savings'],
+                schemas: [
+                    buildWebAppSchema('How Much Do Tariffs Cost Me — ' + CURRENT_YEAR, 'Personal tariff burden calculator. Estimate your household annual tariff impact.'),
+                    buildFAQSchema([
+                        { question: 'How much is the average American paying in tariffs?', answer: 'The average household pays $1,500-$3,000 more per year.' },
+                        { question: 'Do I pay tariffs directly?', answer: 'Not directly. Tariffs are paid by importers but 90-100% of costs are passed to consumers through higher prices.' },
+                        { question: 'Are lower-income families affected more?', answer: 'Yes, lower-income families spend a higher percentage of income on tariffed goods.' }
+                    ]),
+                    buildBreadcrumbSchema([{ label: 'Home', url: 'index.html' }, { label: 'How Much Tariffs Cost Me' }], 'https://tariffcalc.us/')
+                ]
+            });
+        });
+    </script>
+</body>
+</html>

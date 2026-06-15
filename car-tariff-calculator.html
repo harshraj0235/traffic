@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Car Tariff Calculator 2026 — Import Tariff on Vehicles & Auto Parts</title>
+    <meta name="description" content="Calculate the 25% tariff on imported cars and auto parts. See tariff impact on Toyota, Honda, BMW, Mercedes, Hyundai and more. Vehicle import duty calculator.">
+    <meta name="keywords" content="car tariff calculator, car import tariff, auto parts tariff, vehicle import duty, 25 percent auto tariff, tariff on imported cars">
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="Car Tariff Calculator — How Much Tariff on Your Vehicle?">
+    <meta property="og:description" content="All imported vehicles face a 25% tariff. Calculate the tariff cost on Toyota, Honda, BMW, and more.">
+    <meta property="og:type" content="website">
+    <link rel="canonical" href="https://tariffcalc.us/car-tariff-calculator.html">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <div class="ambient-bg"><div class="ambient-orb ambient-orb-1"></div><div class="ambient-orb ambient-orb-2"></div><div class="ambient-orb ambient-orb-3"></div></div>
+    <nav id="main-nav" class="navbar"></nav>
+    <div id="breadcrumbs"></div>
+
+    <header class="page-hero">
+        <div class="hero-container">
+            <div class="hero-badge"><span class="badge-pulse"></span><span>25% Auto Tariff In Effect</span></div>
+            <span class="hero-emoji">🚗</span>
+            <h1 class="hero-title">Car Import Tariff Calculator <span class="dynamic-year"></span></h1>
+            <p class="hero-subtitle">All imported vehicles face a <strong>25% tariff</strong> regardless of country of origin. Auto parts face 25% as well. Calculate the tariff impact on any vehicle — from Toyota to BMW to Tesla.</p>
+            <div class="product-hero-cards" id="car-hero-cards"></div>
+        </div>
+    </header>
+
+    <section id="calculator" class="calculator-section">
+        <div class="section-container">
+            <div class="section-header"><h2 class="section-title">Calculate Vehicle Import Tariff</h2><p class="section-desc">Enter vehicle details to see the full tariff cost breakdown.</p></div>
+            <div class="calculator-grid">
+                <div class="calc-panel input-panel" id="input-panel">
+                    <div class="panel-header"><div class="panel-icon">🚗</div><h3>Vehicle Details</h3></div>
+                    <div class="form-group"><label for="product-category" class="form-label"><span class="label-icon">🏷️</span>Type</label><div class="select-wrapper"><select id="product-category" class="form-select" disabled><option value="automotive" selected>🚗 Auto Parts & Vehicles</option></select></div></div>
+                    <div class="form-group"><label for="country-origin" class="form-label"><span class="label-icon">🌍</span>Country of Manufacture</label><div class="select-wrapper"><select id="country-origin" class="form-select"><option value="">Select country...</option><option value="japan" selected>🇯🇵 Japan (Toyota, Honda, Nissan)</option><option value="south_korea">🇰🇷 South Korea (Hyundai, Kia)</option><option value="eu">🇪🇺 European Union (BMW, Mercedes, VW)</option><option value="mexico">🇲🇽 Mexico (Many brands assemble here)</option><option value="canada">🇨🇦 Canada (Many brands assemble here)</option><option value="china">🇨🇳 China (BYD, some Tesla)</option><option value="uk">🇬🇧 UK (Jaguar, Land Rover, Bentley)</option><option value="other">🌐 Other Country</option></select></div></div>
+                    <div class="form-group"><label for="purchase-price" class="form-label"><span class="label-icon">💵</span>Vehicle Price (USD)</label><div class="price-input-wrapper"><span class="price-prefix">$</span><input type="number" id="purchase-price" class="form-input" placeholder="e.g. 35000" min="1" step="1" value="35000"></div></div>
+                    <div class="form-group"><label for="purchase-frequency" class="form-label"><span class="label-icon">🔄</span>Purchase Type</label><div class="select-wrapper"><select id="purchase-frequency" class="form-select"><option value="once" selected>One-time purchase</option></select></div></div>
+                    <button id="calculate-btn" class="calculate-btn" onclick="calculateTariff()"><span class="btn-text">Calculate Auto Tariff</span><span class="btn-icon">⚡</span></button>
+                </div>
+                <div class="calc-panel results-panel" id="results-panel">
+                    <div class="results-placeholder" id="results-placeholder"><div class="placeholder-icon">📊</div><h3>Vehicle Tariff Results</h3><p>Enter vehicle details to see the tariff breakdown.</p></div>
+                    <div class="results-content" id="results-content" style="display:none;">
+                        <div class="panel-header results-header"><div class="panel-icon">📊</div><h3>Your Vehicle Tariff Impact</h3></div>
+                        <div class="tariff-rate-display" id="tariff-rate-display"><div class="rate-ring" id="rate-ring"><svg viewBox="0 0 120 120" class="rate-svg"><circle cx="60" cy="60" r="54" class="rate-bg-circle"/><circle cx="60" cy="60" r="54" class="rate-progress-circle" id="rate-circle"/></svg><div class="rate-value" id="rate-value">0%</div></div><div class="rate-info"><span class="rate-label">Auto Tariff Rate</span><span class="rate-breakdown" id="rate-breakdown">--</span></div></div>
+                        <div class="cost-cards" id="cost-cards"><div class="cost-card extra-cost" id="card-extra"><div class="cost-card-icon">💸</div><div class="cost-card-info"><span class="cost-card-label">Tariff Cost</span><span class="cost-card-value" id="extra-cost-value">$0.00</span></div></div><div class="cost-card annual-cost" id="card-annual"><div class="cost-card-icon">📅</div><div class="cost-card-info"><span class="cost-card-label">Purchase Type</span><span class="cost-card-value" id="annual-cost-value">$0.00</span></div></div><div class="cost-card pretariff-price" id="card-pretariff"><div class="cost-card-icon">⏪</div><div class="cost-card-info"><span class="cost-card-label">Pre-Tariff Price</span><span class="cost-card-value" id="pretariff-price-value">$0.00</span></div></div></div>
+                        <div class="chart-container" id="chart-container"><h4 class="chart-title">Vehicle Price: Before vs After Tariffs</h4><canvas id="price-chart"></canvas></div>
+                        <div class="context-card" id="context-card"><div class="context-icon">💡</div><p class="context-text" id="context-text"></p></div>
+                        <button class="share-btn" id="share-btn" onclick="shareResults()"><span>📤 Share Your Results</span></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="product-examples" class="examples-section"></section>
+
+    <section class="content-section">
+        <div class="section-container">
+            <div class="content-card">
+                <h2>Understanding Auto Tariffs in <span class="dynamic-year"></span></h2>
+                <p>The automotive sector faces one of the most significant tariff impacts. A flat <strong>25% tariff on all imported vehicles</strong> took effect April 3, 2025, followed by a 25% tariff on auto parts starting May 3, 2025.</p>
+                <h3>Which Car Brands Are Affected?</h3>
+                <ul>
+                    <li><strong>Toyota, Honda, Nissan, Subaru, Mazda (Japan):</strong> Vehicles assembled in Japan face the full 25% tariff. However, many models are assembled in US plants (e.g., Toyota Camry in Kentucky, Honda Accord in Ohio).</li>
+                    <li><strong>BMW, Mercedes, Audi, VW, Porsche (EU):</strong> European-assembled luxury and mainstream vehicles face 25%. BMW's Spartanburg, SC plant produces some US models.</li>
+                    <li><strong>Hyundai, Kia (South Korea):</strong> Korean-assembled vehicles face 25%. Hyundai's Alabama plant produces some US models.</li>
+                    <li><strong>BYD, some Tesla (China):</strong> Chinese-assembled vehicles face 25% auto tariff plus additional China-specific tariffs, effectively pricing them out of the US market.</li>
+                </ul>
+                <div class="key-facts">
+                    <h3>📋 Key Auto Tariff Facts</h3>
+                    <ul>
+                        <li>25% tariff applies to ALL imported passenger vehicles and light trucks</li>
+                        <li>25% tariff also applies to auto parts (effective May 3, 2025)</li>
+                        <li>US-assembled vehicles are NOT subject to the import tariff</li>
+                        <li>Average new car price increase: $4,000-$12,000 due to tariffs</li>
+                        <li>Used cars have also risen in price due to increased new car costs</li>
+                        <li>Electric vehicles from China face the highest combined rates (50%+)</li>
+                    </ul>
+                </div>
+                <p>Looking for the best car deals despite tariffs? Check our <a href="tariff-savings-tips.html">tariff savings tips</a> for vehicle buying strategies.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="faq-section">
+        <div class="section-container">
+            <div class="section-header"><h2 class="section-title">Car Tariff FAQ</h2><p class="section-desc">Common questions about auto import tariffs.</p></div>
+            <div class="faq-list">
+                <details class="faq-item"><summary class="faq-question"><span>How much is the tariff on imported cars?</span><span class="faq-toggle">+</span></summary><div class="faq-answer"><p>All imported passenger vehicles face a flat 25% tariff regardless of country of origin. This applies to vehicles assembled outside the US — even from allied nations like Japan, South Korea, and the EU.</p></div></details>
+                <details class="faq-item"><summary class="faq-question"><span>Is my Toyota/Honda subject to the tariff?</span><span class="faq-toggle">+</span></summary><div class="faq-answer"><p>It depends on where it was assembled. Many Toyota and Honda models are assembled in US plants (Kentucky, Ohio, Indiana) and are NOT subject to the import tariff. Models assembled in Japan face the full 25% tariff. Check where your specific model is made.</p></div></details>
+                <details class="faq-item"><summary class="faq-question"><span>Do auto parts also have tariffs?</span><span class="faq-toggle">+</span></summary><div class="faq-answer"><p>Yes. A 25% tariff on imported auto parts took effect May 3, 2025. This affects replacement parts, tires, and components, which increases repair and maintenance costs even for US-assembled vehicles that use imported parts.</p></div></details>
+                <details class="faq-item"><summary class="faq-question"><span>Should I buy a used car instead?</span><span class="faq-toggle">+</span></summary><div class="faq-answer"><p>Used cars don't incur additional import tariffs (the tariff was paid on the original import). However, used car prices have risen due to increased demand from buyers avoiding tariff-inflated new car prices. Consider US-assembled new vehicles as an alternative.</p></div></details>
+            </div>
+        </div>
+    </section>
+
+    <section id="related-calculators" class="content-section"></section>
+    <section id="internal-links" class="content-section"></section>
+    <footer id="site-footer" class="site-footer"></footer>
+
+    <script src="tariff-data.js"></script>
+    <script src="app.js"></script>
+    <script src="page-builder.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const heroCards = document.getElementById('car-hero-cards');
+            const cars = [
+                { name: 'Toyota Camry', country: 'japan', price: 28000, emoji: '🚗' },
+                { name: 'Honda CR-V', country: 'japan', price: 32000, emoji: '🚗' },
+                { name: 'BMW 3 Series', country: 'eu', price: 45000, emoji: '🚗' },
+                { name: 'Hyundai Tucson', country: 'south_korea', price: 30000, emoji: '🚗' },
+                { name: 'Tesla (CN)', country: 'china', price: 35000, emoji: '⚡' }
+            ];
+            heroCards.innerHTML = cars.map(m => {
+                const r = calcTariff('automotive', m.country, m.price);
+                return `<div class="product-hero-card" onclick="document.getElementById('country-origin').value='${m.country}';document.getElementById('purchase-price').value=${m.price};calculateTariff();" style="cursor:pointer"><span class="phc-emoji">${m.emoji}</span><span class="phc-name">${m.name}</span><span class="phc-rate">+${formatUSDRound(r.tariffCost)}</span><span class="phc-extra">tariff cost</span></div>`;
+            }).join('');
+
+            initPage({
+                breadcrumbs: [{ label: 'Home', url: 'index.html' }, { label: 'Car Tariff Calculator' }],
+                prefill: { category: 'automotive', lockCategory: true },
+                buildInternalLinks: true,
+                buildExamples: true, exampleCategory: 'automotive', exampleMax: 8,
+                relatedCalculators: ['tariff-by-country', 'how-much', 'import-duty', 'tariff-savings', 'china', 'canada'],
+                schemas: [
+                    buildWebAppSchema('Car Import Tariff Calculator ' + CURRENT_YEAR, 'Calculate the 25% tariff on imported vehicles and auto parts.'),
+                    buildBreadcrumbSchema([{ label: 'Home', url: 'index.html' }, { label: 'Car Tariff Calculator' }], 'https://tariffcalc.us/')
+                ]
+            });
+        });
+    </script>
+</body>
+</html>

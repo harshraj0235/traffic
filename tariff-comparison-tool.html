@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tariff Comparison Tool 2026 — Compare US Import Tariffs</title>
+    <meta name="description" content="Compare tariff rates across different products and countries. Find the cheapest country of origin to import from. Interactive tariff comparison calculator.">
+    <meta name="keywords" content="tariff comparison tool, compare import duties, compare tariff rates, tariff calculator comparison, cheapest country for tariffs">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://tariffcalc.us/tariff-comparison-tool.html">
+    <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <div class="ambient-bg"><div class="ambient-orb ambient-orb-1"></div><div class="ambient-orb ambient-orb-2"></div><div class="ambient-orb ambient-orb-3"></div></div>
+    <nav id="main-nav" class="navbar"></nav><div id="breadcrumbs"></div>
+    <header class="page-hero"><div class="hero-container"><div class="hero-badge"><span class="badge-pulse"></span><span>Compare <span class="dynamic-year"></span> Rates</span></div><span class="hero-emoji">⚖️</span><h1 class="hero-title">Tariff Comparison Tool</h1><p class="hero-subtitle">Not all imports are taxed equally. A shirt from China faces 45%+ tariffs, while the same shirt from the UK faces just 10%. <strong>Compare tariff rates across countries and products</strong> to find the lowest-cost options.</p></div></header>
+
+    <section id="calculator" class="calculator-section">
+        <div class="section-container">
+            <div class="section-header"><h2 class="section-title">Compare Product Sourcing</h2><p class="section-desc">Select a product and compare the tariff impact between two different countries of origin.</p></div>
+            <div class="comparison-container">
+                <div class="comparison-setup">
+                    <div class="form-group"><label for="comp-category" class="form-label"><span class="label-icon">🏷️</span>Product Category</label><div class="select-wrapper"><select id="comp-category" class="form-select" onchange="runComparison()"><option value="clothing">👕 Clothing</option><option value="electronics">📱 Electronics</option><option value="automotive">🚗 Vehicles/Parts</option><option value="food">🍎 Food</option><option value="furniture">🪑 Furniture</option><option value="toys">🧸 Toys</option></select></div></div>
+                    <div class="form-group"><label for="comp-price" class="form-label"><span class="label-icon">💵</span>Purchase Price (USD)</label><div class="price-input-wrapper"><span class="price-prefix">$</span><input type="number" id="comp-price" class="form-input" value="100" min="1" step="0.01" onchange="runComparison()"></div></div>
+                </div>
+                <div class="comparison-columns">
+                    <!-- Option A -->
+                    <div class="comp-col">
+                        <h3>Option A</h3>
+                        <div class="form-group"><label for="comp-country-a" class="form-label">Country of Origin</label><div class="select-wrapper"><select id="comp-country-a" class="form-select" onchange="runComparison()"><option value="china" selected>🇨🇳 China</option><option value="vietnam">🇻🇳 Vietnam</option><option value="india">🇮🇳 India</option><option value="mexico">🇲🇽 Mexico</option><option value="canada">🇨🇦 Canada</option><option value="eu">🇪🇺 European Union</option><option value="japan">🇯🇵 Japan</option><option value="uk">🇬🇧 United Kingdom</option></select></div></div>
+                        <div class="comp-result-card" id="comp-result-a">
+                            <div class="cr-rate" id="cr-rate-a">0%</div><div class="cr-label">Effective Tariff Rate</div>
+                            <div class="cr-cost" id="cr-cost-a">+$0.00</div><div class="cr-label">Tariff Cost</div>
+                        </div>
+                    </div>
+                    <div class="comp-vs">VS</div>
+                    <!-- Option B -->
+                    <div class="comp-col">
+                        <h3>Option B</h3>
+                        <div class="form-group"><label for="comp-country-b" class="form-label">Country of Origin</label><div class="select-wrapper"><select id="comp-country-b" class="form-select" onchange="runComparison()"><option value="vietnam">🇻🇳 Vietnam</option><option value="india">🇮🇳 India</option><option value="mexico">🇲🇽 Mexico</option><option value="canada">🇨🇦 Canada</option><option value="eu">🇪🇺 European Union</option><option value="japan">🇯🇵 Japan</option><option value="uk" selected>🇬🇧 United Kingdom</option><option value="china">🇨🇳 China</option></select></div></div>
+                        <div class="comp-result-card" id="comp-result-b">
+                            <div class="cr-rate" id="cr-rate-b">0%</div><div class="cr-label">Effective Tariff Rate</div>
+                            <div class="cr-cost" id="cr-cost-b">+$0.00</div><div class="cr-label">Tariff Cost</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="comp-winner" id="comp-winner" style="display:none;"></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="content-section"><div class="section-container"><div class="content-card">
+        <h2>Why Sourcing Matters</h2>
+        <p>The US tariff system is highly variable based on country of origin. A product's tariff rate is not just based on what it is, but where it was made. This creates massive price disparities for identical products.</p>
+        <h3>The "China Plus One" Strategy</h3>
+        <p>Because China faces the highest US tariff rates (30-54%+), many companies have adopted a "China Plus One" sourcing strategy — moving production to countries like Vietnam, India, or Mexico. However, as our comparison tool shows, these countries also face significant tariffs (e.g., Vietnam at 46% for clothing).</p>
+        <h3>Finding Tariff-Free Options</h3>
+        <p>The only way to completely avoid US import tariffs is to buy domestically-produced goods. Products marked "Made in USA" or "Product of USA" are entirely exempt from import tariffs. However, products "Assembled in USA" from imported parts may still carry some tariff costs built into the component prices.</p>
+    </div></div></section>
+
+    <section id="internal-links" class="content-section"></section>
+    <footer id="site-footer" class="site-footer"></footer>
+    <script src="tariff-data.js"></script><script src="app.js"></script><script src="page-builder.js"></script>
+    <script>
+        function runComparison() {
+            const cat = document.getElementById('comp-category').value;
+            const price = parseFloat(document.getElementById('comp-price').value) || 100;
+            const cA = document.getElementById('comp-country-a').value;
+            const cB = document.getElementById('comp-country-b').value;
+            const rA = calcTariff(cat, cA, price);
+            const rB = calcTariff(cat, cB, price);
+            if(!rA || !rB) return;
+            document.getElementById('cr-rate-a').textContent = rA.effectiveRate + '%';
+            document.getElementById('cr-cost-a').textContent = '+' + formatUSD(rA.tariffCost);
+            document.getElementById('cr-rate-b').textContent = rB.effectiveRate + '%';
+            document.getElementById('cr-cost-b').textContent = '+' + formatUSD(rB.tariffCost);
+            const winnerEl = document.getElementById('comp-winner');
+            winnerEl.style.display = 'block';
+            if (rA.tariffCost < rB.tariffCost) {
+                winnerEl.innerHTML = `🏆 <strong>Option A (${COUNTRIES[cA].name})</strong> is cheaper by <strong>${formatUSD(rB.tariffCost - rA.tariffCost)}</strong> in tariffs.`;
+                document.getElementById('comp-result-a').classList.add('winner-card');
+                document.getElementById('comp-result-b').classList.remove('winner-card');
+            } else if (rB.tariffCost < rA.tariffCost) {
+                winnerEl.innerHTML = `🏆 <strong>Option B (${COUNTRIES[cB].name})</strong> is cheaper by <strong>${formatUSD(rA.tariffCost - rB.tariffCost)}</strong> in tariffs.`;
+                document.getElementById('comp-result-b').classList.add('winner-card');
+                document.getElementById('comp-result-a').classList.remove('winner-card');
+            } else {
+                winnerEl.innerHTML = `🤝 <strong>Tie!</strong> Both countries have the same tariff impact.`;
+                document.getElementById('comp-result-a').classList.remove('winner-card');
+                document.getElementById('comp-result-b').classList.remove('winner-card');
+            }
+        }
+        document.addEventListener('DOMContentLoaded', () => {
+            initPage({ breadcrumbs: [{ label: 'Home', url: 'index.html' }, { label: 'Tariff Comparison Tool' }], buildInternalLinks: true, schemas: [buildWebAppSchema('Tariff Comparison Tool ' + CURRENT_YEAR, 'Compare import tariffs between countries to find the cheapest option.'), buildBreadcrumbSchema([{ label: 'Home', url: 'index.html' }, { label: 'Tariff Comparison Tool' }], 'https://tariffcalc.us/')] });
+            setTimeout(runComparison, 500);
+        });
+    </script>
+</body>
+</html>
